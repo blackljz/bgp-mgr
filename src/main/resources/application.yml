@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    name: dataSource
+    url: jdbc:mysql://39.104.132.204:3306/bgp
+    username: bgp_user
+    password: bGp2018!@#
+    type: com.mysql.cj.jdbc.MysqlDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  type-aliases-package: com.bgp.mgr.dao.domain
