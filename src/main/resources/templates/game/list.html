@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
     <title>游戏库</title>
+    <!--每页单独引入的文件在这写↓-->
 </head>
 <body>
-<div>123</div>
+<th:block layout:fragment="content">
+    <div>
+        query params
+    </div>
+
+    <div>
+        <div class="">
+            <table id="gameInfoTable" class="">
+                <thead>
+                <tr>
+                    <th>桌游编号</th>
+                    <th>中文名称</th>
+                    <th>英文名称</th>
+                    <th>桌游类型</th>
+                    <th>评价数量</th>
+                    <th>拥有数量</th>
+                    <th>战绩数量</th>
+                    <th>得分</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</th:block>
 </body>
 </html>

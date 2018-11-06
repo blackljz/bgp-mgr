@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>页脚</title>
+</head>
+<body>
+<div th:fragment="footer">
+    <div class="bgp-footer" id="footer">
+        <small class="text-white">
+            Copyright &copy; <span th:text="${#dates.format(new java.util.Date(), 'yyyy')}"></span> GBP团队 版权所有
+        </small>
+    </div>
+</div>
+</body>
+</html>
