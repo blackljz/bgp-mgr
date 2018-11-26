@@ -9,6 +9,14 @@ spring:
     password: bGp2018!@#
     type: com.mysql.cj.jdbc.MysqlDataSource
     driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
 
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
