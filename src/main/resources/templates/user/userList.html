@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>BGP-用户管理</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="layui-body bgp-body">
+        <div class="bgp-main">
+            <div class="layui-card bgp-card">
+                <div class="layui-card-header bgp-caed-header">筛选查询</div>
+                <div class="layui-card-body bgp-card-body">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">用户名称：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" id="name" autocomplete="off" class="layui-input"/>
+                                </div>
+                            </div>
+                            <label class="layui-form-label">用户性别：</label>
+                            <div class="layui-input-inline">
+                                <select name="sex" id="sex">
+                                    <option value="">全部</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                    <option value="0">其他</option>
+                                </select>
+                            </div>
+                            <label class="layui-form-label">用户来源：</label>
+                            <div class="layui-input-inline">
+                                <select name="source" id="source">
+                                    <option value="">全部</option>
+                                    <option value="1">微信小程序</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">注册日期：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="createdDateStart" id="createdDateStart" lay-verify="date"
+                                       placeholder="yyyy-MM-dd"
+                                       autocomplete="off" class="layui-input"/>
+                            </div>
+                            <label class="layui-form-label-col">至</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="date" id="createdDateEnd" lay-verify="date"
+                                       placeholder="yyyy-MM-dd"
+                                       autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

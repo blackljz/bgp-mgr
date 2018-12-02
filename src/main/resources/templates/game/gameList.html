@@ -2,35 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <title>游戏库</title>
-    <!--每页单独引入的文件在这写↓-->
+    <title>BGP-游戏库</title>
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div>
-        query params
-    </div>
+    <div class="layui-body bgp-body">
+        <div class="bgp-main">
+            <!-- 查询条件 -->
+            <div class="layui-card bgp-card">
+                <div class="layui-card-header bgp-caed-header">筛选查询</div>
+                <div class="layui-card-body bgp-card-body">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">桌游名称：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="gameName" id="gameName" autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">英文名称：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="gameEnName" id="gameEnName" autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                            <label class="layui-form-label">桌游类型：</label>
+                            <div class="layui-input-inline">
+                                <select name="gameType" id="gameType">
+                                    <option value="">全部</option>
+                                    <option value="1">社交类</option>
+                                    <option value="2">策略类</option>
+                                    <option value="3">竞技类</option>
+                                    <option value="4">剧情类</option>
+                                    <option value="5">兵棋类</option>
+                                    <option value="6">家庭类</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-    <div>
-        <div class="">
-            <table id="gameInfoTable" class="">
-                <thead>
-                <tr>
-                    <th>桌游编号</th>
-                    <th>中文名称</th>
-                    <th>英文名称</th>
-                    <th>桌游类型</th>
-                    <th>评价数量</th>
-                    <th>拥有数量</th>
-                    <th>战绩数量</th>
-                    <th>得分</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-            </table>
+            <!-- 数据列表 -->
+            <div class="layui-card bgp-card">
+                <div class="layui-card-header bgp-caed-header">桌游列表</div>
+                <div class="layui-card-body bgp-card-body">
+                    <table id="gameInfoTable" class="">
+                        <thead>
+                        <tr>
+                            <th>桌游编号</th>
+                            <th>中文名称</th>
+                            <th>英文名称</th>
+                            <th>桌游类型</th>
+                            <th>评价数量</th>
+                            <th>拥有数量</th>
+                            <th>战绩数量</th>
+                            <th>得分</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-
 </th:block>
 </body>
 </html>

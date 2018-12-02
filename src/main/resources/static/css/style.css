@@ -1,0 +1,23 @@
+body {
+
+}
+
+.bgp-main {
+    width: 1140px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.bgp-header {
+
+}
+
+.bgp-body {
+    left: 0 !important;
+    background-color: #F2F2F2;
+}
+
+.bgp-footer {
+    left: 0 !important;
+    text-align: center;
+}

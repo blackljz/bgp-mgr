@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
     <title>BGP MANAGER</title>
 </head>
 <body>
-    Hello World！
+<th:block layout:fragment="content">
+    <div class="layui-body bgp-body">
+        <div style="padding: 15px;">
+            Hello World！
+        </div>
+    </div>
+</th:block>
 </body>
 </html>
