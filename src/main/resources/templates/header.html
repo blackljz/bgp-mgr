@@ -8,14 +8,13 @@
 <div th:fragment="header">
     <div class="layui-header bgp-header">
         <div class="layui-logo">BGP-桌游星球</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">首页</a></li>
-            <li class="layui-nav-item"><a href="">用户管理</a></li>
-            <li class="layui-nav-item"><a href="">活动管理</a></li>
-            <li class="layui-nav-item"><a href="">消息管理</a></li>
-            <li class="layui-nav-item"><a href="">搜索管理</a></li>
-            <li class="layui-nav-item"><a href="">桌游库</a></li>
+            <li class="layui-nav-item"><a th:href="@{/}">首页</a></li>
+            <li class="layui-nav-item"><a th:href="@{/user/list}">用户管理</a></li>
+            <li class="layui-nav-item"><a th:href="@{/activity/list}">活动管理</a></li>
+            <li class="layui-nav-item"><a th:href="@{/message/list}">消息管理</a></li>
+            <li class="layui-nav-item"><a th:href="@{/search/list}">搜索管理</a></li>
+            <li class="layui-nav-item"><a th:href="@{/game/list}">桌游库</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
@@ -30,6 +29,12 @@
             <li class="layui-nav-item"><a href="">退出登录</a></li>
         </ul>
     </div>
+
+    <!-- js -->
+    <script>
+        layui.use('element', function () {
+        });
+    </script>
 </div>
 </body>
 </html>
