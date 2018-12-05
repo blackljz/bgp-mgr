@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +32,12 @@ public class GameInfoController {
     }
 
     @PostMapping("/queryData")
-    public Map<String, Object> queryData(HttpRequest request) {
+    @ResponseBody
+    public Map<String, Object> queryData(HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
             List<GameInfo> gameInfoList = gameInfoService.queryGameInfoByPage(0, 0, null);
+            resultMap.put("code", 0);
             resultMap.put("data", gameInfoList);
         } catch (Exception e) {
             logger.error("查询桌游列表异常！", e);

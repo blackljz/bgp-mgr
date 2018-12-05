@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <title>BGP-游戏库</title>
+    <title>BGP-桌游库</title>
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -56,28 +56,14 @@
             <div class="layui-card bgp-card">
                 <div class="layui-card-header bgp-caed-header">桌游列表</div>
                 <div class="layui-card-body bgp-card-body">
-                    <table id="dataTable" class="">
-                        <thead>
-                        <tr>
-                            <th>桌游编号</th>
-                            <th>中文名称</th>
-                            <th>英文名称</th>
-                            <th>桌游类型</th>
-                            <th>评价数量</th>
-                            <th>拥有数量</th>
-                            <th>战绩数量</th>
-                            <th>得分</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <table id="dataTable" class=""></table>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- js -->
-    <script th:src="@{/js/user/userList.js}"></script>
+    <script th:src="@{/js/game/gameList.js}"></script>
 </th:block>
 </body>
 </html>
