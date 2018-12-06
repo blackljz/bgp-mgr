@@ -1,25 +1,68 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layoutNone">
 <head>
     <meta charset="UTF-8">
     <title>BGP-游戏详情</title>
-    <!--每页单独引入的文件在这写↓-->
 </head>
 <body>
 <th:block layout:fragment="content">
-    <div>
-        query params
-    </div>
-
-    <form action="">
-
-    </form>
-    <div>
-        <div class="">
-            test
+    <div class="bgp-body">
+        <div class="layui-card bgp-card">
+            <div class="layui-card-body bgp-card-body">
+                <form class="layui-form" action="" lay-filter="queryParams">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">中文名称：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="gameName" id="gameName" autocomplete="off"
+                                       class="layui-input" th:value="${data.gamename}"/>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">英文名称：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="gameEnName" id="gameEnName" autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">状态：</label>
+                            <div class="layui-input-inline">
+                                <select name="type" id="type">
+                                    <option value="1">启用</option>
+                                    <option value="0">停用</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">桌游类型：</label>
+                            <div class="layui-input-inline">
+                                <select name="gameType" id="gameType">
+                                    <option value="">全部</option>
+                                    <option value="1">社交类</option>
+                                    <option value="2">策略类</option>
+                                    <option value="3">竞技类</option>
+                                    <option value="4">剧情类</option>
+                                    <option value="5">兵棋类</option>
+                                    <option value="6">家庭类</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-btn-container" style="text-align: right">
+                        <button class="layui-btn layui-btn-normal" id="tagBtn">标签管理</button>
+                        <button class="layui-btn layui-btn-warm" id="addBtn">新增</button>
+                        <button class="layui-btn" id="queryBtn">查询</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
+    <!-- js -->
+    <script th:src="@{/js/game/gameDetail.js}"></script>
 </th:block>
 </body>
 </html>

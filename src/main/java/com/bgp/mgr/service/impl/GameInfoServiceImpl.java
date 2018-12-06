@@ -27,4 +27,10 @@ public class GameInfoServiceImpl implements GameInfoService {
         List<GameInfo> gameInfoList = gameInfoMapper.selectByExample(gameInfoExample);
         return gameInfoList;
     }
+
+    @Override
+    public GameInfo findGameInfoById(Long id) {
+        GameInfo gameInfo = gameInfoMapper.selectByPrimaryKey(id);
+        return gameInfo;
+    }
 }

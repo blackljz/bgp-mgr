@@ -16,4 +16,12 @@ public interface GameInfoService {
      * @return
      */
     List<GameInfo> queryGameInfoByPage(int start, int size, Map<String, Object> params);
+
+    /**
+     * 根据id查询游戏信息
+     *
+     * @param id
+     * @return
+     */
+    GameInfo findGameInfoById(Long id);
 }

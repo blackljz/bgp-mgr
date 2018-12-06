@@ -4,12 +4,9 @@ import com.bgp.mgr.dao.domain.GameInfo;
 import com.bgp.mgr.service.GameInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -50,13 +47,15 @@ public class GameInfoController {
         return "/game/gameDetail";
     }
 
-    @GetMapping("/edit")
-    public String edit() {
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, ModelMap modelMap) {
+        GameInfo gameInfo = gameInfoService.findGameInfoById(id);
+        modelMap.put("data", gameInfo);
         return "/game/gameDetail";
     }
 
-    @GetMapping("/view")
-    public String view() {
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable("id") Long id) {
         return "/game/gameDetail";
     }
 }
