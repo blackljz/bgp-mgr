@@ -1,10 +1,11 @@
-layui.use(['form', 'table'], function () {
+layui.use(['form', 'table', 'layer'], function () {
     var form = layui.form,
-        table = layui.table;
+        table = layui.table,
+        layer = layui.layer;
 
     table.render({
         elem: '#dataTable',
-        url: '/game/queryData',
+        url: ROOT_CONTEXT + '/game/queryData',
         method: 'post',
         page: true,
         cols: [[
@@ -16,33 +17,29 @@ layui.use(['form', 'table'], function () {
             {field: 'ownerCount', title: '拥有数量'},
             {field: 'recordCount', title: '战绩数量'},
             {field: 'score', title: '得分'},
-            {title: '操作', toolbar: '#barTemplet'}
+            {title: '操作', toolbar: '#operateBtnTemp'}
         ]]
     });
 
     //监听行工具事件
     table.on('tool(dataTable)', function (obj) {
         var data = obj.data;
-        //console.log(obj)
         if (obj.event === 'edit') {
-            layer.open({
-                type: 2,
-                title: '编辑桌游信息',
-                shadeClose: false,
-                shade: 0.8,
-                area: ['1140px', 'auto'],
-                content: '/game/edit/' + data.id
-            });
+            showIframe('编辑桌游信息', ROOT_CONTEXT + '/game/edit/' + data.id);
         } else if (obj.event === 'view') {
-            layer.prompt({
-                formType: 2
-                , value: data.email
-            }, function (value, index) {
-                obj.update({
-                    email: value
-                });
-                layer.close(index);
-            });
+            showIframe('查看桌游信息', ROOT_CONTEXT + '/game/view/' + data.id);
         }
     });
+
+    /** 显示弹出iframe */
+    function showIframe(title, url) {
+        if (!url)
+            return false;
+        layer.open({
+            type: 2,
+            title: title ? title : '信息',
+            area: ['auto', 'auto'],
+            content: url
+        });
+    }
 });

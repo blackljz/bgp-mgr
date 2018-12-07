@@ -17,6 +17,10 @@
     <!-- common js -->
     <script th:src="@{/plugins/layui/layui.js}"></script>
     <script th:src="@{/js/common.js}"></script>
+    <script th:inline="javascript">
+        // 根路径
+        var ROOT_CONTEXT = [[@{/}]];
+    </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
