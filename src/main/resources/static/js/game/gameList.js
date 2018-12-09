@@ -5,7 +5,7 @@ layui.use(['form', 'table', 'layer'], function () {
 
     table.render({
         elem: '#dataTable',
-        url: ROOT_CONTEXT + '/game/queryData',
+        url: ROOT_CONTEXT + 'game/queryData',
         method: 'post',
         page: true,
         cols: [[
@@ -25,9 +25,9 @@ layui.use(['form', 'table', 'layer'], function () {
     table.on('tool(dataTable)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
-            showIframe('编辑桌游信息', ROOT_CONTEXT + '/game/edit/' + data.id);
+            showIframe('编辑桌游信息', ROOT_CONTEXT + 'game/edit/' + data.id);
         } else if (obj.event === 'view') {
-            showIframe('查看桌游信息', ROOT_CONTEXT + '/game/view/' + data.id);
+            showIframe('查看桌游信息', ROOT_CONTEXT + 'game/view/' + data.id);
         }
     });
 
@@ -38,7 +38,7 @@ layui.use(['form', 'table', 'layer'], function () {
         layer.open({
             type: 2,
             title: title ? title : '信息',
-            area: ['auto', 'auto'],
+            area: ['1140px', 'auto'],
             content: url
         });
     }
