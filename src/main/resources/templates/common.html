@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:fragment="common">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+        <!-- common css -->
+        <link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}" media="all">
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+        <!-- common js -->
+        <script th:src="@{/plugins/layui/layui.js}"></script>
+        <script th:src="@{/js/common.js}"></script>
+        <script th:inline="javascript">
+            var ROOT_CONTEXT = [[@{/}]];// 根路径
+        </script>
+    </th:block>
+</head>
+</html>

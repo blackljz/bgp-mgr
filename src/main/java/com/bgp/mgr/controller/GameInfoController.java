@@ -1,6 +1,8 @@
 package com.bgp.mgr.controller;
 
+import com.bgp.mgr.common.constants.CommonConstant;
 import com.bgp.mgr.dao.domain.GameInfo;
+import com.bgp.mgr.dao.vo.GameInfoVo;
 import com.bgp.mgr.service.GameInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +35,9 @@ public class GameInfoController {
     public Map<String, Object> queryData(HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
-            List<GameInfo> gameInfoList = gameInfoService.queryGameInfoByPage(0, 0, null);
+            List<GameInfoVo> gameInfoVos = gameInfoService.queryGameInfoByPage(0, 0, null);
             resultMap.put("code", 0);
-            resultMap.put("data", gameInfoList);
+            resultMap.put("data", gameInfoVos);
         } catch (Exception e) {
             logger.error("查询桌游列表异常！", e);
         }
@@ -43,19 +45,24 @@ public class GameInfoController {
     }
 
     @GetMapping("/add")
-    public String add() {
+    public String add(ModelMap modelMap) {
+        modelMap.put("editType", CommonConstant.EDITTYPE_ADD);
         return "/game/gameDetail";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap modelMap) {
-        GameInfo gameInfo = gameInfoService.findGameInfoById(id);
-        modelMap.put("data", gameInfo);
+        GameInfoVo gameInfoVo = gameInfoService.findGameInfoById(id);
+        modelMap.put("data", gameInfoVo);
+        modelMap.put("editType", CommonConstant.EDITTYPE_EDIT);
         return "/game/gameDetail";
     }
 
     @GetMapping("/view/{id}")
-    public String view(@PathVariable("id") Long id) {
+    public String view(@PathVariable("id") Long id, ModelMap modelMap) {
+        GameInfoVo gameInfoVo = gameInfoService.findGameInfoById(id);
+        modelMap.put("data", gameInfoVo);
+        modelMap.put("editType", CommonConstant.EDITTYPE_VIEW);
         return "/game/gameDetail";
     }
 }
