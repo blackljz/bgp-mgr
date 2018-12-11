@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>BGP</title>
-    <th:block th:include="common :: common"></th:block>
+    <th:block th:insert="~{common :: common}"></th:block>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <!-- 页头 -->
-    <th:block th:include="header :: header"></th:block>
+    <th:block th:insert="~{header :: header}"></th:block>
 
     <!-- 内容 -->
     <th:block layout:fragment="content"></th:block>
 
     <!-- 页脚 -->
-    <th:block th:include="footer :: footer"></th:block>
+    <th:block th:insert="~{footer :: footer}"></th:block>
 </div>
 </body>
 </html>

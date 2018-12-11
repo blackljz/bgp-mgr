@@ -5,36 +5,34 @@
     <title>页头</title>
 </head>
 <body>
-<div th:fragment="header">
-    <div class="layui-header bgp-header">
-        <div class="layui-logo">BGP-桌游星球</div>
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a th:href="@{/}">首页</a></li>
-            <li class="layui-nav-item"><a th:href="@{/user/list}">用户管理</a></li>
-            <li class="layui-nav-item"><a th:href="@{/activity/list}">活动管理</a></li>
-            <li class="layui-nav-item"><a th:href="@{/message/list}">消息管理</a></li>
-            <li class="layui-nav-item"><a th:href="@{/search/list}">搜索管理</a></li>
-            <li class="layui-nav-item"><a th:href="@{/game/list}">桌游库</a></li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img th:src="@{/img/icon-user.png}" class="layui-nav-img"/>
-                    用户名称
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">修改资料</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="">退出登录</a></li>
-        </ul>
-    </div>
-
-    <!-- js -->
-    <script type="javascript">
-        layui.use('element', function () {
-        });
-    </script>
+<div class="layui-header bgp-header" th:fragment="header">
+    <div class="layui-logo">BGP-桌游星球</div>
+    <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item"><a th:href="@{/}">首页</a></li>
+        <li class="layui-nav-item"><a th:href="@{/user/list}">用户管理</a></li>
+        <li class="layui-nav-item"><a th:href="@{/activity/list}">活动管理</a></li>
+        <li class="layui-nav-item"><a th:href="@{/message/list}">消息管理</a></li>
+        <li class="layui-nav-item"><a th:href="@{/search/list}">搜索管理</a></li>
+        <li class="layui-nav-item"><a th:href="@{/game/list}">桌游库</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img th:src="@{/img/icon-user.png}" class="layui-nav-img"/>
+                <span th:text="${T(com.bgp.mgr.common.utils.LoginUtils).getPin()}"></span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="">修改资料</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a th:href="@{/logout}">退出登录</a></li>
+    </ul>
 </div>
+
+<!-- js -->
+<script type="javascript">
+    layui.use('element', function () {
+    });
+</script>
 </body>
 </html>

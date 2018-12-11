@@ -5,10 +5,8 @@
     <title>页脚</title>
 </head>
 <body>
-<div th:fragment="footer">
-    <div class="layui-footer bgp-footer">
-        Copyright &copy; <em th:text="${#dates.format(new java.util.Date(), 'yyyy')}"></em> GBP团队 版权所有
-    </div>
+<div class="layui-footer bgp-footer" th:fragment="footer">
+    Copyright &copy; <em th:text=" ${#dates.format(new java.util.Date(), 'yyyy')}"></em> GBP团队 版权所有
 </div>
 </body>
 </html>
