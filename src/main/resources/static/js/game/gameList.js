@@ -1,18 +1,25 @@
-layui.use(['form', 'table', 'layer'], function () {
-    var form = layui.form,
+layui.use(['element', 'form', 'table', 'layer'], function () {
+    var $ = layui.jquery,
         table = layui.table,
         layer = layui.layer;
 
-    table.render({
+    var tableIns = table.render({
         elem: '#dataTable',
         url: ROOT_CONTEXT + 'game/queryData',
         method: 'post',
+        where: {
+            gameName: $('#gameName').val(),
+            gameEnName: $('#gameEnName').val(),
+            gameType: $('#gameType').val()
+        },
         page: true,
+        limit: 10,
+        limits: [10, 25, 50],
         cols: [[
             {field: 'id', title: '桌游编号', fixed: 'left'},
             {field: 'gameName', title: '桌游名称'},
             {field: 'gameEnName', title: '英文名称'},
-            {field: 'type', title: '桌游类型'},
+            {field: 'gameType', title: '桌游类型'},
             {field: 'commentCount', title: '评价数量'},
             {field: 'ownerCount', title: '拥有数量'},
             {field: 'recordCount', title: '战绩数量'},
@@ -25,14 +32,14 @@ layui.use(['form', 'table', 'layer'], function () {
     table.on('tool(dataTable)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
-            showIframe('编辑桌游信息', ROOT_CONTEXT + 'game/edit/' + data.id);
+            showFrame('编辑桌游信息', ROOT_CONTEXT + 'game/edit/' + data.id);
         } else if (obj.event === 'view') {
-            showIframe('查看桌游信息', ROOT_CONTEXT + 'game/view/' + data.id);
+            showFrame('查看桌游信息', ROOT_CONTEXT + 'game/view/' + data.id);
         }
     });
 
-    /** 显示弹出iframe */
-    function showIframe(title, url) {
+    //弹出frame
+    function showFrame(title, url) {
         if (!url)
             return false;
         layer.open({
@@ -42,4 +49,22 @@ layui.use(['form', 'table', 'layer'], function () {
             content: url
         });
     }
+
+
+    //按钮事件
+    $('#queryBtn').on('click', function () {
+        tableIns.reload({
+            where: {
+                gameName: $('#gameName').val(),
+                gameEnName: $('#gameEnName').val(),
+                gameType: $('#gameType').val()
+            }
+        });
+    });
+    $('#addBtn').on('click', function () {
+        showFrame('新增桌游信息', ROOT_CONTEXT + 'game/add');
+    });
+    $('#gameTagBtn').on('click', function () {
+        document.location.href = ROOT_CONTEXT + 'gameTag/list';
+    });
 });

@@ -1,6 +1,7 @@
 package com.bgp.mgr.service;
 
 import com.bgp.mgr.dao.vo.GameInfoVo;
+import com.bgp.mgr.dao.vo.PageVo;
 
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,12 @@ public interface GameInfoService {
     /**
      * 分页查询游戏库列表
      *
-     * @param start
-     * @param size
+     * @param pageNo
+     * @param pageSize
      * @param params
      * @return
      */
-    List<GameInfoVo> queryGameInfoByPage(int start, int size, Map<String, Object> params);
+    PageVo<GameInfoVo> queryGameInfoByPage(int pageNo, int pageSize, Map<String, Object> params);
 
     /**
      * 根据id查询游戏信息

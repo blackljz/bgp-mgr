@@ -5,13 +5,10 @@
 
 <generatorConfiguration>
     <!--自动生成domain mappper xml工具-->
-    <!--<properties resource="application.yml" />-->
-    <!-- 需要修改本地mysql驱动的位置 -->
-    <classPathEntry
-            location="/Users/hran/.m2/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>
-
     <context id="Mysql" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
+
+        <plugin type="com.bgp.mgr.common.utils.MySQLLimitPlugin"></plugin>
         <!-- 注释 -->
         <commentGenerator>
             <!-- 是否生成注释代时间戳 -->
@@ -65,36 +62,43 @@
                domainObjectName="AssessInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
         <table schema="bgp" tableName="friendsCircleInfo"
                domainObjectName="FriendsCircleInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
         <table schema="bgp" tableName="gameInfo"
                domainObjectName="GameInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
         <table schema="bgp" tableName="recordInfo"
                domainObjectName="RecordInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
         <table schema="bgp" tableName="userInfo"
                domainObjectName="UserInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
         <table schema="bgp" tableName="attentionInfo"
                domainObjectName="AttentionInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
         <table schema="bgp" tableName="doLikeInfo"
                domainObjectName="DoLikeInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
         </table>
     </context>
 </generatorConfiguration>
