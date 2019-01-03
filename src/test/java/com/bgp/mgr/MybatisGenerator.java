@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MybatisGeneratorTest {
+public class MybatisGenerator {
 
     private File configFile;
 
@@ -23,7 +23,7 @@ public class MybatisGeneratorTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void generator() throws Exception {
         List<String> warnings = new ArrayList<>();
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);

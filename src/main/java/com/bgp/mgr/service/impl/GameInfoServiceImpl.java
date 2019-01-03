@@ -37,8 +37,8 @@ public class GameInfoServiceImpl implements GameInfoService {
 
         int count = gameInfoMapper.countByExample(example);
 
-        example.setOffset((pageNo - 1) * pageSize);
-        example.setLimit(pageSize);
+        example.setLimitSize((pageNo - 1) * pageSize);
+        example.setLimitSize(pageSize);
         List<GameInfo> gameInfos = gameInfoMapper.selectByExample(example);
 
         List<GameInfoVo> gameInfoVos = new ArrayList<>();
