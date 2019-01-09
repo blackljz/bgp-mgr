@@ -2,6 +2,8 @@ package com.bgp.mgr;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -11,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+@RunWith(JUnit4.class)
 public class MybatisGenerator {
 
     private File configFile;

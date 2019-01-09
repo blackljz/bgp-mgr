@@ -20,7 +20,7 @@
         <!-- JDBC连接 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://39.104.132.204:3306/bgp"
+                connectionURL="jdbc:mysql://39.104.132.204:3306/bgp?characterEncoding=utf8&amp;useSSL=true"
                 userId="bgp_user"
                 password="bGp2018!@#">
         </jdbcConnection>

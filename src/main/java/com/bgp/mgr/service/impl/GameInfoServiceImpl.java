@@ -61,13 +61,12 @@ public class GameInfoServiceImpl implements GameInfoService {
 
     @Override
     public GameInfoVo findGameInfoById(Long id) {
-        GameInfoExample example = new GameInfoExample();
-        example.createCriteria().andIdEqualTo(id);
-        List<GameInfo> gameInfos = gameInfoMapper.selectByExample(example);
-
+        GameInfo gameInfo = gameInfoMapper.selectByPrimaryKey(id);
         GameInfoVo gameInfoVo = new GameInfoVo();
-        if (gameInfos != null && gameInfos.size() > 0) {
-            BeanUtils.copyProperties(gameInfos.get(0), gameInfoVo);
+        if (gameInfo != null) {
+            BeanUtils.copyProperties(gameInfo, gameInfoVo);
+        } else {
+            gameInfoVo = null;
         }
         return gameInfoVo;
     }
