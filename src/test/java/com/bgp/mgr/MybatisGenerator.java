@@ -21,7 +21,7 @@ public class MybatisGenerator {
     @Before
     public void before() {
         //读取mybatis参数
-        String path = System.getProperty("user.dir").concat("/src/main/resources/generatorConfig.xml");
+        String path = System.getProperty("user.dir").concat("/src/test/resources/generatorConfig.xml");
         configFile = new File(path);
     }
 
