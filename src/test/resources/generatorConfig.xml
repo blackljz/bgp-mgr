@@ -8,7 +8,7 @@
     <context id="Mysql" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
 
-        <plugin type="com.bgp.mgr.common.utils.MysqlLimitPlugin"></plugin>
+        <plugin type="com.bgp.mgr.mybatis.MysqlLimitPlugin"/>
         <!-- 注释 -->
         <commentGenerator>
             <!-- 是否生成注释代时间戳 -->

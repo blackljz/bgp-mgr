@@ -1,4 +1,4 @@
-package com.bgp.mgr;
+package com.bgp.mgr.mybatis;
 
 import org.junit.Before;
 import org.junit.Test;

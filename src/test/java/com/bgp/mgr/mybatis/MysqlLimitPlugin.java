@@ -1,4 +1,4 @@
-package com.bgp.mgr.common.utils;
+package com.bgp.mgr.mybatis;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedTable;
