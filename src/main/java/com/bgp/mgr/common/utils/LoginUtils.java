@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class LoginUtils {
 
     /**
-     * 获取当前登录用户
+     * 获取当前登录用户名
      *
      * @return pin
      */

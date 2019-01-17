@@ -8,10 +8,12 @@ import com.bgp.mgr.dao.vo.PageVo;
 import com.bgp.mgr.service.GameInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,14 +24,14 @@ public class GameInfoServiceImpl implements GameInfoService {
     private GameInfoMapper gameInfoMapper;
 
     @Override
-    @Transactional()
+    @Transactional(readOnly = true)
     public PageVo<GameInfoVo> queryGameInfoByPage(int pageNo, int pageSize, Map<String, Object> params) {
         PageVo<GameInfoVo> pageVo = new PageVo<>();
 
         GameInfoExample example = new GameInfoExample();
         GameInfoExample.Criteria criteria = example.createCriteria();
         if (params.get("gameName") != null) {
-            criteria.andGameNameLike("%" + (String) params.get("gameName") + "%");
+            criteria.andGameNameLike("%" + params.get("gameName") + "%");
         }
         if (params.get("gameType") != null) {
             criteria.andGameTypeEqualTo((String) params.get("gameType"));
@@ -60,6 +62,7 @@ public class GameInfoServiceImpl implements GameInfoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public GameInfoVo findGameInfoById(Long id) {
         GameInfo gameInfo = gameInfoMapper.selectByPrimaryKey(id);
         GameInfoVo gameInfoVo = new GameInfoVo();
@@ -69,5 +72,12 @@ public class GameInfoServiceImpl implements GameInfoService {
             gameInfoVo = null;
         }
         return gameInfoVo;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void addGameInfo(String pin, GameInfo gameInfo) {
+        gameInfo.setModifiedDate(new Date());
+        gameInfoMapper.insert(gameInfo);
     }
 }

@@ -22,11 +22,15 @@
                 <span th:text="${T(com.bgp.mgr.common.utils.LoginUtils).getPin()}"></span>
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="">修改资料</a></dd>
+                <dd><a th:href="@{/sys/passwordMgr}">修改密码</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item"><a th:href="@{/logout}">退出登录</a></li>
     </ul>
+
+    <script>
+        layui.use('element');
+    </script>
 </div>
 </body>
 </html>

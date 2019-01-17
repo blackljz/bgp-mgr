@@ -1,4 +1,4 @@
-package com.bgp.mgr.security;
+package com.bgp.mgr.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

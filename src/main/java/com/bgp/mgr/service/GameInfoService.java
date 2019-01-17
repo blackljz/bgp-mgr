@@ -1,9 +1,9 @@
 package com.bgp.mgr.service;
 
+import com.bgp.mgr.dao.domain.GameInfo;
 import com.bgp.mgr.dao.vo.GameInfoVo;
 import com.bgp.mgr.dao.vo.PageVo;
 
-import java.util.List;
 import java.util.Map;
 
 public interface GameInfoService {
@@ -25,4 +25,12 @@ public interface GameInfoService {
      * @return
      */
     GameInfoVo findGameInfoById(Long id);
+
+    /**
+     * 增加游戏
+     *
+     * @param pin
+     * @param gameInfo
+     */
+    void addGameInfo(String pin, GameInfo gameInfo);
 }
