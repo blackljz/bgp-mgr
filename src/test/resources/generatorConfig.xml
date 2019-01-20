@@ -58,53 +58,59 @@
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
         <!--##################tableName domainObjectName 需要调整###################-->
-        <!--<table schema="bgp" tableName="assessInfo"-->
-               <!--domainObjectName="AssessInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <!--<table schema="bgp" tableName="friendsCircleInfo"-->
-               <!--domainObjectName="FriendsCircleInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <!--<table schema="bgp" tableName="gameInfo"-->
-               <!--domainObjectName="GameInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <!--<table schema="bgp" tableName="recordInfo"-->
-               <!--domainObjectName="RecordInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <!--<table schema="bgp" tableName="userInfo"-->
-               <!--domainObjectName="UserInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <!--<table schema="bgp" tableName="attentionInfo"-->
-               <!--domainObjectName="AttentionInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <!--<table schema="bgp" tableName="doLikeInfo"-->
-               <!--domainObjectName="DoLikeInfo" enableCountByExample="true"-->
-               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
-               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
-        <table schema="bgp" tableName="sys_user"
-               domainObjectName="SysUser" enableCountByExample="true"
+        <table schema="bgp" tableName="assessInfo"
+               domainObjectName="AssessInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
-            <property name="useActualColumnNames" value="false"/>
+            <property name="useActualColumnNames" value="true"/>
         </table>
+        <table schema="bgp" tableName="friendsCircleInfo"
+               domainObjectName="FriendsCircleInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="bgp" tableName="gameInfo"
+               domainObjectName="GameInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="bgp" tableName="recordInfo"
+               domainObjectName="RecordInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="bgp" tableName="userInfo"
+               domainObjectName="UserInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="bgp" tableName="attentionInfo"
+               domainObjectName="AttentionInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="bgp" tableName="doLikeInfo"
+               domainObjectName="DoLikeInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="bgp" tableName="ex_record"
+               domainObjectName="ExRecord" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--<table schema="bgp" tableName="sys_user"-->
+               <!--domainObjectName="SysUser" enableCountByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--enableUpdateByExample="true" selectByExampleQueryId="true">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

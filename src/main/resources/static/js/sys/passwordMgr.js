@@ -21,9 +21,10 @@ layui.use(['form', 'layer'], function () {
         //ajax 提交
         $.post(ROOT_CONTEXT + 'sys/changePwd', data.field, function (data) {
             if (data.code === 0) {
-                layer.alert('修改密码成功！');
-                //跳回首页
-                location.href = ROOT_CONTEXT;
+                layer.alert('修改密码成功！', function () {
+                    //跳回首页
+                    location.href = ROOT_CONTEXT;
+                });
             } else {
                 layer.alert('修改密码失败：' + data.message);
             }
