@@ -80,4 +80,10 @@ public class GameInfoServiceImpl implements GameInfoService {
         gameInfo.setModifiedDate(new Date());
         gameInfoMapper.insert(gameInfo);
     }
+
+    @Override
+    public void updateGameInfo(String pin, GameInfo gameInfo) {
+        gameInfo.setModifiedDate(new Date());
+        gameInfoMapper.updateByPrimaryKey(gameInfo);
+    }
 }

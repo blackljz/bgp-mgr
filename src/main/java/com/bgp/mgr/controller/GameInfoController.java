@@ -1,7 +1,10 @@
 package com.bgp.mgr.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.bgp.mgr.common.constants.CommonConstant;
+import com.bgp.mgr.common.response.ResponseBodyResult;
 import com.bgp.mgr.common.utils.LoginUtils;
+import com.bgp.mgr.dao.domain.GameInfo;
 import com.bgp.mgr.dao.vo.GameInfoVo;
 import com.bgp.mgr.dao.vo.PageVo;
 import com.bgp.mgr.service.GameInfoService;
@@ -26,11 +29,22 @@ public class GameInfoController {
     @Resource
     private GameInfoService gameInfoService;
 
+    /**
+     * 桌游列表页面
+     *
+     * @return
+     */
     @GetMapping("/list")
     public String list() {
         return "/game/gameList";
     }
 
+    /**
+     * 分页查询桌游
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/queryData")
     @ResponseBody
     public PageVo<GameInfoVo> queryData(HttpServletRequest request) {
@@ -53,25 +67,80 @@ public class GameInfoController {
         return pageVo;
     }
 
+    /**
+     * 新增桌游页面
+     *
+     * @param modelMap
+     * @return
+     */
     @GetMapping("/add")
     public String add(ModelMap modelMap) {
-        modelMap.put("editType", CommonConstant.EDITTYPE_ADD);
-        return "/game/gameDetail";
+        modelMap.put("editType", CommonConstant.EDITTYPE_NEW);
+        modelMap.put("gameId", 0L);//新增默认id为0
+        return "/game/gameDetails";
     }
 
+    /**
+     * 编辑桌游页面
+     *
+     * @param id
+     * @param modelMap
+     * @return
+     */
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap modelMap) {
-        GameInfoVo gameInfoVo = gameInfoService.findGameInfoById(id);
-        modelMap.put("data", gameInfoVo);
         modelMap.put("editType", CommonConstant.EDITTYPE_EDIT);
-        return "/game/gameDetail";
+        modelMap.put("gameId", id);
+        return "/game/gameDetails";
     }
 
+    /**
+     * 查看桌游页面
+     *
+     * @param id
+     * @param modelMap
+     * @return
+     */
     @GetMapping("/view/{id}")
     public String view(@PathVariable("id") Long id, ModelMap modelMap) {
-        GameInfoVo gameInfoVo = gameInfoService.findGameInfoById(id);
-        modelMap.put("data", gameInfoVo);
         modelMap.put("editType", CommonConstant.EDITTYPE_VIEW);
-        return "/game/gameDetail";
+        modelMap.put("gameId", id);
+        return "/game/gameDetails";
+    }
+
+    /**
+     * 获取桌游详情
+     *
+     * @param id
+     * @return
+     */
+    @PostMapping("/getDetails")
+    @ResponseBody
+    public String getGameInfoDetails(@RequestParam("id") Long id) {
+        GameInfoVo gameInfoVo;
+        try {
+            gameInfoVo = gameInfoService.findGameInfoById(id);
+        } catch (Exception e) {
+            logger.error("查询桌游详情异常！", e);
+            return ResponseBodyResult.error("查询桌游详情异常！");
+        }
+        return ResponseBodyResult.success(gameInfoVo);
+    }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public String saveGameInfo(@RequestParam("editType") String editType, @RequestParam("gameInfo") String gameInfoJson) {
+        try {
+            String pin = LoginUtils.getPin();
+            if (CommonConstant.EDITTYPE_NEW.equals(editType)) {
+                gameInfoService.addGameInfo(pin, JSON.parseObject(gameInfoJson, GameInfo.class));
+            } else {
+                gameInfoService.updateGameInfo(pin, JSON.parseObject(gameInfoJson, GameInfo.class));
+            }
+        } catch (Exception e) {
+            logger.error("保存桌游信息异常！", e);
+            return ResponseBodyResult.error("保存桌游信息异常！");
+        }
+        return ResponseBodyResult.success();
     }
 }

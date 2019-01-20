@@ -45,7 +45,7 @@ layui.use(['form', 'table', 'layer'], function () {
         layer.open({
             type: 2,
             title: title ? title : '信息',
-            area: ['1140px', 'auto'],
+            area: ['1140px', '600px'],
             content: url
         });
     }

@@ -5,7 +5,7 @@ public class CommonConstant {
     /**
      * 页面操作类型：新增
      */
-    public static final String EDITTYPE_ADD = "add";
+    public static final String EDITTYPE_NEW = "new";
     /**
      * 页面操作类型：编辑
      */

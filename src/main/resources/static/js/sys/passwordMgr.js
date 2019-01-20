@@ -9,7 +9,7 @@ layui.use(['form', 'layer'], function () {
             /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'
         ],
         'confirmPwd': function (value) {
-            if (!new RegExp($('input[name=newPwd]').val()).test(value)) {
+            if (!new RegExp($('#newPwd').val()).test(value)) {
                 return '两次输入密码不一致，请重新输入！';
             }
         }

@@ -33,4 +33,12 @@ public interface GameInfoService {
      * @param gameInfo
      */
     void addGameInfo(String pin, GameInfo gameInfo);
+
+    /**
+     * 更新游戏
+     *
+     * @param pin
+     * @param gameInfo
+     */
+    void updateGameInfo(String pin, GameInfo gameInfo);
 }
