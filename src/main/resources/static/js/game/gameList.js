@@ -50,7 +50,6 @@ layui.use(['form', 'table', 'layer'], function () {
         });
     }
 
-
     //按钮事件
     $('#queryBtn').on('click', function () {
         tableIns.reload({

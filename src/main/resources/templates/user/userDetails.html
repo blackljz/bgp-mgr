@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BGP-用户详情</title>
+    <th:block th:insert="~{common :: common}"></th:block>
+</head>
+<body>
+<div class="bgp-body">
+    <div class="layui-card bgp-card" style="margin-bottom: 0;">
+        <div class="layui-card-body bgp-card-body">
+            <!--/*@thymesVar id="editType" type="java.lang.String"*/-->
+            <input type="hidden" name="editType" id="editType" th:value="${editType}"/>
+
+            <form class="layui-form" action="" lay-filter="gameInfoFm">
+                <!--/*@thymesVar id="userId" type="java.lang.Long"*/-->
+                <input type="hidden" name="id" id="id" th:value="${userId}"/>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">中文名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="gameName" id="gameName" lay-verify="required" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">英文名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" autocomplete="off" class="layui-input" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">状态：</label>
+                        <div class="layui-input-inline">
+                            <select name="type" id="type" lay-verify="required">
+                                <option value="1">启用</option>
+                                <option value="0">停用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">桌游类型：</label>
+                        <div class="layui-input-inline">
+                            <select name="gameType" id="gameType" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="1">社交类</option>
+                                <option value="2">策略类</option>
+                                <option value="3">竞技类</option>
+                                <option value="4">剧情类</option>
+                                <option value="5">兵棋类</option>
+                                <option value="6">家庭类</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">桌游标签：</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="gameTags" value="1" title="测试标签"/>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title"></fieldset>
+
+                <div class="layui-form-item">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="uploadBtn">图片上传</button>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览图：
+                            <div class="layui-upload-list" id="gameImages"></div>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title"></fieldset>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">游戏重度：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="severe" id="severe" lay-verify="required" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">设计师：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="designer" id="designer" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">语言依赖：</label>
+                        <div class="layui-input-inline">
+                            <select name="languageDependence" id="languageDependence" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="zh">中文</option>
+                                <option value="en">英语</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">游戏时长：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="duration" id="duration" lay-verify="required" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">美工：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="artist" id="artist" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">原始语言：</label>
+                        <div class="layui-input-inline">
+                            <select name="language" id="language" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="zh">中文</option>
+                                <option value="en">英语</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">玩家人数：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="peopleNumber" id="peopleNumber" lay-verify="required"
+                                   autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">适合年龄：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input"
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">出版年份：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="publishingAge" id="publishingAge" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">出版商：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="publisher" id="publisher" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">中文版出版商：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="chinesePublisher" id="chinesePublisher" lay-verify=""
+                                   autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title"></fieldset>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">中文简介：</label>
+                    <div class="layui-input-block">
+                        <textarea name="gameIntroduction" id="gameIntroduction" lay-verify="required"
+                                  class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title"></fieldset>
+
+                <div class="layui-form-item">
+                    <div class="layui-btn-container" style="text-align: right">
+                        <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+                        <button class="layui-btn layui-btn-primary" lay-filter="cancel">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- js -->
+<script th:src="@{/js/game/gameDetail.js}"></script>
+</body>
+</html>
