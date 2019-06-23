@@ -55,6 +55,7 @@ public class GameInfoController {
             int pageSize = Integer.parseInt(request.getParameter("limit"));
             Map<String, Object> params = new HashMap<>();
             params.put("pin", pin);
+            params.put("id", StringUtils.isNotBlank(request.getParameter("gameId")) ? Long.valueOf(request.getParameter("gameId")) : null);
             params.put("gameName", StringUtils.isNotBlank(request.getParameter("gameName")) ? request.getParameter("gameName") : null);
             params.put("gameEnName", StringUtils.isNotBlank(request.getParameter("gameEnName")) ? request.getParameter("gameName") : null);
             params.put("gameType", StringUtils.isNotBlank(request.getParameter("gameType")) ? request.getParameter("gameType") : null);

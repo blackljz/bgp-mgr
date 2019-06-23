@@ -8,6 +8,7 @@ layui.use(['form', 'table', 'layer'], function () {
         url: ROOT_CONTEXT + 'game/queryData',
         method: 'post',
         where: {
+            gameId: $('#gameId').val(),
             gameName: $('#gameName').val(),
             gameEnName: $('#gameEnName').val(),
             gameType: $('#gameType').val()
@@ -54,6 +55,7 @@ layui.use(['form', 'table', 'layer'], function () {
     $('#queryBtn').on('click', function () {
         tableIns.reload({
             where: {
+                gameId: $('#gameId').val(),
                 gameName: $('#gameName').val(),
                 gameEnName: $('#gameEnName').val(),
                 gameType: $('#gameType').val()

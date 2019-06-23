@@ -30,6 +30,9 @@ public class GameInfoServiceImpl implements GameInfoService {
 
         GameInfoExample example = new GameInfoExample();
         GameInfoExample.Criteria criteria = example.createCriteria();
+        if (params.get("id") != null) {
+            criteria.andIdEqualTo((Long) params.get("id"));
+        }
         if (params.get("gameName") != null) {
             criteria.andGameNameLike("%" + params.get("gameName") + "%");
         }

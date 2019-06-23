@@ -15,6 +15,13 @@
                     <form class="layui-form" action="" lay-filter="queryParams">
                         <div class="layui-form-item">
                             <div class="layui-inline">
+                                <label class="layui-form-label">桌游编号：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="gameId" id="gameId" autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
                                 <label class="layui-form-label">桌游名称：</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="gameName" id="gameName" autocomplete="off"
@@ -28,6 +35,7 @@
                                            class="layui-input"/>
                                 </div>
                             </div>
+                            <!--
                             <div class="layui-inline">
                                 <label class="layui-form-label">桌游类型：</label>
                                 <div class="layui-input-inline">
@@ -42,9 +50,12 @@
                                     </select>
                                 </div>
                             </div>
+                            -->
                         </div>
                         <div class="layui-btn-container" style="text-align: right">
+                            <!--
                             <button type="button" class="layui-btn layui-btn-normal" id="gameTagBtn">标签管理</button>
+                            -->
                             <button type="button" class="layui-btn layui-btn-warm" id="addBtn">新增</button>
                             <button type="button" class="layui-btn" id="queryBtn">查询</button>
                         </div>
