@@ -93,4 +93,12 @@ public interface SysUserMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SysUser record);
+
+    /**
+     * 根据登录名获取用户信息
+     *
+     * @param pin 登录名
+     * @return
+     */
+    SysUser selectByPin(String pin);
 }
