@@ -29,7 +29,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfoExample example = new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
         if (params.get("name") != null) {
-            criteria.andNameLike("%" + params.get("name") + "%");
+            criteria.andUserNameLike("%" + params.get("name") + "%");
         }
         //TODO 查询条件
 

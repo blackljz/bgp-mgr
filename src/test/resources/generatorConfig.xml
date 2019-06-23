@@ -118,12 +118,14 @@
                enableUpdateByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="true"/>
         </table>
+        <!--
         <table schema="bgp" tableName="sys_user"
                domainObjectName="SysUser" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false"/>
         </table>
+        -->
         <table schema="bgp" tableName="userInfo"
                domainObjectName="UserInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"

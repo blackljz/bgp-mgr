@@ -42,25 +42,59 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">桌游类型：</label>
-                        <div class="layui-input-inline">
-                            <select name="gameType" id="gameType" lay-verify="required">
-                                <option value="">请选择</option>
-                                <option value="1">社交类</option>
-                                <option value="2">策略类</option>
-                                <option value="3">竞技类</option>
-                                <option value="4">剧情类</option>
-                                <option value="5">兵棋类</option>
-                                <option value="6">家庭类</option>
-                            </select>
+                        <label class="layui-form-label">类型：</label>
+                        <div class="">
+                            <input type="checkbox" name="gameTypes" value="1" title="聚会"/>
+                            <input type="checkbox" name="gameTypes" value="2" title="策略"/>
+                            <input type="checkbox" name="gameTypes" value="3" title="剧情"/>
+                            <input type="checkbox" name="gameTypes" value="4" title="战争"/>
+                            <input type="checkbox" name="gameTypes" value="5" title="竞技"/>
+                            <input type="checkbox" name="gameTypes" value="6" title="抽象"/>
+                            <input type="checkbox" name="gameTypes" value="7" title="家庭"/>
+                            <input type="checkbox" name="gameTypes" value="8" title="儿童"/>
                         </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">桌游标签：</label>
+                        <label class="layui-form-label">标签：</label>
+                        <div class="">
+                            <input type="checkbox" name="gameTags" value="1" title="德式"/>
+                            <input type="checkbox" name="gameTags" value="2" title="美式"/>
+                            <input type="checkbox" name="gameTags" value="3" title="毛线"/>
+                            <input type="checkbox" name="gameTags" value="4" title="欢乐"/>
+                            <input type="checkbox" name="gameTags" value="5" title="动作"/>
+                            <input type="checkbox" name="gameTags" value="6" title="轻策"/>
+                            <input type="checkbox" name="gameTags" value="7" title="重策"/>
+                            <input type="checkbox" name="gameTags" value="8" title="重毛"/>
+                            <input type="checkbox" name="gameTags" value="9" title="卡牌"/>
+                            <input type="checkbox" name="gameTags" value="10" title="战棋"/>
+                            <input type="checkbox" name="gameTags" value="11" title="合作"/>
+                            <input type="checkbox" name="gameTags" value="12" title="TCG"/>
+                            <input type="checkbox" name="gameTags" value="13" title="DBG"/>
+                            <input type="checkbox" name="gameTags" value="14" title="CCG"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电子/实体：</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="gameTags" value="1" title="测试标签"/>
+                            <select name="" id="" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="1">实体</option>
+                                <option value="2">电子</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">是否扩展：</label>
+                        <div class="layui-input-inline">
+                            <select name="" id="" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="0">本体</option>
+                                <option value="1">扩展</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -88,20 +122,10 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">设计师：</label>
+                        <label class="layui-form-label">出版年份：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="designer" id="designer" lay-verify="" autocomplete="off"
+                            <input type="text" name="publishingAge" id="publishingAge" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">语言依赖：</label>
-                        <div class="layui-input-inline">
-                            <select name="languageDependence" id="languageDependence" lay-verify="required">
-                                <option value="">请选择</option>
-                                <option value="zh">中文</option>
-                                <option value="en">英语</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -114,19 +138,15 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">美工：</label>
+                        <label class="layui-form-label">语言依赖：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="artist" id="artist" lay-verify="" autocomplete="off"
-                                   class="layui-input"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">原始语言：</label>
-                        <div class="layui-input-inline">
-                            <select name="language" id="language" lay-verify="required">
+                            <select name="languageDependence" id="languageDependence" lay-verify="required">
                                 <option value="">请选择</option>
-                                <option value="zh">中文</option>
-                                <option value="en">英语</option>
+                                <option value="0">不依赖</option>
+                                <option value="1">轻度依赖</option>
+                                <option value="2">有一定阅读量</option>
+                                <option value="3">有较多阅读量</option>
+                                <option value="4">阅读量极大</option>
                             </select>
                         </div>
                     </div>
@@ -140,21 +160,56 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">适合年龄：</label>
+                        <label class="layui-form-label">原始语言：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input"
-                                   disabled="disabled"/>
+                            <select name="language" id="language" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="zh">中文</option>
+                                <option value="en">英文</option>
+                                <option value="ja">日文</option>
+                                <option value="de">德文</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">出版年份：</label>
+                        <label class="layui-form-label">适合年龄：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="publishingAge" id="publishingAge" lay-verify="" autocomplete="off"
+                            <input type="text" name="" id="" lay-verify="" autocomplete="off" class="layui-input"
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">中文版：</label>
+                        <div class="layui-input-inline">
+                            <select name="" id="" lay-verify="required">
+                                <option value="">请选择</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">设计师：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="designer" id="designer" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">美术：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="artist" id="artist" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">出版商：</label>
                         <div class="layui-input-inline">
@@ -162,13 +217,71 @@
                                    class="layui-input"/>
                         </div>
                     </div>
+                </div>
+                <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">中文版出版商：</label>
+                        <label class="layui-form-label">初始得分：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="chinesePublisher" id="chinesePublisher" lay-verify=""
-                                   autocomplete="off"
+                            <input type="text" name="" id="" lay-verify="number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">bgg排名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" id="" lay-verify="number" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">bgg得分：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" id="" lay-verify="number" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">bgg链接：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                               class="layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">牌套：</label>
+                    <div class="layui-input-block">
+                        <label class="layui-form-label" style="width: auto;">高</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                        <label class="layui-form-label" style="width: auto;">宽</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                        <label class="layui-form-label" style="width: auto;">数量</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">类别：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">机制：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                               class="layui-input"/>
                     </div>
                 </div>
 
@@ -178,6 +291,13 @@
                     <label class="layui-form-label">中文简介：</label>
                     <div class="layui-input-block">
                         <textarea name="gameIntroduction" id="gameIntroduction" lay-verify="required"
+                                  class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">英文简介：</label>
+                    <div class="layui-input-block">
+                        <textarea name="" id="" lay-verify="required"
                                   class="layui-textarea"></textarea>
                     </div>
                 </div>
