@@ -451,6 +451,76 @@ public class AssessInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andGameIdIsNull() {
+            addCriterion("gameId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIsNotNull() {
+            addCriterion("gameId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdEqualTo(String value) {
+            addCriterion("gameId =", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotEqualTo(String value) {
+            addCriterion("gameId <>", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdGreaterThan(String value) {
+            addCriterion("gameId >", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdGreaterThanOrEqualTo(String value) {
+            addCriterion("gameId >=", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLessThan(String value) {
+            addCriterion("gameId <", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLessThanOrEqualTo(String value) {
+            addCriterion("gameId <=", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLike(String value) {
+            addCriterion("gameId like", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotLike(String value) {
+            addCriterion("gameId not like", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIn(List<String> values) {
+            addCriterion("gameId in", values, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotIn(List<String> values) {
+            addCriterion("gameId not in", values, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdBetween(String value1, String value2) {
+            addCriterion("gameId between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotBetween(String value1, String value2) {
+            addCriterion("gameId not between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
         public Criteria andUserNameIsNull() {
             addCriterion("userName is null");
             return (Criteria) this;
