@@ -20,22 +20,24 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">中文名称：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="gameName" id="gameName" lay-verify="required" autocomplete="off"
+                            <input type="text" name="gameName" lay-verify="required" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">英文名称：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" autocomplete="off" class="layui-input" disabled="disabled"/>
+                            <input type="text" name="gameEnName" lay-verify="required" autocomplete="off"
+                                   class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">状态：</label>
                         <div class="layui-input-inline">
-                            <select name="type" id="type" lay-verify="required">
+                            <select name="status" lay-verify="required">
                                 <option value="1">启用</option>
-                                <option value="0">停用</option>
+                                <option value="0">制作中</option>
+                                <option value="-1">停用</option>
                             </select>
                         </div>
                     </div>
@@ -44,14 +46,14 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">类型：</label>
                         <div class="">
-                            <input type="checkbox" name="gameTypes" value="1" title="聚会"/>
-                            <input type="checkbox" name="gameTypes" value="2" title="策略"/>
-                            <input type="checkbox" name="gameTypes" value="3" title="剧情"/>
-                            <input type="checkbox" name="gameTypes" value="4" title="战争"/>
-                            <input type="checkbox" name="gameTypes" value="5" title="竞技"/>
-                            <input type="checkbox" name="gameTypes" value="6" title="抽象"/>
-                            <input type="checkbox" name="gameTypes" value="7" title="家庭"/>
-                            <input type="checkbox" name="gameTypes" value="8" title="儿童"/>
+                            <input type="checkbox" name="type" value="1" title="聚会"/>
+                            <input type="checkbox" name="type" value="2" title="策略"/>
+                            <input type="checkbox" name="type" value="3" title="剧情"/>
+                            <input type="checkbox" name="type" value="4" title="战争"/>
+                            <input type="checkbox" name="type" value="5" title="竞技"/>
+                            <input type="checkbox" name="type" value="6" title="抽象"/>
+                            <input type="checkbox" name="type" value="7" title="家庭"/>
+                            <input type="checkbox" name="type" value="8" title="儿童"/>
                         </div>
                     </div>
                 </div>
@@ -59,20 +61,20 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">标签：</label>
                         <div class="">
-                            <input type="checkbox" name="gameTags" value="1" title="德式"/>
-                            <input type="checkbox" name="gameTags" value="2" title="美式"/>
-                            <input type="checkbox" name="gameTags" value="3" title="毛线"/>
-                            <input type="checkbox" name="gameTags" value="4" title="欢乐"/>
-                            <input type="checkbox" name="gameTags" value="5" title="动作"/>
-                            <input type="checkbox" name="gameTags" value="6" title="轻策"/>
-                            <input type="checkbox" name="gameTags" value="7" title="重策"/>
-                            <input type="checkbox" name="gameTags" value="8" title="重毛"/>
-                            <input type="checkbox" name="gameTags" value="9" title="卡牌"/>
-                            <input type="checkbox" name="gameTags" value="10" title="战棋"/>
-                            <input type="checkbox" name="gameTags" value="11" title="合作"/>
-                            <input type="checkbox" name="gameTags" value="12" title="TCG"/>
-                            <input type="checkbox" name="gameTags" value="13" title="DBG"/>
-                            <input type="checkbox" name="gameTags" value="14" title="CCG"/>
+                            <input type="checkbox" name="label" value="1" title="德式"/>
+                            <input type="checkbox" name="label" value="2" title="美式"/>
+                            <input type="checkbox" name="label" value="3" title="毛线"/>
+                            <input type="checkbox" name="label" value="4" title="欢乐"/>
+                            <input type="checkbox" name="label" value="5" title="动作"/>
+                            <input type="checkbox" name="label" value="6" title="轻策"/>
+                            <input type="checkbox" name="label" value="7" title="重策"/>
+                            <input type="checkbox" name="label" value="8" title="重毛"/>
+                            <input type="checkbox" name="label" value="9" title="卡牌"/>
+                            <input type="checkbox" name="label" value="10" title="战棋"/>
+                            <input type="checkbox" name="label" value="11" title="合作"/>
+                            <input type="checkbox" name="label" value="12" title="TCG"/>
+                            <input type="checkbox" name="label" value="13" title="DBG"/>
+                            <input type="checkbox" name="label" value="14" title="CCG"/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +82,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">电子/实体：</label>
                         <div class="layui-input-inline">
-                            <select name="" id="" lay-verify="required">
+                            <select name="isEntity" lay-verify="required">
                                 <option value="">请选择</option>
                                 <option value="1">实体</option>
                                 <option value="2">电子</option>
@@ -90,7 +92,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">是否扩展：</label>
                         <div class="layui-input-inline">
-                            <select name="" id="" lay-verify="required">
+                            <select name="isDlc" lay-verify="required">
                                 <option value="">请选择</option>
                                 <option value="0">本体</option>
                                 <option value="1">扩展</option>
@@ -117,14 +119,14 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">游戏重度：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="severe" id="severe" lay-verify="required" autocomplete="off"
+                            <input type="text" name="severe" lay-verify="required" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">出版年份：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="publishingAge" id="publishingAge" lay-verify="" autocomplete="off"
+                            <input type="text" name="publishYear" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -133,14 +135,14 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">游戏时长：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="duration" id="duration" lay-verify="required" autocomplete="off"
+                            <input type="text" name="duration" lay-verify="required" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">语言依赖：</label>
                         <div class="layui-input-inline">
-                            <select name="languageDependence" id="languageDependence" lay-verify="required">
+                            <select name="languageDependence" lay-verify="required">
                                 <option value="">请选择</option>
                                 <option value="0">不依赖</option>
                                 <option value="1">轻度依赖</option>
@@ -162,7 +164,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">原始语言：</label>
                         <div class="layui-input-inline">
-                            <select name="language" id="language" lay-verify="required">
+                            <select name="language" lay-verify="required">
                                 <option value="">请选择</option>
                                 <option value="zh">中文</option>
                                 <option value="en">英文</option>
@@ -176,14 +178,14 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">适合年龄：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="" autocomplete="off" class="layui-input"
+                            <input type="text" name="age" lay-verify="" autocomplete="off" class="layui-input"
                                    disabled="disabled"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">中文版：</label>
                         <div class="layui-input-inline">
-                            <select name="" id="" lay-verify="required">
+                            <select name="hasChinese" lay-verify="required">
                                 <option value="">请选择</option>
                                 <option value="1">是</option>
                                 <option value="0">否</option>
@@ -195,7 +197,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">设计师：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="designer" id="designer" lay-verify="" autocomplete="off"
+                            <input type="text" name="designer" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -204,7 +206,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">美术：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="artist" id="artist" lay-verify="" autocomplete="off"
+                            <input type="text" name="artist" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -213,7 +215,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">出版商：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="publisher" id="publisher" lay-verify="" autocomplete="off"
+                            <input type="text" name="publisher" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -222,21 +224,21 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">初始得分：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="number" autocomplete="off"
+                            <input type="text" name="rating" lay-verify="number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">bgg排名：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="number" autocomplete="off"
+                            <input type="text" name="bggRank" lay-verify="number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">bgg得分：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="number" autocomplete="off"
+                            <input type="text" name="bggScore" lay-verify="number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -244,7 +246,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">bgg链接：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                        <input type="text" name="bggLink" lay-verify="" autocomplete="off"
                                class="layui-input"/>
                     </div>
                 </div>
@@ -272,7 +274,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">类别：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                            <input type="text" name="category" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -280,7 +282,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">机制：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                        <input type="text" name="mechanism" lay-verify="" autocomplete="off"
                                class="layui-input"/>
                     </div>
                 </div>
@@ -290,14 +292,14 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">中文简介：</label>
                     <div class="layui-input-block">
-                        <textarea name="gameIntroduction" id="gameIntroduction" lay-verify="required"
+                        <textarea name="gameIntroduction" lay-verify="required"
                                   class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">英文简介：</label>
                     <div class="layui-input-block">
-                        <textarea name="" id="" lay-verify="required"
+                        <textarea name="gameEnIntroduction" lay-verify="required"
                                   class="layui-textarea"></textarea>
                     </div>
                 </div>

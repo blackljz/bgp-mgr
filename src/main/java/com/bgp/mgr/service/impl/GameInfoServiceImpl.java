@@ -36,8 +36,8 @@ public class GameInfoServiceImpl implements GameInfoService {
         if (params.get("gameName") != null) {
             criteria.andGameNameLike("%" + params.get("gameName") + "%");
         }
-        if (params.get("gameType") != null) {
-            criteria.andGameTypeEqualTo((String) params.get("gameType"));
+        if (params.get("gameEnName") != null) {
+            criteria.andGameNameLike("%" + params.get("gameEnName") + "%");
         }
 
         int count = gameInfoMapper.countByExample(example);
@@ -80,13 +80,17 @@ public class GameInfoServiceImpl implements GameInfoService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void addGameInfo(String pin, GameInfo gameInfo) {
+        gameInfo.setCreatedBy(pin);
+        gameInfo.setCreatedDate(new Date());
+        gameInfo.setModifiedBy(pin);
         gameInfo.setModifiedDate(new Date());
-        gameInfoMapper.insert(gameInfo);
+        gameInfoMapper.insertSelective(gameInfo);
     }
 
     @Override
     public void updateGameInfo(String pin, GameInfo gameInfo) {
+        gameInfo.setModifiedBy(pin);
         gameInfo.setModifiedDate(new Date());
-        gameInfoMapper.updateByPrimaryKey(gameInfo);
+        gameInfoMapper.updateByPrimaryKeySelective(gameInfo);
     }
 }

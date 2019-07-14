@@ -58,7 +58,6 @@ public class GameInfoController {
             params.put("id", StringUtils.isNotBlank(request.getParameter("gameId")) ? Long.valueOf(request.getParameter("gameId")) : null);
             params.put("gameName", StringUtils.isNotBlank(request.getParameter("gameName")) ? request.getParameter("gameName") : null);
             params.put("gameEnName", StringUtils.isNotBlank(request.getParameter("gameEnName")) ? request.getParameter("gameName") : null);
-            params.put("gameType", StringUtils.isNotBlank(request.getParameter("gameType")) ? request.getParameter("gameType") : null);
             pageVo = gameInfoService.queryGameInfoByPage(pageNo, pageSize, params);
         } catch (Exception e) {
             logger.error("查询桌游列表异常！", e);

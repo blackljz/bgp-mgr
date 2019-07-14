@@ -68,7 +68,12 @@ layui.use(['form', 'layer', 'upload'], function () {
                     //表单初始赋值
                     form.val('gameInfoFm', {
                         "gameName": data.gameName,
-                        "gameType": data.gameType,
+                        "gameEnName": data.gameEnName,
+                        "status": data.status,
+                        "type": data.type,
+                        "label": data.label,
+                        "isEntity": data.isEntity,
+                        "isDlc": data.isDlc,
                         "severe": data.severe,
                         'designer': data.designer,
                         'languageDependence': data.languageDependence,
