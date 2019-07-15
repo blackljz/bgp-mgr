@@ -103,15 +103,15 @@
 
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
 
-                <div class="layui-form-item">
-                    <div class="layui-upload">
-                        <button type="button" class="layui-btn" id="uploadBtn">图片上传</button>
-                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                            预览图：
-                            <div class="layui-upload-list" id="gameImages"></div>
-                        </blockquote>
-                    </div>
-                </div>
+                <!--<div class="layui-form-item">-->
+                <!--<div class="layui-upload">-->
+                <!--<button type="button" class="layui-btn" id="uploadBtn">图片上传</button>-->
+                <!--<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">-->
+                <!--预览图：-->
+                <!--<div class="layui-upload-list" id="gameImages"></div>-->
+                <!--</blockquote>-->
+                <!--</div>-->
+                <!--</div>-->
 
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
 
@@ -157,7 +157,17 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">玩家人数：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="peopleNumber" id="peopleNumber" lay-verify="required"
+                            <input type="text" name="playerNumMin" placeholder="人" lay-verify="required"
+                                   autocomplete="off" class="layui-input"/>
+                        </div>
+                        <div class="layui-form-mid">-</div>
+                        <div class="layui-input-inline">
+                            <input type="text" name="playerNumMax" placeholder="人" lay-verify="required"
+                                   autocomplete="off" class="layui-input"/>
+                        </div>
+                        <div class="layui-form-mid">推荐：</div>
+                        <div class="layui-input-inline">
+                            <input type="text" name="playerNumSuggested" placeholder="人" lay-verify="required"
                                    autocomplete="off" class="layui-input"/>
                         </div>
                     </div>
@@ -178,8 +188,8 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">适合年龄：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="age" lay-verify="" autocomplete="off" class="layui-input"
-                                   disabled="disabled"/>
+                            <input type="text" name="age" lay-verify="required" placeholder="岁" autocomplete="off"
+                                   class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">

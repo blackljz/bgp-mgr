@@ -1271,63 +1271,63 @@ public class GameInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedIsNull() {
-            addCriterion("palyerNumSuggested is null");
+        public Criteria andPlayerNumSuggestedIsNull() {
+            addCriterion("playerNumSuggested is null");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedIsNotNull() {
-            addCriterion("palyerNumSuggested is not null");
+        public Criteria andPlayerNumSuggestedIsNotNull() {
+            addCriterion("playerNumSuggested is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedEqualTo(Integer value) {
-            addCriterion("palyerNumSuggested =", value, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedEqualTo(Integer value) {
+            addCriterion("playerNumSuggested =", value, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedNotEqualTo(Integer value) {
-            addCriterion("palyerNumSuggested <>", value, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedNotEqualTo(Integer value) {
+            addCriterion("playerNumSuggested <>", value, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedGreaterThan(Integer value) {
-            addCriterion("palyerNumSuggested >", value, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedGreaterThan(Integer value) {
+            addCriterion("playerNumSuggested >", value, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedGreaterThanOrEqualTo(Integer value) {
-            addCriterion("palyerNumSuggested >=", value, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedGreaterThanOrEqualTo(Integer value) {
+            addCriterion("playerNumSuggested >=", value, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedLessThan(Integer value) {
-            addCriterion("palyerNumSuggested <", value, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedLessThan(Integer value) {
+            addCriterion("playerNumSuggested <", value, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedLessThanOrEqualTo(Integer value) {
-            addCriterion("palyerNumSuggested <=", value, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedLessThanOrEqualTo(Integer value) {
+            addCriterion("playerNumSuggested <=", value, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedIn(List<Integer> values) {
-            addCriterion("palyerNumSuggested in", values, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedIn(List<Integer> values) {
+            addCriterion("playerNumSuggested in", values, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedNotIn(List<Integer> values) {
-            addCriterion("palyerNumSuggested not in", values, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedNotIn(List<Integer> values) {
+            addCriterion("playerNumSuggested not in", values, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedBetween(Integer value1, Integer value2) {
-            addCriterion("palyerNumSuggested between", value1, value2, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedBetween(Integer value1, Integer value2) {
+            addCriterion("playerNumSuggested between", value1, value2, "playerNumSuggested");
             return (Criteria) this;
         }
 
-        public Criteria andPalyerNumSuggestedNotBetween(Integer value1, Integer value2) {
-            addCriterion("palyerNumSuggested not between", value1, value2, "palyerNumSuggested");
+        public Criteria andPlayerNumSuggestedNotBetween(Integer value1, Integer value2) {
+            addCriterion("playerNumSuggested not between", value1, value2, "playerNumSuggested");
             return (Criteria) this;
         }
 

@@ -103,7 +103,7 @@ create table gameInfo
 	age varchar(20) null comment '建议年龄',
 	playerNumMin int default '0' null comment '最少游戏人数',
 	playerNumMax int default '0' null comment '最多游戏人数',
-	palyerNumSuggested int default '0' null comment '建议游戏人数',
+	playerNumSuggested int default '0' null comment '建议游戏人数',
 	isEntity int null comment '实体或电子：1实体；2电子；',
 	isDlc int null comment '是否扩展：1本体；2扩展；',
 	designer varchar(50) null comment '设计师',
@@ -119,12 +119,13 @@ create table gameInfo
 	bggScore varchar(20) null comment 'BGG评分',
 	bggLink varchar(50) null comment 'BGG链接',
 	status int default '-1' not null comment '状态：1启用；0制作中；-1停用；',
-	createdBy varchar(20) default '' not null comment '创建人',
+	createdBy varchar(20) not null comment '创建人',
 	createdDate datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-	modifiedBy varchar(20) default '' not null comment '修改人',
+	modifiedBy varchar(20) not null comment '修改人',
 	modifiedDate datetime default CURRENT_TIMESTAMP not null comment '修改时间',
 	relatedGameId varchar(100) null comment '相关游戏ID'
 )
+comment '游戏信息表'
 ;
 
 create table imageInfo

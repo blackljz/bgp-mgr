@@ -75,16 +75,26 @@ layui.use(['form', 'layer', 'upload'], function () {
                         "isEntity": data.isEntity,
                         "isDlc": data.isDlc,
                         "severe": data.severe,
-                        'designer': data.designer,
-                        'languageDependence': data.languageDependence,
+                        "publishYear": data.publishYear,
                         'duration': data.duration,
-                        'artist': data.artist,
+                        'languageDependence': data.languageDependence,
+                        "playerNumMin": data.playerNumMin,
+                        "playerNumMax": data.playerNumMax,
+                        "playerNumSuggested": data.playerNumSuggested,
                         'language': data.language,
-                        'peopleNumber': data.peopleNumber,
-                        'publishingAge': data.publishingAge,
+                        "age": data.age,
+                        "hasChinese": data.hasChinese,
+                        'designer': data.designer,
+                        'artist': data.artist,
                         'publisher': data.publisher,
-                        'chinesePublisher': data.chinesePublisher,
-                        'gameIntroduction': data.gameIntroduction
+                        "rating": data.rating,
+                        "bggRank": data.bggRank,
+                        "bggScore": data.bggScore,
+                        "bggLink": data.bggLink,
+                        "category": data.category,
+                        "mechanism": data.mechanism,
+                        "gameIntroduction": data.gameIntroduction,
+                        'gameEnIntroduction': data.gameIntroduction
                     });
                 } else {
                     layer.alert(result.message);
