@@ -5,50 +5,36 @@ layui.use(['form', 'layer', 'upload'], function () {
         upload = layui.upload;
 
     //根据编辑类型初始化页面
-    var editType = $('#editType').val();
-    switch (editType) {
-        case 'new':
-            break;
-        case 'edit':
-            initData();
-            break;
-        case 'view':
-            initData();
-            break;
-        default:
-            break;
-    }
+    init($('#editType').val());
 
     //监听提交
     form.on('submit(save)', function (data) {
-        $.ajax({
-            'type': 'post',
-            'url': ROOT_CONTEXT + 'game/save',
-            'async': true,
-            'data': {
-                editType: editType,
-                gameInfo: JSON.stringify(data.field)
-            },
-            'dataType': 'json',
-            'success': function (result) {
-                if (result.code === 0) {
-                    layer.alert('保存成功！', function () {
-                        close();
-                    })
-                } else {
-                    layer.alert(result.message);
-                }
-            },
-            'error': function () {
-                layer.alert('操作异常！');
-            }
-        });
+        saveData(data);
         return false;
     });
+    //监听关闭
     form.on('submit(cancel)', function () {
         close();
         return false;
     });
+
+    /**
+     * 初始化页面
+     */
+    function init(editType) {
+        switch (editType) {
+            case 'new':
+                break;
+            case 'edit':
+                initData();
+                break;
+            case 'view':
+                initData();
+                break;
+            default:
+                break;
+        }
+    }
 
     /**
      * 初始化桌游数据
@@ -74,7 +60,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                         "label": data.label,
                         "isEntity": data.isEntity,
                         "isDlc": data.isDlc,
-                        "severe": data.severe,
+                        "weight": data.weight,
                         "publishYear": data.publishYear,
                         'duration': data.duration,
                         'languageDependence': data.languageDependence,
@@ -106,6 +92,37 @@ layui.use(['form', 'layer', 'upload'], function () {
         });
     }
 
+    /**
+     * 保存桌游数据
+     */
+    function saveData(data) {
+        $.ajax({
+            'type': 'post',
+            'url': ROOT_CONTEXT + 'game/save',
+            'async': true,
+            'data': {
+                editType: $('#editType').val(),
+                gameInfo: JSON.stringify(data.field)
+            },
+            'dataType': 'json',
+            'success': function (result) {
+                if (result.code === 0) {
+                    layer.alert('保存成功！', function () {
+                        close();
+                    })
+                } else {
+                    layer.alert(result.message);
+                }
+            },
+            'error': function () {
+                layer.alert('操作异常！');
+            }
+        });
+    }
+
+    /**
+     * 关闭页面
+     */
     function close() {
         //当你在frame页面关闭自身时
         var index = parent.layer.getFrameIndex(window.name);

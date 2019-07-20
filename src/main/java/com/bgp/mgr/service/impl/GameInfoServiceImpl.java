@@ -52,9 +52,9 @@ public class GameInfoServiceImpl implements GameInfoService {
                 GameInfoVo gameInfoVo = new GameInfoVo();
                 BeanUtils.copyProperties(gameInfo, gameInfoVo);
                 // TODO 相关统计
-                gameInfoVo.setCommentCount(0);
-                gameInfoVo.setOwnerCount(0);
-                gameInfoVo.setRecordCount(0);
+                gameInfoVo.setCommentCount(-1);
+                gameInfoVo.setOwnerCount(-1);
+                gameInfoVo.setRecordCount(-1);
                 gameInfoVos.add(gameInfoVo);
             });
         }

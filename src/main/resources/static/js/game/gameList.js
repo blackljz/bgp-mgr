@@ -10,22 +10,58 @@ layui.use(['form', 'table', 'layer'], function () {
         where: {
             gameId: $('#gameId').val(),
             gameName: $('#gameName').val(),
-            gameEnName: $('#gameEnName').val(),
-            gameType: $('#gameType').val()
+            gameEnName: $('#gameEnName').val()
         },
         page: true,
         limit: 10,
         limits: [10, 25, 50],
         cols: [[
-            {field: 'id', title: '桌游编号', fixed: 'left'},
-            {field: 'gameName', title: '桌游名称'},
-            {field: 'gameEnName', title: '英文名称'},
-            {field: 'gameType', title: '桌游类型'},
-            {field: 'commentCount', title: '评价数量'},
-            {field: 'ownerCount', title: '拥有数量'},
-            {field: 'recordCount', title: '战绩数量'},
-            {field: 'score', title: '得分'},
-            {title: '操作', toolbar: '#operateBtnTemp'}
+            {
+                field: 'id',
+                title: '桌游编号',
+                fixed: 'left'
+            },
+            {
+                field: 'gameName',
+                title: '桌游名称'
+            },
+            {
+                field: 'gameEnName',
+                title: '英文名称'
+            },
+            {
+                field: 'type',
+                title: '桌游类型'
+            },
+            {
+                field: 'commentCount',
+                title: '评价数量',
+                templet: function (d) {
+                    return d.commentCount >= 0 ? d.commentCount : '--';
+                }
+            },
+            {
+                field: 'ownerCount',
+                title: '拥有数量',
+                templet: function (d) {
+                    return d.ownerCount >= 0 ? d.ownerCount : '--';
+                }
+            },
+            {
+                field: 'recordCount',
+                title: '战绩数量',
+                templet: function (d) {
+                    return d.recordCount >= 0 ? d.recordCount : '--';
+                }
+            },
+            {
+                field: 'rating',
+                title: '得分'
+            },
+            {
+                title: '操作',
+                toolbar: '#operateBtnTemp'
+            }
         ]]
     });
 
@@ -57,15 +93,11 @@ layui.use(['form', 'table', 'layer'], function () {
             where: {
                 gameId: $('#gameId').val(),
                 gameName: $('#gameName').val(),
-                gameEnName: $('#gameEnName').val(),
-                gameType: $('#gameType').val()
+                gameEnName: $('#gameEnName').val()
             }
         });
     });
     $('#addBtn').on('click', function () {
         showFrame('新增桌游信息', ROOT_CONTEXT + 'game/add');
-    });
-    $('#gameTagBtn').on('click', function () {
-        document.location.href = ROOT_CONTEXT + 'gameTag/list';
     });
 });

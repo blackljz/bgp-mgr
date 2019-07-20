@@ -941,73 +941,73 @@ public class GameInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andSevereIsNull() {
-            addCriterion("severe is null");
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
             return (Criteria) this;
         }
 
-        public Criteria andSevereIsNotNull() {
-            addCriterion("severe is not null");
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSevereEqualTo(String value) {
-            addCriterion("severe =", value, "severe");
+        public Criteria andWeightEqualTo(String value) {
+            addCriterion("weight =", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereNotEqualTo(String value) {
-            addCriterion("severe <>", value, "severe");
+        public Criteria andWeightNotEqualTo(String value) {
+            addCriterion("weight <>", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereGreaterThan(String value) {
-            addCriterion("severe >", value, "severe");
+        public Criteria andWeightGreaterThan(String value) {
+            addCriterion("weight >", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereGreaterThanOrEqualTo(String value) {
-            addCriterion("severe >=", value, "severe");
+        public Criteria andWeightGreaterThanOrEqualTo(String value) {
+            addCriterion("weight >=", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereLessThan(String value) {
-            addCriterion("severe <", value, "severe");
+        public Criteria andWeightLessThan(String value) {
+            addCriterion("weight <", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereLessThanOrEqualTo(String value) {
-            addCriterion("severe <=", value, "severe");
+        public Criteria andWeightLessThanOrEqualTo(String value) {
+            addCriterion("weight <=", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereLike(String value) {
-            addCriterion("severe like", value, "severe");
+        public Criteria andWeightLike(String value) {
+            addCriterion("weight like", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereNotLike(String value) {
-            addCriterion("severe not like", value, "severe");
+        public Criteria andWeightNotLike(String value) {
+            addCriterion("weight not like", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereIn(List<String> values) {
-            addCriterion("severe in", values, "severe");
+        public Criteria andWeightIn(List<String> values) {
+            addCriterion("weight in", values, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereNotIn(List<String> values) {
-            addCriterion("severe not in", values, "severe");
+        public Criteria andWeightNotIn(List<String> values) {
+            addCriterion("weight not in", values, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereBetween(String value1, String value2) {
-            addCriterion("severe between", value1, value2, "severe");
+        public Criteria andWeightBetween(String value1, String value2) {
+            addCriterion("weight between", value1, value2, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andSevereNotBetween(String value1, String value2) {
-            addCriterion("severe not between", value1, value2, "severe");
+        public Criteria andWeightNotBetween(String value1, String value2) {
+            addCriterion("weight not between", value1, value2, "weight");
             return (Criteria) this;
         }
 

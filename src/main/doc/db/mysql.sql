@@ -3,8 +3,8 @@ create table assessInfo
 (
 	id bigint unsigned auto_increment comment '评价Id'
 		primary key,
-	userContentId varchar(50) default '' null comment '发布内容Id',
-	userId varchar(50) default '' null comment '用户Id',
+	userContentId varchar(50) default '' null comment '发布内容Id(圈子Id)',
+	userId varchar(50) default '' null comment '发布人Id',
 	gameId varchar(50) null comment '游戏ID',
 	userName varchar(50) null comment '用户名',
 	replyUserId varchar(50) null comment '被回复人ID',
@@ -15,7 +15,7 @@ create table assessInfo
 	replyUserName varchar(50) default '' null comment '被回复人名字',
 	userContentTime datetime null comment '回复内容时间',
 	type varchar(20) default '' not null comment '回复的类型：1：圈子。2：游戏',
-	replyType varchar(20) default '' null comment '回复类型:1:评价,2:回复',
+	replyType varchar(20) default '' not null comment '回复类型:1:评价,2:回复',
 	messageType varchar(20) default '' null comment '我的---消息通知,消息类型：1:点赞。2:回复.3:关注我了',
 	likeNumber varchar(50) default '' null comment '点赞数量'
 )
@@ -37,9 +37,9 @@ create table doLikeInfo
 	id bigint unsigned auto_increment comment '点赞Id'
 		primary key,
 	userId bigint null comment '用户ID',
-	friendsCircleId bigint not null comment '圈子ID',
-	userContentId bigint null comment '朋友Id',
 	gameId bigint null comment '游戏Id',
+	friendsCircleId bigint null comment '圈子ID',
+	userContentId bigint null comment '朋友Id',
 	type int(20) not null comment '点赞状态：1：点赞，2：取消点赞'
 )
 ;
@@ -80,7 +80,7 @@ create table friendsCircleInfo
 	score varchar(50) default '' null comment '得分',
 	gameWin varchar(50) default '' null comment '游戏胜负,1:胜利.2:失败',
 	gameRating varchar(50) default '' null comment '游戏评分',
-	type varchar(50) default '' not null comment '类型，1:正常，2:战绩,3:评分',
+	type varchar(50) default '' not null comment '类型，1:圈子，2:战绩,3:评分,',
 	created_date datetime not null
 )
 ;
