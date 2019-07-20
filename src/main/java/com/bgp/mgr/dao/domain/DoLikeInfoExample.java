@@ -370,6 +370,66 @@ public class DoLikeInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andGameIdIsNull() {
+            addCriterion("gameId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIsNotNull() {
+            addCriterion("gameId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdEqualTo(Long value) {
+            addCriterion("gameId =", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotEqualTo(Long value) {
+            addCriterion("gameId <>", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdGreaterThan(Long value) {
+            addCriterion("gameId >", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("gameId >=", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLessThan(Long value) {
+            addCriterion("gameId <", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLessThanOrEqualTo(Long value) {
+            addCriterion("gameId <=", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIn(List<Long> values) {
+            addCriterion("gameId in", values, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotIn(List<Long> values) {
+            addCriterion("gameId not in", values, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdBetween(Long value1, Long value2) {
+            addCriterion("gameId between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotBetween(Long value1, Long value2) {
+            addCriterion("gameId not between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
         public Criteria andFriendsCircleIdIsNull() {
             addCriterion("friendsCircleId is null");
             return (Criteria) this;
@@ -487,66 +547,6 @@ public class DoLikeInfoExample {
 
         public Criteria andUserContentIdNotBetween(Long value1, Long value2) {
             addCriterion("userContentId not between", value1, value2, "userContentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdIsNull() {
-            addCriterion("gameId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdIsNotNull() {
-            addCriterion("gameId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdEqualTo(Long value) {
-            addCriterion("gameId =", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotEqualTo(Long value) {
-            addCriterion("gameId <>", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdGreaterThan(Long value) {
-            addCriterion("gameId >", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("gameId >=", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdLessThan(Long value) {
-            addCriterion("gameId <", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdLessThanOrEqualTo(Long value) {
-            addCriterion("gameId <=", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdIn(List<Long> values) {
-            addCriterion("gameId in", values, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotIn(List<Long> values) {
-            addCriterion("gameId not in", values, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdBetween(Long value1, Long value2) {
-            addCriterion("gameId between", value1, value2, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotBetween(Long value1, Long value2) {
-            addCriterion("gameId not between", value1, value2, "gameId");
             return (Criteria) this;
         }
 
