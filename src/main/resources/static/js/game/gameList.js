@@ -30,10 +30,6 @@ layui.use(['form', 'table', 'layer'], function () {
                 title: '英文名称'
             },
             {
-                field: 'type',
-                title: '桌游类型'
-            },
-            {
                 field: 'commentCount',
                 title: '评价数量',
                 templet: function (d) {

@@ -132,10 +132,11 @@ public class GameInfoController {
     public String saveGameInfo(@RequestParam("editType") String editType, @RequestParam("gameInfo") String gameInfoJson) {
         try {
             String pin = LoginUtils.getPin();
+            GameInfoVo gameInfoVo = JSON.parseObject(gameInfoJson, GameInfoVo.class);
             if (CommonConstant.EDITTYPE_NEW.equals(editType)) {
-                gameInfoService.addGameInfo(pin, JSON.parseObject(gameInfoJson, GameInfo.class));
+                gameInfoService.addGameInfo(pin, gameInfoVo);
             } else {
-                gameInfoService.updateGameInfo(pin, JSON.parseObject(gameInfoJson, GameInfo.class));
+                gameInfoService.updateGameInfo(pin, gameInfoVo);
             }
         } catch (Exception e) {
             logger.error("保存桌游信息异常！", e);
