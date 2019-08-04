@@ -73,8 +73,9 @@ layui.use(['form', 'table', 'layer'], function () {
 
     //弹出frame
     function showFrame(title, url) {
-        if (!url)
+        if (!url) {
             return false;
+        }
         layer.open({
             type: 2,
             title: title ? title : '信息',

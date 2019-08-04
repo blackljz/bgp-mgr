@@ -1,9 +1,8 @@
-layui.use(['form', 'layer', 'upload', 'laytpl'], function () {
+layui.use(['form', 'layer', 'upload'], function () {
     var $ = layui.jquery,
         form = layui.form,
         layer = layui.layer,
-        upload = layui.upload,
-        laytpl = layui.laytpl;
+        upload = layui.upload;
 
     //根据编辑类型初始化页面
     init($('#editType').val());
