@@ -227,9 +227,9 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">
                             设计师：
-                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="designer"></i>
+                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="designers"></i>
                         </label>
-                        <div class="layui-input-block" id="designerDiv">
+                        <div class="layui-input-block" id="designersDiv">
                             <div class="layui-input-inline">
                                 <input type="text" name="designers" lay-verify="required" autocomplete="off"
                                        class="layui-input"/>
@@ -241,9 +241,9 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">
                             美术：
-                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="artist"></i>
+                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="artists"></i>
                         </label>
-                        <div class="layui-input-block" id="artistDiv">
+                        <div class="layui-input-block" id="artistsDiv">
                             <div class="layui-input-inline">
                                 <input type="text" name="artists" lay-verify="required" autocomplete="off"
                                        class="layui-input"/>
@@ -253,9 +253,11 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">出版商：</label>
-                        <button type="button" class="layui-btn layui-btn-xs add-tpl" data-tpl="publisher">增加</button>
-                        <div class="layui-input-block" id="publisherDiv">
+                        <label class="layui-form-label">
+                            出版商：
+                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="publishers"></i>
+                        </label>
+                        <div class="layui-input-block" id="publishersDiv">
                             <div class="layui-input-inline">
                                 <input type="text" name="publishers" lay-verify="required" autocomplete="off"
                                        class="layui-input"/>
@@ -298,50 +300,48 @@
                     <div class="layui-input-block">
                         <label class="layui-form-label" style="width: auto;">高</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                            <input type="text" name="" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                         <label class="layui-form-label" style="width: auto;">宽</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                            <input type="text" name="" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                         <label class="layui-form-label" style="width: auto;">数量</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="" id="" lay-verify="" autocomplete="off"
+                            <input type="text" name="" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">类别：</label>
-                        <button type="button" class="layui-btn add-tpl" data-tpl="category">增加</button>
-                        <div class="layui-input-block" id="categoryDiv">
-                            <input type="text" name="category" lay-verify="" autocomplete="off"
-                                   class="layui-input"/>
+                        <label class="layui-form-label">
+                            类别：
+                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="categories"></i>
+                        </label>
+                        <div class="layui-input-block" id="categoriesDiv">
+                            <div class="layui-input-inline">
+                                <input type="text" name="categories" lay-verify="required" autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
                         </div>
-                        <!--<div class="layui-input-inline">-->
-                            <!--<input type="text" name="category" lay-verify="" autocomplete="off"-->
-                                   <!--class="layui-input"/>-->
-                        <!--</div>-->
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">机制：</label>
-                    <button type="button" class="layui-btn add-tpl" data-tpl="mechanism">增加</button>
-                    <div class="layui-input-block" id="mechanismDiv">
-                        <!--<script id="tpl_relatedGameId" type="text/html">-->
-                        <!--<div class="layui-input-inline">-->
-                        <!--<input type="text" name="relatedGameId" lay-verify="" autocomplete="off" class="layui-input" value="{{d.value}}"/>-->
-                        <!--</div>-->
-                        <!--</script>-->
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            机制：
+                            <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="mechanisms"></i>
+                        </label>
+                        <div class="layui-input-block" id="mechanismsDiv">
+                            <div class="layui-input-inline">
+                                <input type="text" name="mechanisms" lay-verify="required" autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                        </div>
                     </div>
-                    <!--<label class="layui-form-label">机制：</label>-->
-                    <!--<div class="layui-input-block">-->
-                        <!--<input type="text" name="mechanism" lay-verify="" autocomplete="off"-->
-                               <!--class="layui-input"/>-->
-                    <!--</div>-->
                 </div>
 
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
@@ -363,19 +363,18 @@
 
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
 
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">关联游戏：</label>
-                        <button type="button" class="layui-btn add-tpl" data-tpl="relatedGameId">增加</button>
-                        <div class="layui-input-block" id="div_relatedGameId">
-                            <!--<script id="tpl_relatedGameId" type="text/html">-->
-                                <!--<div class="layui-input-inline">-->
-                                    <!--<input type="text" name="relatedGameId" lay-verify="" autocomplete="off" class="layui-input" value="{{d.value}}"/>-->
-                                <!--</div>-->
-                            <!--</script>-->
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="layui-form-item">-->
+                    <!--<div class="layui-inline">-->
+                        <!--<label class="layui-form-label">-->
+                            <!--关联游戏：-->
+                            <!--<i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="relatedGameId"></i>-->
+                        <!--</label>-->
+                        <!--<div class="layui-input-block" id="relatedGameIdDiv">-->
+                            <!--<input type="text" name="relatedGameId" lay-verify="" autocomplete="off"-->
+                                   <!--class="layui-input"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="layui-form-item">
                     <div class="layui-btn-container" style="text-align: right">

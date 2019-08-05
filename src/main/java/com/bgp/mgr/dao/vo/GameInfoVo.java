@@ -83,11 +83,11 @@ public class GameInfoVo extends GameInfo {
         return this.getMechanism() != null ? this.getMechanism().split(",") : null;
     }
 
-    public void setCategorys(String[] categorys) {
-        this.setCategory(StringUtils.join(categorys, ","));
+    public void setCategories(String[] categories) {
+        this.setCategory(StringUtils.join(categories, ","));
     }
 
-    public String[] getCategorys() {
+    public String[] getCategories() {
         return this.getCategory() != null ? this.getCategory().split(",") : null;
     }
 }

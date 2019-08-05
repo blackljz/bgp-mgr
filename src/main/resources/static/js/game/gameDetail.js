@@ -4,58 +4,62 @@ layui.use(['form', 'layer', 'upload'], function () {
         layer = layui.layer,
         upload = layui.upload;
 
-    //根据编辑类型初始化页面
-    init($('#editType').val());
-
-    //监听提交
-    form.on('submit(save)', function (data) {
-        saveData(data.form);
-        return false;
-    });
-    //监听关闭
-    form.on('submit(cancel)', function () {
-        close();
-        return false;
-    });
-
-    $('form').on('click', '.add-tpl', function () {
-        var tplName = $(this).data('tpl');
-        var defaultData = {
-            value: ''
-        };
-        addTemplate[tplName] ? addTemplate[tplName].call(this, defaultData) : '';
-    }).on('click', '.del-tpl', function () {
-        $(this).parent('.tpl-item').remove();
-    });
-
     /**
-     * 初始化页面
+     * 动态增加输入框
      */
-    function init(editType) {
-        switch (editType) {
-            case 'new':
-                break;
-            case 'edit':
-                initData();
-                break;
-            case 'view':
-                initData();
-                break;
-            default:
-                break;
+    var addTemplate = {
+        // 设计师
+        'designers': function (data) {
+            var html = '<div class="layui-input-inline tpl-item">' +
+                '<input type="text" name="designers" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '</div>';
+            $('#designersDiv').append(html);
+        },
+        // 美术
+        'artists': function (data) {
+            var html = '<div class="layui-input-inline tpl-item">' +
+                '<input type="text" name="artists" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '</div>';
+            $('#artistsDiv').append(html);
+        },
+        // 出版商
+        'publishers': function (data) {
+            var html = '<div class="layui-input-inline tpl-item">' +
+                '<input type="text" name="publishers" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '</div>';
+            $('#publishersDiv').append(html);
+        },
+        // 类别
+        'categories': function (data) {
+            var html = '<div class="layui-input-inline tpl-item">' +
+                '<input type="text" name="categories" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '</div>';
+            $('#categoriesDiv').append(html);
+        },
+        // 机制
+        'mechanisms': function (data) {
+            var html = '<div class="layui-input-inline tpl-item">' +
+                '<input type="text" name="mechanisms" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '</div>';
+            $('#mechanismsDiv').append(html);
         }
-    }
+    };
 
     /**
      * 初始化桌游数据
      */
-    function initData() {
+    var initData = function (gameId) {
         $.ajax({
             'type': 'post',
             'url': ROOT_CONTEXT + 'game/getDetails',
             'async': true,
             'data': {
-                id: $('#id').val()
+                id: gameId
             },
             'dataType': 'json',
             'success': function (result) {
@@ -66,8 +70,6 @@ layui.use(['form', 'layer', 'upload'], function () {
                         "gameName": data.gameName,
                         "gameEnName": data.gameEnName,
                         "status": data.status,
-                        "type": data.type,
-                        "label": data.label,
                         "isEntity": data.isEntity,
                         "isDlc": data.isDlc,
                         "weight": data.weight,
@@ -80,19 +82,23 @@ layui.use(['form', 'layer', 'upload'], function () {
                         'language': data.language,
                         "age": data.age,
                         "hasChinese": data.hasChinese,
-                        'designer': data.designer,
-                        'artist': data.artist,
-                        'publisher': data.publisher,
                         "rating": data.rating,
                         "bggRank": data.bggRank,
                         "bggScore": data.bggScore,
                         "bggLink": data.bggLink,
-                        "category": data.category,
-                        "mechanism": data.mechanism,
                         "gameIntroduction": data.gameIntroduction,
                         'gameEnIntroduction': data.gameIntroduction
                     });
+                    fillArrayField(data.types, 'types', 'checkbox');
+                    fillArrayField(data.labels, 'labels', 'checkbox');
+                    fillArrayField(data.designers, 'designers');
+                    fillArrayField(data.artists, 'artists');
+                    fillArrayField(data.publishers, 'publishers');
+                    fillArrayField(data.mechanisms, 'mechanisms');
+                    fillArrayField(data.categories, 'categories');
                     // TODO
+                    // 更新渲染
+                    form.render();
                 } else {
                     layer.alert(result.message);
                 }
@@ -101,7 +107,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                 layer.alert('操作异常！');
             }
         });
-    }
+    };
 
     /**
      * 保存桌游数据
@@ -119,7 +125,9 @@ layui.use(['form', 'layer', 'upload'], function () {
             'success': function (result) {
                 if (result.code === 0) {
                     layer.alert('保存成功！', function () {
-                        close();
+                        // 当你在frame页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
                     })
                 } else {
                     layer.alert(result.message);
@@ -132,65 +140,75 @@ layui.use(['form', 'layer', 'upload'], function () {
     }
 
     /**
-     * 关闭页面
+     * 填充数组字段
+     * @param fieldName
+     * @param data
      */
-    function close() {
-        //当你在frame页面关闭自身时
-        var index = parent.layer.getFrameIndex(window.name);
-        parent.layer.close(index);
+    function fillArrayField(data, fieldName, fieldType) {
+        if (!data) {
+            return;
+        } else if (!data instanceof Array) {
+            data = data.split(',');
+        }
+        if (!fieldType) {
+            fieldType = 'input';
+        }
+        for (var i = 0; i < data.length; i++) {
+            if (fieldType === 'radio' || fieldType === 'checkbox') {
+                $('form').find('*[name=' + fieldName + '][value=' + data[i] + ']').prop('checked', true);
+            } else {
+                var field = $('form').find('*[name=' + fieldName + ']:eq(' + i + ')');
+                if (field.length > 0) {
+                    field.val(data[i]);
+                } else {
+                    var value = {
+                        value: data[i]
+                    };
+                    addTemplate[fieldName] ? addTemplate[fieldName].call(this, value) : '';
+                }
+            }
+        }
     }
 
-    /**
-     * 动态增加输入框
-     */
-    var addTemplate = {
-        // 设计师
-        'designer': function(data) {
-            var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="designers" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
-                '</div>';
-            $('#designerDiv').append(html);
-        },
-        // 美术
-        'artist': function(data) {
-            var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="artists" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
-                '</div>';
-            $('#artistDiv').append(html);
-        },
-        // 出版商
-        'publisher': function(data) {
-            var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="publishers" lay-verify="" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<button type="button" class="ayui-btn del-self">&times;</button>' +
-                '</div>';
-            $('#publisherDiv').append(html);
-        },
-        // 类别
-        'category': function(data) {
-            var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="categorys" lay-verify="" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<button type="button" class="ayui-btn del-self">&times;</button>' +
-                '</div>';
-            $('#categoryDiv').append(html);
-        },
-        // 机制
-        'mechanism': function(data) {
-            var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="mechanisms" lay-verify="" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<button type="button" class="ayui-btn del-self">&times;</button>' +
-                '</div>';
-            $('#mechanismDiv').append(html);
-        }
-        // 'relatedGameId' : function (data) {
-        //     var html = '<div class="layui-input-inline">' +
-        //         '<input type="text" name="relatedGameId" lay-verify="" autocomplete="off" class="layui-input" value="' + data.value + '"/>' +
-        //         '</div>';
-        //     $('#div_relatedGameId').append(html);
-        // }
-    };
+    // 根据编辑类型初始化页面
+    var gameId = $('#id').val();
+    var editType = $('#editType').val();
+    switch (editType) {
+        case 'new':
+            break;
+        case 'edit':
+            initData(gameId);
+            break;
+        case 'view':
+            initData(gameId);
+            break;
+        default:
+            break;
+    }
+
+    // 监听提交
+    form.on('submit(save)', function (data) {
+        saveData(data.form);
+        return false;
+    });
+    // 监听关闭
+    form.on('submit(cancel)', function () {
+        // 当你在frame页面关闭自身时
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+        return false;
+    });
+    // 监听事件
+    $('form').on('click', '.add-tpl', function () {
+        var tplName = $(this).data('tpl');
+        var defaultValue = {
+            value: ''
+        };
+        addTemplate[tplName] ? addTemplate[tplName].call(this, defaultValue) : '';
+    }).on('click', '.del-tpl', function () {
+        $(this).parent('.tpl-item').remove();
+    });
+
 
     /**
      * 表单序列化
@@ -210,4 +228,5 @@ layui.use(['form', 'layer', 'upload'], function () {
         });
         return o;
     };
+
 });
