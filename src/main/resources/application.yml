@@ -22,3 +22,6 @@ spring:
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
   type-aliases-package: com.bgp.mgr.dao.domain
+
+# config
+storage-dir: /export/temp/
