@@ -1,9 +1,10 @@
--- we don't know how to generate schema bgp (class Schema) :(
+create schema bgp collate utf8_general_ci;
+
 create table assessInfo
 (
 	id bigint unsigned auto_increment comment '评价Id'
 		primary key,
-	userContentId varchar(50) default '' null comment '发布内容Id(圈子Id)',
+	userContentId varchar(50) default '' null comment '发布内容Id(圈子Id,评价Id)',
 	userId varchar(50) default '' null comment '发布人Id',
 	gameId varchar(50) null comment '游戏ID',
 	userName varchar(50) null comment '用户名',
@@ -18,8 +19,7 @@ create table assessInfo
 	replyType varchar(20) default '' not null comment '回复类型:1:评价,2:回复',
 	messageType varchar(20) default '' null comment '我的---消息通知,消息类型：1:点赞。2:回复.3:关注我了',
 	likeNumber varchar(50) default '' null comment '点赞数量'
-)
-;
+);
 
 create table attentionInfo
 (
@@ -29,8 +29,7 @@ create table attentionInfo
 	friendId bigint not null comment '关注朋友Id',
 	friendType varchar(20) not null comment '类型：1：好友。2：关注',
 	type varchar(20) null comment '关注状态：1已关注，2：互相关注'
-)
-;
+);
 
 create table doLikeInfo
 (
@@ -41,8 +40,7 @@ create table doLikeInfo
 	friendsCircleId bigint null comment '圈子ID',
 	userContentId bigint null comment '朋友Id',
 	type int(20) not null comment '点赞状态：1：点赞，2：取消点赞'
-)
-;
+);
 
 create table ex_record
 (
@@ -54,8 +52,21 @@ create table ex_record
 	score varchar(20) null comment '得分',
 	gameWin int(20) null comment '胜负,1:胜利，2：失败',
 	created_date datetime null
-)
-;
+);
+
+create table fileInfo
+(
+	id bigint auto_increment comment '文件ID'
+		primary key,
+	userId bigint null comment '用户ID',
+	friendsCircleId bigint null comment '圈子Id',
+	gameId bigint null comment '游戏ID',
+	recordId bigint null comment '战绩Id',
+	fileName varchar(200) null comment '文件名',
+	fileAddress varchar(500) null comment '文件地址',
+	type varchar(20) not null comment '图片类型1:圈子,2:游戏',
+	fileType varchar(20) not null comment '文件类型：1,图片,2:视频,3:pdf'
+);
 
 create table friend
 (
@@ -65,8 +76,7 @@ create table friend
 	friendId bigint not null comment '朋友Id',
 	type varchar(20) not null comment '好友状态：1：好友，2：关注，3：粉丝',
 	modified_date datetime not null
-)
-;
+);
 
 create table friendsCircleInfo
 (
@@ -82,8 +92,7 @@ create table friendsCircleInfo
 	gameRating varchar(50) default '' null comment '游戏评分',
 	type varchar(50) default '' not null comment '类型，1:圈子，2:战绩,3:评分,',
 	created_date datetime not null
-)
-;
+);
 
 create table gameInfo
 (
@@ -98,19 +107,19 @@ create table gameInfo
 	gameEnIntroduction varchar(200) null comment '游戏英文简介',
 	category varchar(100) null comment '游戏类别',
 	mechanism varchar(100) null comment '游戏机制',
-	severe varchar(20) null comment '游戏重度',
+	weight varchar(20) null comment '游戏重度',
 	duration varchar(20) null comment '游戏时长',
 	age varchar(20) null comment '建议年龄',
-	playerNumMin int default '0' null comment '最少游戏人数',
-	playerNumMax int default '0' null comment '最多游戏人数',
-	playerNumSuggested int default '0' null comment '建议游戏人数',
+	playerNumMin int default 0 null comment '最少游戏人数',
+	playerNumMax int default 0 null comment '最多游戏人数',
+	playerNumSuggested int default 0 null comment '建议游戏人数',
 	isEntity int null comment '实体或电子：1实体；2电子；',
 	isDlc int null comment '是否扩展：1本体；2扩展；',
 	designer varchar(50) null comment '设计师',
 	artist varchar(50) null comment '美工',
 	publisher varchar(50) null comment '出版商',
 	publishYear varchar(20) null comment '出版年份',
-	hasChinese int default '1' null comment '是否有中文版',
+	hasChinese int default 1 null comment '是否有中文版',
 	chinesePublisher varchar(50) null comment '中文出版商',
 	language varchar(20) null comment '原始语言',
 	languageDependence varchar(20) null comment '语言依赖',
@@ -118,27 +127,14 @@ create table gameInfo
 	bggRank varchar(20) null comment 'BGG排名',
 	bggScore varchar(20) null comment 'BGG评分',
 	bggLink varchar(50) null comment 'BGG链接',
-	status int default '-1' not null comment '状态：1启用；0制作中；-1停用；',
+	status int default -1 not null comment '状态：1启用；0制作中；-1停用；',
 	createdBy varchar(20) not null comment '创建人',
 	createdDate datetime default CURRENT_TIMESTAMP not null comment '创建时间',
 	modifiedBy varchar(20) not null comment '修改人',
 	modifiedDate datetime default CURRENT_TIMESTAMP not null comment '修改时间',
 	relatedGameId varchar(100) null comment '相关游戏ID'
 )
-comment '游戏信息表'
-;
-
-create table imageInfo
-(
-	id bigint auto_increment comment '图片ID'
-		primary key,
-	userId bigint null comment '用户ID',
-	friendsCircleId bigint null comment '圈子Id',
-	gameId bigint null comment '游戏ID',
-	image varchar(500) not null,
-	type varchar(20) not null comment '图片类型1:圈子,2:游戏'
-)
-;
+comment '游戏信息表';
 
 create table messageInfo
 (
@@ -149,10 +145,9 @@ create table messageInfo
 	type varchar(20) not null comment '消息状态:1:点赞、2:回复、3:关注我了',
 	status varchar(20) not null comment '状态,1:未查看，2:已查看',
 	content varchar(250) null comment '内容',
-	createDate datetime null,
-	modifiedDate datetime null
-)
-;
+	createDate datetime null comment '创建时间',
+	modifiedDate datetime null comment '修改时间'
+);
 
 create table recordInfo
 (
@@ -170,9 +165,8 @@ create table recordInfo
 	type varchar(20) null comment '类型，1:正常,2:战绩,3:评分',
 	gameWin varchar(20) null comment '游戏胜负,1：胜利，2：失败',
 	gameType varchar(20) null comment '游戏类型.1：得分数。有排名，2：只有胜利、失败',
-	created_date datetime not null
-)
-;
+	createdDate datetime not null
+);
 
 create table sys_user
 (
@@ -183,8 +177,7 @@ create table sys_user
 	constraint sys_user_pin_uindex
 		unique (pin)
 )
-comment '管理端用户表'
-;
+comment '管理端用户表';
 
 create table userInfo
 (
@@ -195,10 +188,10 @@ create table userInfo
 	age varchar(20) null comment '年龄',
 	area varchar(100) null comment '地区',
 	sign varchar(200) null comment '签名',
-	modified_id varchar(20) null,
-	modified_date datetime null
-)
-;
+	modifiedId varchar(20) null comment '修改人',
+	modifiedDate datetime null comment '修改时间',
+	createDate datetime null comment '创建时间'
+);
 
 create table userWish
 (
@@ -207,6 +200,5 @@ create table userWish
 	userId bigint not null comment '用户Id',
 	gameId bigint not null comment '游戏ID',
 	type varchar(20) not null comment '1：加入心愿，2：取消心愿，3：添加桌游，4：取消添加桌游'
-)
-;
+);
 

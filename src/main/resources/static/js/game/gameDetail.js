@@ -186,6 +186,44 @@ layui.use(['form', 'layer', 'upload'], function () {
             break;
     }
 
+    //多图片上传
+    // upload.render({
+    //     elem: '#test2'
+    //     , url: '/upload/'
+    //     , multiple: true
+    //     , before: function (obj) {
+    //         //预读本地文件示例，不支持ie8
+    //         obj.preview(function (index, file, result) {
+    //             $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+    //         });
+    //     }
+    //     , done: function (res) {
+    //         //上传完毕
+    //     }
+    // });
+    upload.render({
+        elem: '.btn-upload',
+        url: ROOT_CONTEXT + 'file/upload',
+        data: {
+            type: this.type
+        },
+        accept: 'images',
+        choose: function (obj) {
+            console.log("choose");
+        },
+        before: function (obj) {
+            // layer.tips('接口地址：' + this.url, this.item, {tips: 1});
+            layer.tips('before');
+        },
+        done: function (res, index, upload) {
+            var item = this.item;
+            console.log(item); //获取当前触发上传的元素，layui 2.1.0 新增
+        },
+        error: function (index, upload) {
+
+        }
+    });
+
     // 监听提交
     form.on('submit(save)', function (data) {
         saveData(data.form);

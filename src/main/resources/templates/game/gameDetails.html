@@ -117,15 +117,45 @@
 
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
 
-                <!--<div class="layui-form-item">-->
-                <!--<div class="layui-upload">-->
-                <!--<button type="button" class="layui-btn" id="uploadBtn">图片上传</button>-->
-                <!--<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">-->
-                <!--预览图：-->
-                <!--<div class="layui-upload-list" id="gameImages"></div>-->
-                <!--</blockquote>-->
-                <!--</div>-->
-                <!--</div>-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn btn-upload">上传ICON图</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="imgIcon">
+                                <p class="upload-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn btn-upload">上传详情图</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="imgDetails">
+                                <p class="upload-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn btn-upload">上传游戏墙</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="imgWall">
+                                <p class="upload-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="uploadBtn">图片上传</button>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览图：
+                            <div class="layui-upload-list" id="gameImages"></div>
+                        </blockquote>
+                    </div>
+                </div>
 
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
 
@@ -364,22 +394,23 @@
                 <fieldset class="layui-elem-field layui-field-title"></fieldset>
 
                 <!--<div class="layui-form-item">-->
-                    <!--<div class="layui-inline">-->
-                        <!--<label class="layui-form-label">-->
-                            <!--关联游戏：-->
-                            <!--<i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="relatedGameId"></i>-->
-                        <!--</label>-->
-                        <!--<div class="layui-input-block" id="relatedGameIdDiv">-->
-                            <!--<input type="text" name="relatedGameId" lay-verify="" autocomplete="off"-->
-                                   <!--class="layui-input"/>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--<div class="layui-inline">-->
+                <!--<label class="layui-form-label">-->
+                <!--关联游戏：-->
+                <!--<i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="relatedGameId"></i>-->
+                <!--</label>-->
+                <!--<div class="layui-input-block" id="relatedGameIdDiv">-->
+                <!--<input type="text" name="relatedGameId" lay-verify="" autocomplete="off"-->
+                <!--class="layui-input"/>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
 
                 <div class="layui-form-item">
                     <div class="layui-btn-container" style="text-align: right">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save">保存</button>
-                        <button type="button" class="layui-btn layui-btn-primary" lay-submit="" lay-filter="cancel">取消</button>
+                        <button type="button" class="layui-btn layui-btn-primary" lay-submit="" lay-filter="cancel">取消
+                        </button>
                     </div>
                 </div>
             </form>
