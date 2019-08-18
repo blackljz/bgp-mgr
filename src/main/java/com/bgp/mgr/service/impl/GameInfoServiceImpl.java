@@ -1,6 +1,10 @@
 package com.bgp.mgr.service.impl;
 
+import com.bgp.mgr.common.exception.BgpException;
+import com.bgp.mgr.dao.FileInfoMapper;
 import com.bgp.mgr.dao.GameInfoMapper;
+import com.bgp.mgr.dao.domain.FileInfo;
+import com.bgp.mgr.dao.domain.FileInfoExample;
 import com.bgp.mgr.dao.domain.GameInfo;
 import com.bgp.mgr.dao.domain.GameInfoExample;
 import com.bgp.mgr.dao.vo.GameInfoVo;
@@ -10,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -22,6 +27,9 @@ public class GameInfoServiceImpl implements GameInfoService {
 
     @Resource
     private GameInfoMapper gameInfoMapper;
+
+    @Resource
+    private FileInfoMapper fileInfoMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -39,7 +47,6 @@ public class GameInfoServiceImpl implements GameInfoService {
         if (params.get("gameEnName") != null) {
             criteria.andGameNameLike("%" + params.get("gameEnName") + "%");
         }
-
         int count = gameInfoMapper.countByExample(example);
 
         example.setLimitSize((pageNo - 1) * pageSize);
@@ -71,6 +78,11 @@ public class GameInfoServiceImpl implements GameInfoService {
         GameInfoVo gameInfoVo = new GameInfoVo();
         if (gameInfo != null) {
             BeanUtils.copyProperties(gameInfo, gameInfoVo);
+            // 组织附件信息
+            FileInfoExample example = new FileInfoExample();
+            example.createCriteria().andGameIdEqualTo(id);
+            List<FileInfo> fileInfos = fileInfoMapper.selectByExample(example);
+            gameInfoVo.setFileInfos(fileInfos);
         } else {
             gameInfoVo = null;
         }
@@ -79,18 +91,49 @@ public class GameInfoServiceImpl implements GameInfoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void addGameInfo(String pin, GameInfo gameInfo) {
-        gameInfo.setCreatedBy(pin);
-        gameInfo.setCreatedDate(new Date());
-        gameInfo.setModifiedBy(pin);
-        gameInfo.setModifiedDate(new Date());
-        gameInfoMapper.insertSelective(gameInfo);
+    public void addGameInfo(String pin, GameInfoVo gameInfoVo) {
+        if (gameInfoVo == null) {
+            throw new BgpException("游戏信息为空！");
+        }
+
+        // 保存游戏信息
+        gameInfoVo.setCreatedBy(pin);
+        gameInfoVo.setCreatedDate(new Date());
+        gameInfoVo.setModifiedBy(pin);
+        gameInfoVo.setModifiedDate(new Date());
+        gameInfoMapper.insertSelective(gameInfoVo);
+
+        // 保存附件信息
+        List<FileInfo> fileInfos = gameInfoVo.getFileInfos();
+        if (!CollectionUtils.isEmpty(fileInfos)) {
+            for (FileInfo fileInfo : fileInfos) {
+                fileInfo.setGameId(gameInfoVo.getId());
+                fileInfoMapper.insertSelective(fileInfo);
+            }
+        }
     }
 
     @Override
-    public void updateGameInfo(String pin, GameInfo gameInfo) {
-        gameInfo.setModifiedBy(pin);
-        gameInfo.setModifiedDate(new Date());
-        gameInfoMapper.updateByPrimaryKeySelective(gameInfo);
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateGameInfo(String pin, GameInfoVo gameInfoVo) {
+        if (gameInfoVo == null || gameInfoVo.getId() == null) {
+            throw new BgpException("游戏信息为空！");
+        }
+
+        // 更新游戏信息
+        gameInfoVo.setModifiedBy(pin);
+        gameInfoVo.setModifiedDate(new Date());
+        gameInfoMapper.updateByPrimaryKeySelective(gameInfoVo);
+
+        // 更新附件信息（先删后插）
+        FileInfoExample example = new FileInfoExample();
+        example.createCriteria().andGameIdEqualTo(gameInfoVo.getId());
+        fileInfoMapper.deleteByExample(example);
+        List<FileInfo> fileInfos = gameInfoVo.getFileInfos();
+        if (!CollectionUtils.isEmpty(fileInfos)) {
+            for (FileInfo fileInfo : fileInfos) {
+                fileInfoMapper.insertSelective(fileInfo);
+            }
+        }
     }
 }

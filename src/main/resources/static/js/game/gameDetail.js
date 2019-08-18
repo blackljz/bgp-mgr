@@ -112,14 +112,14 @@ layui.use(['form', 'layer', 'upload'], function () {
     /**
      * 保存桌游数据
      */
-    function saveData(form) {
+    function saveData(gameInfoVo) {
         $.ajax({
             'type': 'post',
             'url': ROOT_CONTEXT + 'game/save',
             'async': true,
             'data': {
                 editType: $('#editType').val(),
-                gameInfo: JSON.stringify($(form).serializeObject())
+                gameInfo: JSON.stringify(gameInfoVo)
             },
             'dataType': 'json',
             'success': function (result) {
@@ -137,6 +137,26 @@ layui.use(['form', 'layer', 'upload'], function () {
                 layer.alert('操作异常！');
             }
         });
+    }
+
+    /**
+     * 组织表单对象
+     * @param form
+     * @returns {string}
+     */
+    function buildGameInfoVo(form) {
+        var gameInfoVo = $(form).serializeObject();
+        // 组织附件
+        gameInfoVo.fileInfos = [];
+        $(form).find('input[name=fileKey]').each(function () {
+            var fileInfo = {};
+            fileInfo.fileName = $(this).data('fileName');
+            fileInfo.fileAddress = $(this).val();
+            fileInfo.type = $(this).data('type');
+            fileInfo.fileType = $(this).data('fileType');
+            gameInfoVo.fileInfos.push(fileInfo);
+        });
+        return JSON.stringify(gameInfoVo);
     }
 
     /**
@@ -201,32 +221,71 @@ layui.use(['form', 'layer', 'upload'], function () {
     //         //上传完毕
     //     }
     // });
-    upload.render({
-        elem: '.btn-upload',
+
+    // 图片上传按钮
+    var imageUploader = upload.render({
+        elem: '.upload-btn',
         url: ROOT_CONTEXT + 'file/upload',
         data: {
             type: this.type
         },
         accept: 'images',
+        acceptMime: 'image/png',
+        multiple: false,
         choose: function (obj) {
-            console.log("choose");
+            var listId = this.listId;
+            var maxSize = this.maxSize;
+            if (maxSize > 1 && $(listId).find('.upload-item').length >= maxSize) {
+                layer.alert('最多上传' + maxSize + '个附件！');
+                return false;
+            }
         },
         before: function (obj) {
-            // layer.tips('接口地址：' + this.url, this.item, {tips: 1});
-            layer.tips('before');
+            var type = this.type;// 类型
+            var listId = this.listId;// 上传结果列表ID
+            var maxSize = this.maxSize;// 最大数量
+            obj.preview(function (index, file, result) {
+                var item;
+                if (maxSize === 1) {
+                    item = $(listId).find('.upload-item:last');
+                } else {
+                    item = '<div class="upload-item">' +
+                        '<img class="upload-img">' +
+                        '<p>' +
+                        '<span class="upload-info">请上传</span>' +
+                        '<input type="hidden" name="fileKey" value="">' +
+                        '<a href="javascript:;" class="upload-del" style="display: none;">删除</a>' +
+                        '</p>' +
+                        '</div>';
+                    $(listId).append(item);
+                }
+                $(item).find('.upload-img').attr('src', result);
+                $(item).find('.upload-info').text('上传中..');
+                $(item).find('input[name=fileKey]').data('', file.name).data('type', type).data('fileType', '1');
+            });
         },
         done: function (res, index, upload) {
-            var item = this.item;
-            console.log(item); //获取当前触发上传的元素，layui 2.1.0 新增
+            var listId = this.listId;// 上传结果列表ID
+            if (res && res.code === 0) {
+                var item = $(listId).find('.upload-item:last');
+                $(item).find('.upload-info').text('上传成功');
+                $(item).find('.fileKey').val(res.data[0]);
+            } else {
+                $(listId).find('.upload-info:last').text('上传失败').css('color', 'red');
+            }
+            $(listId).find('.upload-del:last').show();
         },
         error: function (index, upload) {
-
+            var listId = this.listId;// 上传结果列表ID
+            $(listId).find('.upload-info:last').text('上传异常').css('color', 'red');
+            $(listId).find('.upload-del:last').show();
         }
     });
 
     // 监听提交
     form.on('submit(save)', function (data) {
-        saveData(data.form);
+        var vo = buildGameInfoVo(data.form);
+        saveData(vo);
         return false;
     });
     // 监听关闭
@@ -239,14 +298,22 @@ layui.use(['form', 'layer', 'upload'], function () {
     // 监听事件
     $('form').on('click', '.add-tpl', function () {
         var tplName = $(this).data('tpl');
-        var defaultValue = {
-            value: ''
-        };
-        addTemplate[tplName] ? addTemplate[tplName].call(this, defaultValue) : '';
+        addTemplate[tplName] ? addTemplate[tplName].call(this, {value: ''}) : '';
     }).on('click', '.del-tpl', function () {
         $(this).parent('.tpl-item').remove();
+    }).on('click', '.upload-del', function () {
+        var list = $(this).parents('.layui-upload-list');
+        $(this).parents('.upload-item').remove();
+        if ($(list).find('.upload-item').length === 0) {
+            $(list).append('<div class="upload-item">' +
+                '<img class="upload-img">' +
+                '<p>' +
+                '<span class="upload-info">请上传</span>' +
+                '<a href="javascript:;" class="upload-del" style="display: none;">删除</a>' +
+                '</p>' +
+                '</div>');
+        }
     });
-
 
     /**
      * 表单序列化

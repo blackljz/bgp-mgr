@@ -1,7 +1,11 @@
 package com.bgp.mgr.dao.vo;
 
+import com.bgp.mgr.dao.domain.FileInfo;
 import com.bgp.mgr.dao.domain.GameInfo;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameInfoVo extends GameInfo {
 
@@ -10,6 +14,8 @@ public class GameInfoVo extends GameInfo {
     private int ownerCount;
 
     private int recordCount;
+
+    private List<FileInfo> fileInfos = new ArrayList<>();
 
     public int getCommentCount() {
         return commentCount;
@@ -89,5 +95,13 @@ public class GameInfoVo extends GameInfo {
 
     public String[] getCategories() {
         return this.getCategory() != null ? this.getCategory().split(",") : null;
+    }
+
+    public List<FileInfo> getFileInfos() {
+        return fileInfos;
+    }
+
+    public void setFileInfos(List<FileInfo> fileInfos) {
+        this.fileInfos = fileInfos;
     }
 }

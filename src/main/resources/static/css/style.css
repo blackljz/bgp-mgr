@@ -1,3 +1,9 @@
+/* 定义全局变量 */
+:root {
+    /* 图片上传预览框宽度 */
+    --uploadImageWidth: 120px;
+}
+
 body {
 
 }
@@ -20,4 +26,26 @@ body {
 .bgp-footer {
     left: 0 !important;
     text-align: center;
+}
+
+.upload-btn {
+    width: var(--uploadImageWidth);
+}
+
+.upload-item {
+    width: var(--uploadImageWidth);
+}
+
+.upload-img {
+    width: var(--uploadImageWidth);
+    height: var(--uploadImageWidth);
+    margin: 0 10px 10px 0;
+}
+
+.upload-info {
+
+}
+
+.upload-del {
+    float: right;
 }

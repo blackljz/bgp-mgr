@@ -1,6 +1,6 @@
 package com.bgp.mgr.common.exception;
 
-public class BgpException extends Exception {
+public class BgpException extends RuntimeException {
 
     /**
      * Instantiates a new service exception.

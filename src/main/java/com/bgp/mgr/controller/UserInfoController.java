@@ -1,14 +1,10 @@
 package com.bgp.mgr.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.bgp.mgr.common.constants.CommonConstant;
 import com.bgp.mgr.common.response.ResponseBodyResult;
 import com.bgp.mgr.common.utils.LoginUtils;
-import com.bgp.mgr.dao.domain.GameInfo;
-import com.bgp.mgr.dao.vo.GameInfoVo;
 import com.bgp.mgr.dao.vo.PageVo;
 import com.bgp.mgr.dao.vo.UserInfoVo;
-import com.bgp.mgr.service.GameInfoService;
 import com.bgp.mgr.service.UserInfoService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

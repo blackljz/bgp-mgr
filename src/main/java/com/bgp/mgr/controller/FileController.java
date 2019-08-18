@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.*;
 
@@ -83,6 +82,19 @@ public class FileController {
             result.put("msg", "上传文件异常！");
         }
         return JSON.toJSONString(result);
+    }
+
+    /**
+     * 预览图片文件
+     *
+     * @param fileKey
+     * @return
+     */
+    @RequestMapping("/preview")
+    @ResponseBody
+    public String previewImage(@RequestParam("fileKey") String fileKey) {
+        //TODO
+        return "";
     }
 
     /**

@@ -31,8 +31,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (params.get("name") != null) {
             criteria.andUserNameLike("%" + params.get("name") + "%");
         }
-        //TODO 查询条件
-
         int count = userInfoMapper.countByExample(example);
 
         example.setLimitSize((pageNo - 1) * pageSize);

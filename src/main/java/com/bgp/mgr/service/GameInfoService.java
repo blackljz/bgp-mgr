@@ -30,15 +30,15 @@ public interface GameInfoService {
      * 增加游戏
      *
      * @param pin
-     * @param gameInfo
+     * @param gameInfoVo
      */
-    void addGameInfo(String pin, GameInfo gameInfo);
+    void addGameInfo(String pin, GameInfoVo gameInfoVo);
 
     /**
      * 更新游戏
      *
      * @param pin
-     * @param gameInfo
+     * @param gameInfoVo
      */
-    void updateGameInfo(String pin, GameInfo gameInfo);
+    void updateGameInfo(String pin, GameInfoVo gameInfoVo);
 }
