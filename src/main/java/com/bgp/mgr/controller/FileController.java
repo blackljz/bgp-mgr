@@ -36,11 +36,13 @@ public class FileController {
      */
     @RequestMapping(value = "/upload", produces = "text/html; charset=UTF-8;")
     @ResponseBody
-    public String uploadFile(MultipartHttpServletRequest multipartRequest, HttpServletRequest request,
-                             HttpServletResponse response) {
+    public String uploadFile(MultipartHttpServletRequest multipartRequest, HttpServletRequest request) {
         //TODO
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         try {
+            String type = request.getParameter("type");
+            List<String> fileKeys = new ArrayList<>();
+
             String pin = LoginUtils.getPin();
             MultiValueMap<String, MultipartFile> fileMap = multipartRequest.getMultiFileMap();
             List<MultipartFile> fileList = fileMap.get("file");
@@ -67,8 +69,10 @@ public class FileController {
                 }
                 // 转储到临时文件
                 file.transferTo(destFile);
+                fileKeys.add(fileKey);
             }
             result.put("code", 0);
+            result.put("data", fileKeys);
         } catch (BgpException be) {
             logger.error("上传文件异常！", be);
             result.put("code", -1);

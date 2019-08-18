@@ -82,6 +82,12 @@
                enableUpdateByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="true"/>
         </table>
+        <table schema="bgp" tableName="fileInfo"
+               domainObjectName="FileInfo" enableCountByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
         <table schema="bgp" tableName="friend"
                domainObjectName="Friend" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
@@ -96,12 +102,6 @@
         </table>
         <table schema="bgp" tableName="gameInfo"
                domainObjectName="GameInfo" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true" selectByExampleQueryId="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table schema="bgp" tableName="imageInfo"
-               domainObjectName="ImageInfo" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="true"/>
