@@ -8,7 +8,9 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,10 @@ public class FileController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private Environment env;
+    private ResourceLoader resourceLoader;
+
+    @Value("${sys.storage-dir}")
+    private String STORAGE_DIR;
 
     /**
      * 上传附件
@@ -56,7 +61,7 @@ public class FileController {
                 }
                 // 生成KEY
                 String fileKey = pin.toLowerCase() + DateFormatUtils.format(new Date(), CommonConstant.DATETIME_ALL_NO_PATTERN) + i + extension;
-                File destFile = new File(env.getProperty("storage-dir") + fileKey);
+                File destFile = new File(STORAGE_DIR + fileKey);
                 // 如果目录不存在则创建
                 if (!destFile.getParentFile().exists()) {
                     if (destFile.getParentFile().mkdirs()) {
@@ -91,10 +96,9 @@ public class FileController {
      * @return
      */
     @RequestMapping("/preview")
-    @ResponseBody
-    public String previewImage(@RequestParam("fileKey") String fileKey) {
+    public ResponseEntity previewImage(@RequestParam("fileKey") String fileKey) {
         //TODO
-        return "";
+        return ResponseEntity.ok(resourceLoader.getResource("file:" + STORAGE_DIR + fileKey));
     }
 
     /**

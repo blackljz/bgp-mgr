@@ -132,6 +132,7 @@ public class GameInfoServiceImpl implements GameInfoService {
         List<FileInfo> fileInfos = gameInfoVo.getFileInfos();
         if (!CollectionUtils.isEmpty(fileInfos)) {
             for (FileInfo fileInfo : fileInfos) {
+                fileInfo.setGameId(gameInfoVo.getId());
                 fileInfoMapper.insertSelective(fileInfo);
             }
         }

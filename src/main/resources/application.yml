@@ -24,4 +24,5 @@ mybatis:
   type-aliases-package: com.bgp.mgr.dao.domain
 
 # config
-storage-dir: /export/temp/
+sys:
+  storage-dir: /export/temp/

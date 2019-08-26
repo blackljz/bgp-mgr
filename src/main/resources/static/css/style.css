@@ -33,13 +33,18 @@ body {
 }
 
 .upload-item {
+    display: inline-block;
     width: var(--uploadImageWidth);
+}
+
+.upload-item + .upload-item {
+    margin-left: 10px;
 }
 
 .upload-img {
     width: var(--uploadImageWidth);
     height: var(--uploadImageWidth);
-    margin: 0 10px 10px 0;
+    margin-bottom: 10px;
 }
 
 .upload-info {

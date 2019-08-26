@@ -4,6 +4,9 @@ layui.use(['form', 'layer', 'upload'], function () {
         layer = layui.layer,
         upload = layui.upload;
 
+    var gameId = $('#id').val();// 游戏ID
+    var editType = $('#editType').val();// 编辑类型
+
     /**
      * 动态增加输入框
      */
@@ -96,6 +99,9 @@ layui.use(['form', 'layer', 'upload'], function () {
                     fillArrayField(data.publishers, 'publishers');
                     fillArrayField(data.mechanisms, 'mechanisms');
                     fillArrayField(data.categories, 'categories');
+                    for (var i = 0; i < data.fileInfos.length; i++) {
+                        filllFileField(data.fileInfos[i]);
+                    }
                     // TODO
                     // 更新渲染
                     form.render();
@@ -118,7 +124,7 @@ layui.use(['form', 'layer', 'upload'], function () {
             'url': ROOT_CONTEXT + 'game/save',
             'async': true,
             'data': {
-                editType: $('#editType').val(),
+                editType: editType,
                 gameInfo: JSON.stringify(gameInfoVo)
             },
             'dataType': 'json',
@@ -142,27 +148,30 @@ layui.use(['form', 'layer', 'upload'], function () {
     /**
      * 组织表单对象
      * @param form
-     * @returns {string}
+     * @returns {object}
      */
     function buildGameInfoVo(form) {
         var gameInfoVo = $(form).serializeObject();
         // 组织附件
         gameInfoVo.fileInfos = [];
         $(form).find('input[name=fileKey]').each(function () {
-            var fileInfo = {};
-            fileInfo.fileName = $(this).data('fileName');
-            fileInfo.fileAddress = $(this).val();
-            fileInfo.type = $(this).data('type');
-            fileInfo.fileType = $(this).data('fileType');
-            gameInfoVo.fileInfos.push(fileInfo);
+            if ($(this).val() && $(this).val() !== '') {
+                var fileInfo = {};
+                fileInfo.fileName = $(this).data('fileName');
+                fileInfo.fileAddress = $(this).val();
+                fileInfo.type = $(this).data('type');
+                fileInfo.fileType = $(this).data('fileType');
+                gameInfoVo.fileInfos.push(fileInfo);
+            }
         });
-        return JSON.stringify(gameInfoVo);
+        return gameInfoVo;
     }
 
     /**
      * 填充数组字段
      * @param fieldName
      * @param data
+     * @param fieldType
      */
     function fillArrayField(data, fieldName, fieldType) {
         if (!data) {
@@ -190,9 +199,66 @@ layui.use(['form', 'layer', 'upload'], function () {
         }
     }
 
+    /**
+     * 填充附件字段
+     * @param data
+     */
+    function filllFileField(data) {
+        if (!data) {
+            return;
+        }
+        var listId;
+        switch (parseInt(data.fileType)) {
+            case 1:
+                listId = '#imageDiv' + data.type;
+                break;
+            case 2:
+                listId = '#videoDiv' + data.type;
+                break;
+            case 3:
+                listId = '#pdfDiv' + data.type;
+                break;
+            default:
+                return;
+        }
+        var maxSize = $(listId).data('maxsize');
+        if (maxSize > 1) {
+            // 追加上传预览框
+            $(listId).append(newFileItem(data.fileType));
+        }
+        var item = $(listId).find('.upload-item:last');
+        $(item).find('.upload-img').attr('src', ROOT_CONTEXT + 'file/preview?fileKey=' + data.fileAddress);
+        $(item).find('.upload-info').text('上传成功');
+        $(item).find('.upload-del').show();
+        $(item).find('input[name=fileKey]').data('fileName', data.fileName).data('type', data.type).data('fileType', data.fileType).val(data.fileAddress);
+    }
+
+    /**
+     * 增加上传item
+     * @param fileType
+     * @returns {string}
+     */
+    function newFileItem(fileType) {
+        switch (parseInt(fileType)) {
+            case 1:
+                return '<div class="upload-item">' +
+                    '<img class="upload-img">' +
+                    '<p>' +
+                    '<span class="upload-info">请上传</span>' +
+                    '<input type="hidden" name="fileKey" value="">' +
+                    '<a href="javascript:;" class="upload-del" style="display: none;">删除</a>' +
+                    '</p>' +
+                    '</div>';
+            case 2:
+                return '';// TODO
+            case 3:
+                return '';// TODO
+            default:
+                return '';
+        }
+    }
+
     // 根据编辑类型初始化页面
-    var gameId = $('#id').val();
-    var editType = $('#editType').val();
     switch (editType) {
         case 'new':
             break;
@@ -206,22 +272,6 @@ layui.use(['form', 'layer', 'upload'], function () {
             break;
     }
 
-    //多图片上传
-    // upload.render({
-    //     elem: '#test2'
-    //     , url: '/upload/'
-    //     , multiple: true
-    //     , before: function (obj) {
-    //         //预读本地文件示例，不支持ie8
-    //         obj.preview(function (index, file, result) {
-    //             $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
-    //         });
-    //     }
-    //     , done: function (res) {
-    //         //上传完毕
-    //     }
-    // });
-
     // 图片上传按钮
     var imageUploader = upload.render({
         elem: '.upload-btn',
@@ -233,52 +283,45 @@ layui.use(['form', 'layer', 'upload'], function () {
         acceptMime: 'image/png',
         multiple: false,
         choose: function (obj) {
-            var listId = this.listId;
-            var maxSize = this.maxSize;
-            if (maxSize > 1 && $(listId).find('.upload-item').length >= maxSize) {
-                layer.alert('最多上传' + maxSize + '个附件！');
-                return false;
+            var listId = this.target;// 上传结果列表ID
+            var maxSize = $(listId).data('maxsize');// 最大数量
+            if (maxSize > 1) {
+                // 校验最大上传数 TODO 无效
+                if ($(listId).find('.upload-item').length >= maxSize) {
+                    layer.alert('最多上传' + maxSize + '个附件！');
+                    return false;
+                } else {
+                    // 追加上传预览框
+                    $(listId).append(newFileItem('1'));
+                }
             }
         },
         before: function (obj) {
-            var type = this.type;// 类型
-            var listId = this.listId;// 上传结果列表ID
-            var maxSize = this.maxSize;// 最大数量
+            var listId = this.target;// 上传结果列表ID
+            var type = $(listId).data('type');// 类型
             obj.preview(function (index, file, result) {
-                var item;
-                if (maxSize === 1) {
-                    item = $(listId).find('.upload-item:last');
-                } else {
-                    item = '<div class="upload-item">' +
-                        '<img class="upload-img">' +
-                        '<p>' +
-                        '<span class="upload-info">请上传</span>' +
-                        '<input type="hidden" name="fileKey" value="">' +
-                        '<a href="javascript:;" class="upload-del" style="display: none;">删除</a>' +
-                        '</p>' +
-                        '</div>';
-                    $(listId).append(item);
-                }
+                var item = $(listId).find('.upload-item:last');
                 $(item).find('.upload-img').attr('src', result);
                 $(item).find('.upload-info').text('上传中..');
-                $(item).find('input[name=fileKey]').data('', file.name).data('type', type).data('fileType', '1');
+                $(item).find('input[name=fileKey]').data('fileName', file.name).data('type', type).data('fileType', '1').val('');
             });
         },
         done: function (res, index, upload) {
-            var listId = this.listId;// 上传结果列表ID
+            var listId = this.target;// 上传结果列表ID
+            var item = $(listId).find('.upload-item:last');
             if (res && res.code === 0) {
-                var item = $(listId).find('.upload-item:last');
                 $(item).find('.upload-info').text('上传成功');
-                $(item).find('.fileKey').val(res.data[0]);
+                $(item).find('input[name=fileKey]').val(res.data[0]);
             } else {
-                $(listId).find('.upload-info:last').text('上传失败').css('color', 'red');
+                $(item).find('.upload-info').text('上传失败').css('color', 'red');
             }
-            $(listId).find('.upload-del:last').show();
+            $(item).find('.upload-del').show();
         },
         error: function (index, upload) {
-            var listId = this.listId;// 上传结果列表ID
-            $(listId).find('.upload-info:last').text('上传异常').css('color', 'red');
-            $(listId).find('.upload-del:last').show();
+            var listId = this.target;// 上传结果列表ID
+            var item = $(listId).find('.upload-item:last');
+            $(item).find('.upload-info').text('上传异常').css('color', 'red');
+            $(item).find('.upload-del').show();
         }
     });
 
@@ -304,14 +347,10 @@ layui.use(['form', 'layer', 'upload'], function () {
     }).on('click', '.upload-del', function () {
         var list = $(this).parents('.layui-upload-list');
         $(this).parents('.upload-item').remove();
-        if ($(list).find('.upload-item').length === 0) {
-            $(list).append('<div class="upload-item">' +
-                '<img class="upload-img">' +
-                '<p>' +
-                '<span class="upload-info">请上传</span>' +
-                '<a href="javascript:;" class="upload-del" style="display: none;">删除</a>' +
-                '</p>' +
-                '</div>');
+        var maxSize = $(list).data('maxsize');
+        var fileType = $(list).data('filetype');
+        if (maxSize <= 1) {
+            $(list).append(newFileItem(fileType));
         }
     });
 
