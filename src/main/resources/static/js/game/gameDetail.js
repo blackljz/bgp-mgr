@@ -100,7 +100,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                     fillArrayField(data.mechanisms, 'mechanisms');
                     fillArrayField(data.categories, 'categories');
                     for (var i = 0; i < data.fileInfos.length; i++) {
-                        filllFileField(data.fileInfos[i]);
+                        fillFileField(data.fileInfos[i]);
                     }
                     // TODO
                     // 更新渲染
@@ -164,6 +164,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                 gameInfoVo.fileInfos.push(fileInfo);
             }
         });
+        delete gameInfoVo.fileKey;// 删除无用属性
         return gameInfoVo;
     }
 
@@ -203,7 +204,7 @@ layui.use(['form', 'layer', 'upload'], function () {
      * 填充附件字段
      * @param data
      */
-    function filllFileField(data) {
+    function fillFileField(data) {
         if (!data) {
             return;
         }

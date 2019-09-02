@@ -132,6 +132,7 @@ public class GameInfoController {
     public String saveGameInfo(@RequestParam("editType") String editType, @RequestParam("gameInfo") String gameInfoJson) {
         try {
             String pin = LoginUtils.getPin();
+            logger.info("准备保存桌游信息 pin={},editType={},gameInfo={}", pin, editType, gameInfoJson);
             GameInfoVo gameInfoVo = JSON.parseObject(gameInfoJson, GameInfoVo.class);
             if (CommonConstant.EDITTYPE_NEW.equals(editType)) {
                 gameInfoService.addGameInfo(pin, gameInfoVo);
