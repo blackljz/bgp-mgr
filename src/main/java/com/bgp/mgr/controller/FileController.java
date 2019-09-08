@@ -44,7 +44,6 @@ public class FileController {
         //TODO
         Map<String, Object> result = new HashMap<>();
         try {
-            String type = request.getParameter("type");
             List<String> fileKeys = new ArrayList<>();
 
             String pin = LoginUtils.getPin();

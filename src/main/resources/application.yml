@@ -10,6 +10,11 @@ spring:
     url: jdbc:mysql://39.104.132.204:3306/bgp?characterEncoding=utf8&useSSL=true
     username: bgp_user
     password: bGp2018!@#
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
