@@ -29,41 +29,41 @@ layui.use(['form', 'layer', 'upload'], function () {
      */
     var addTemplate = {
         // 设计师
-        'designers': function (data) {
+        'designer': function (data) {
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="designers" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<input type="text" name="designer" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
                 '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
                 '</div>';
             $('#designersDiv').append(html);
         },
         // 美术
-        'artists': function (data) {
+        'artist': function (data) {
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="artists" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<input type="text" name="artist" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
                 '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
                 '</div>';
             $('#artistsDiv').append(html);
         },
         // 出版商
-        'publishers': function (data) {
+        'publisher': function (data) {
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="publishers" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<input type="text" name="publisher" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
                 '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
                 '</div>';
             $('#publishersDiv').append(html);
         },
         // 类别
-        'categories': function (data) {
+        'category': function (data) {
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="categories" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<input type="text" name="category" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
                 '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
                 '</div>';
             $('#categoriesDiv').append(html);
         },
         // 机制
-        'mechanisms': function (data) {
+        'mechanism': function (data) {
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="mechanisms" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
+                '<input type="text" name="mechanism" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
                 '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
                 '</div>';
             $('#mechanismsDiv').append(html);
@@ -109,13 +109,15 @@ layui.use(['form', 'layer', 'upload'], function () {
                         "gameIntroduction": data.gameIntroduction,
                         'gameEnIntroduction': data.gameIntroduction
                     });
-                    fillArrayField(data.types, 'types', 'checkbox');
-                    fillArrayField(data.labels, 'labels', 'checkbox');
-                    fillArrayField(data.designers, 'designers');
-                    fillArrayField(data.artists, 'artists');
-                    fillArrayField(data.publishers, 'publishers');
-                    fillArrayField(data.mechanisms, 'mechanisms');
-                    fillArrayField(data.categories, 'categories');
+                    // 多项输入域
+                    fillArrayField(data.type, 'type', 'checkbox');
+                    fillArrayField(data.label, 'label', 'checkbox');
+                    fillArrayField(data.designer, 'designer');
+                    fillArrayField(data.artist, 'artist');
+                    fillArrayField(data.publisher, 'publisher');
+                    fillArrayField(data.mechanism, 'mechanism');
+                    fillArrayField(data.category, 'category');
+                    // 附件输入域
                     for (var i = 0; i < data.fileInfos.length; i++) {
                         fillFileField(data.fileInfos[i]);
                     }
@@ -170,11 +172,6 @@ layui.use(['form', 'layer', 'upload'], function () {
         var obj = $(form).serializeArray();
         $.each(obj, function () {
             if (gameInfoVo[this.name] !== undefined) {
-                // if (!gameInfoVo[this.name].push) {
-                //     gameInfoVo[this.name] = [gameInfoVo[this.name]];
-                // }
-                // gameInfoVo[this.name].push(this.value || '');
-                // TODO
                 gameInfoVo[this.name] += ',' + (this.value || '');
             } else {
                 gameInfoVo[this.name] = this.value || '';
@@ -205,8 +202,10 @@ layui.use(['form', 'layer', 'upload'], function () {
     function fillArrayField(data, fieldName, fieldType) {
         if (!data) {
             return;
-        } else if (!data instanceof Array) {
-            data = data.split(',');
+        } else if (!Array.isArray(data)) {
+            if (typeof data == 'string') {
+                data = data.split(',');
+            }
         }
         if (!fieldType) {
             fieldType = 'input';
@@ -355,7 +354,7 @@ layui.use(['form', 'layer', 'upload'], function () {
     }
 
     // 图片上传按钮
-    var imageUploader = upload.render({
+    upload.render({
         elem: '.upload-image-btn',
         url: ROOT_CONTEXT + 'file/upload',
         accept: 'images',
@@ -369,7 +368,7 @@ layui.use(['form', 'layer', 'upload'], function () {
     });
 
     // 文档上传按钮
-    var docUploader = upload.render({
+    upload.render({
         elem: '.upload-doc-btn',
         url: ROOT_CONTEXT + 'file/upload',
         accept: 'file',
@@ -400,8 +399,7 @@ layui.use(['form', 'layer', 'upload'], function () {
 
     // 监听提交
     form.on('submit(save)', function (data) {
-        // saveData(buildGameInfoVo(data.form));
-        console.log(JSON.stringify(buildGameInfoVo(data.form)));
+        saveData(buildGameInfoVo(data.form));
         return false;
     });
     // 监听关闭

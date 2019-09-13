@@ -40,12 +40,10 @@ public class FileController {
      */
     @RequestMapping(value = "/upload", produces = "text/html; charset=UTF-8;")
     @ResponseBody
-    public String uploadFile(MultipartHttpServletRequest multipartRequest, HttpServletRequest request) {
-        //TODO
+    public String uploadFile(MultipartHttpServletRequest multipartRequest) {
         Map<String, Object> result = new HashMap<>();
         try {
             List<String> fileKeys = new ArrayList<>();
-
             String pin = LoginUtils.getPin();
             MultiValueMap<String, MultipartFile> fileMap = multipartRequest.getMultiFileMap();
             List<MultipartFile> fileList = fileMap.get("file");
@@ -96,7 +94,11 @@ public class FileController {
      */
     @RequestMapping("/preview")
     public ResponseEntity previewImage(@RequestParam("fileKey") String fileKey) {
-        //TODO
+        File file = new File(STORAGE_DIR + fileKey);
+        if (!file.exists()) {
+            logger.warn("文件[" + file.getPath() + "]不存在！");
+            return null;
+        }
         return ResponseEntity.ok(resourceLoader.getResource("file:" + STORAGE_DIR + fileKey));
     }
 
