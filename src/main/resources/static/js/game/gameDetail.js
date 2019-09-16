@@ -17,7 +17,8 @@ layui.use(['form', 'layer', 'upload'], function () {
         if (index) {
             parent.layer.close(index);
             if (isRefresh === true) {
-                // 刷新父页面列表 TODO
+                // 刷新父页面列表
+                $('#queryBtn', parent.document).click();
             }
         } else {
             window.location.reload();
