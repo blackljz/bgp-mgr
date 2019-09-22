@@ -36,7 +36,7 @@
                             英文名称：
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="gameEnName" lay-verify="required" autocomplete="off"
+                            <input type="text" name="gameEnName" lay-verify="" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -196,20 +196,12 @@
 
                 <div class="layui-form-item">
                     <div class="layui-upload">
-                        <button type="button" class="layui-btn add-video-btn" lay-data="{target: '#videoDiv1'}">
+                        <button type="button" class="layui-btn add-video-btn" data-target="#videoDiv">
                             添加游戏视频
                         </button>
                         <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                            <div class="layui-upload-list" id="videoDiv1" data-type="1" data-filetype="2"
-                                 data-maxsize="999">
-                                <div class="upload-item">
-                                    <span>文件名</span>
-                                    <p>
-                                        <span class="upload-info">请上传</span>
-                                        <input type="hidden" name="fileKey" value="">
-                                        <a href="javascript:void(0);" class="upload-del" style="display: none;">删除</a>
-                                    </p>
-                                </div>
+                            <div class="layui-upload-list" id="videoDiv" data-filetype="2" data-maxsize="999"
+                                 style="min-height: 44px;">
                             </div>
                         </blockquote>
                     </div>
@@ -238,8 +230,8 @@
                             游戏重度：
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="weight" lay-verify="required" autocomplete="off"
-                                   class="layui-input"/>
+                            <input type="text" name="weight" placeholder="范围0.00-5.00" lay-verify="required|number"
+                                   autocomplete="off" class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -247,7 +239,7 @@
                             出版年份：
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="publishYear" lay-verify="" autocomplete="off"
+                            <input type="text" name="publishYear" lay-verify="required" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -280,17 +272,17 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">玩家人数：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="playerNumMin" placeholder="人" lay-verify="required"
+                            <input type="text" name="playerNumMin" placeholder="人" lay-verify="required|number"
                                    autocomplete="off" class="layui-input"/>
                         </div>
                         <div class="layui-form-mid">-</div>
                         <div class="layui-input-inline">
-                            <input type="text" name="playerNumMax" placeholder="人" lay-verify="required"
+                            <input type="text" name="playerNumMax" placeholder="人" lay-verify="required|number"
                                    autocomplete="off" class="layui-input"/>
                         </div>
                         <div class="layui-form-mid">推荐：</div>
                         <div class="layui-input-inline">
-                            <input type="text" name="playerNumSuggested" placeholder="人" lay-verify="required"
+                            <input type="text" name="playerNumSuggested" placeholder="人" lay-verify="required|number"
                                    autocomplete="off" class="layui-input"/>
                         </div>
                     </div>
@@ -372,21 +364,21 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">初始得分：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="rating" lay-verify="number" autocomplete="off"
+                            <input type="text" name="rating" lay-verify="required|number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">bgg排名：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="bggRank" lay-verify="number" autocomplete="off"
+                            <input type="text" name="bggRank" lay-verify="required|number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">bgg得分：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="bggScore" lay-verify="number" autocomplete="off"
+                            <input type="text" name="bggScore" lay-verify="required|number" autocomplete="off"
                                    class="layui-input"/>
                         </div>
                     </div>
@@ -394,27 +386,32 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">bgg链接：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="bggLink" lay-verify="" autocomplete="off"
+                        <input type="text" name="bggLink" lay-verify="required" autocomplete="off"
                                class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">牌套：</label>
-                    <div class="layui-input-block">
-                        <label class="layui-form-label" style="width: auto;">高</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="" lay-verify="" autocomplete="off"
-                                   class="layui-input"/>
-                        </div>
-                        <label class="layui-form-label" style="width: auto;">宽</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="" lay-verify="" autocomplete="off"
-                                   class="layui-input"/>
-                        </div>
-                        <label class="layui-form-label" style="width: auto;">数量</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="" lay-verify="" autocomplete="off"
-                                   class="layui-input"/>
+                    <label class="layui-form-label">
+                        牌套：
+                        <i class="layui-icon layui-icon-add-circle add-tpl" data-tpl="sleeve"></i>
+                    </label>
+                    <div class="layui-input-block" id="sleevesDiv">
+                        <div class="card-sleeve-item">
+                            <label class="layui-form-label" style="width: auto;">高</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sleeveHeight" lay-verify="required|number" autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                            <label class="layui-form-label" style="width: auto;">宽</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sleeveWidth" lay-verify="required|number" autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                            <label class="layui-form-label" style="width: auto;">数量</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sleeveCount" lay-verify="required|number" autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -54,3 +54,18 @@ body {
 .upload-del {
     float: right;
 }
+
+/* input框右上角图标 */
+.input-tips-c {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 12px;
+    height: 20px;
+    padding: 0 4px;
+    cursor: pointer;
+    background-color: #666;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+}

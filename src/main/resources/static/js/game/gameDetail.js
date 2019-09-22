@@ -31,43 +31,75 @@ layui.use(['form', 'layer', 'upload'], function () {
     var addTemplate = {
         // 设计师
         'designer': function (data) {
+            var value = data['value'];
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="designer" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '<input type="text" name="designer" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+                '<i class="layui-icon layui-icon-close input-tips-c del-tpl"></i>' +
                 '</div>';
             $('#designersDiv').append(html);
         },
         // 美术
         'artist': function (data) {
+            var value = data['value'];
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="artist" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '<input type="text" name="artist" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+                '<i class="layui-icon layui-icon-close input-tips-c del-tpl"></i>' +
                 '</div>';
             $('#artistsDiv').append(html);
         },
         // 出版商
         'publisher': function (data) {
+            var value = data['value'];
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="publisher" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '<input type="text" name="publisher" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+                '<i class="layui-icon layui-icon-close input-tips-c del-tpl"></i>' +
                 '</div>';
             $('#publishersDiv').append(html);
         },
         // 类别
         'category': function (data) {
+            var value = data['value'];
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="category" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '<input type="text" name="category" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+                '<i class="layui-icon layui-icon-close input-tips-c del-tpl"></i>' +
                 '</div>';
             $('#categoriesDiv').append(html);
         },
         // 机制
         'mechanism': function (data) {
+            var value = data['value'];
             var html = '<div class="layui-input-inline tpl-item">' +
-                '<input type="text" name="mechanism" lay-verify="required" autocomplete="off" class="layui-input" value="' + data['value'] + '"/>' +
-                '<i class="layui-icon layui-icon-close layui-table-tips-c del-tpl"></i>' +
+                '<input type="text" name="mechanism" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+                '<i class="layui-icon layui-icon-close input-tips-c del-tpl"></i>' +
                 '</div>';
             $('#mechanismsDiv').append(html);
+        },
+        // 牌套
+        'sleeve': function (data) {
+            debugger;
+            var height = data['value'].split(',')[0];
+            var width = data['value'].split(',')[1];
+            var count = data['value'].split(',')[2];
+            var html = '<div class="card-sleeve-item tpl-item" style="clear: both;">' +
+                '<label class="layui-form-label" style="width: auto;">高</label>' +
+                '<div class="layui-input-inline">' +
+                '<input type="text" name="sleeveHeight" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + height + '"/>' +
+                '</div>' +
+                '<label class="layui-form-label" style="width: auto;">宽</label>' +
+                '<div class="layui-input-inline">' +
+                '<input type="text" name="sleeveWidth" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + width + '"/>' +
+                '</div>' +
+                '<label class="layui-form-label" style="width: auto;">数量</label>' +
+                '<div class="layui-input-inline">' +
+                '<input type="text" name="sleeveCount" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + count + '"/>' +
+                '</div>' +
+                '<button type="button" class="layui-btn layui-btn-primary del-tpl">删除</button>' +
+                '</div>';
+            $('#sleevesDiv').append(html);
+        },
+        // 关联游戏ID
+        'relatedGameId': function (data) {
+            // TODO
         }
     };
 
@@ -242,7 +274,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                 listId = '#imageDiv' + data.type;
                 break;
             case 2:
-                listId = '#videoDiv' + data.type;
+                listId = '#videoDiv';
                 break;
             case 3:
                 listId = '#fileDiv' + data.type;
@@ -253,25 +285,27 @@ layui.use(['form', 'layer', 'upload'], function () {
         var maxSize = $(listId).data('maxsize');
         if (maxSize > 1) {
             // 追加上传预览框
-            $(listId).append(newFileItem(data.fileType));
+            appendNewFileItem(data.fileType, listId);
         }
         var item = $(listId).find('.upload-item:last');
-        $(item).find('.upload-img').attr('src', ROOT_CONTEXT + 'file/preview?fileKey=' + data.fileAddress);
-        $(item).find('.upload-filename').text(data.fileName);
-        $(item).find('.upload-info').text('上传成功');
-        $(item).find('.upload-del').show();
+        $(item).find('.upload-img').attr('src', ROOT_CONTEXT + 'file/preview?fileKey=' + data.fileAddress);// 预览图片
+        $(item).find('.upload-filename').text(data.fileName);// 显示文件名
+        $(item).find('.upload-info').text('上传成功');// 上传提示语
+        $(item).find('.upload-del').show();// 删除按钮
+        $(item).find('.videoType').val(data.type);// 视频类型
         $(item).find('input[name=fileKey]').data('fileName', data.fileName).data('type', data.type).data('fileType', data.fileType).val(data.fileAddress);
     }
 
     /**
      * 增加上传item
      * @param fileType
-     * @returns {string}
+     * @param container
      */
-    function newFileItem(fileType) {
+    function appendNewFileItem(fileType, container) {
+        var html;
         switch (parseInt(fileType)) {
             case 1:// 图片
-                return '<div class="upload-item">' +
+                html = '<div class="upload-item">' +
                     '<img class="upload-img">' +
                     '<p>' +
                     '<span class="upload-info">请上传</span>' +
@@ -279,10 +313,28 @@ layui.use(['form', 'layer', 'upload'], function () {
                     '<a href="javascript:;" class="upload-del" style="display: none;">删除</a>' +
                     '</p>' +
                     '</div>';
-            case 2:
-                return '';// TODO
+                break;
+            case 2:// 视频（链接）
+                html = '<div class="upload-item" style="width: auto;">' +
+                    '<div class="layui-input-inline">' +
+                    '<input type="text" name="fileKey" lay-verify="required|url" autocomplete="off" class="layui-input"/>' +
+                    '</div>' +
+                    '<div class="layui-input-inline">' +
+                    '<select class="videoType" lay-filter="videoType" lay-verify="required">' +
+                    '<option value="">请选择</option>' +
+                    '<option value="1">开箱</option>' +
+                    '<option value="2">试玩</option>' +
+                    '<option value="3">教学</option>' +
+                    '<option value="4">介绍</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="layui-input-inline" style="width: auto;">' +
+                    '<button type="button" class="layui-btn layui-btn-primary upload-del">删除</button>' +
+                    '</div>' +
+                    '</div>';
+                break;
             case 3:// 文档
-                return '<div class="upload-item">' +
+                html = '<div class="upload-item">' +
                     '<span class="upload-filename"></span>' +
                     '<p>' +
                     '<span class="upload-info">请上传</span>' +
@@ -290,8 +342,14 @@ layui.use(['form', 'layer', 'upload'], function () {
                     '<a href="javascript:void(0);" class="upload-del" style="display: none;">删除</a>' +
                     '</p>' +
                     '</div>';
+                break;
             default:
-                return '';
+                return;
+        }
+        $(container).append(html);
+        // 视频（链接）里面有下拉框，需要更新渲染
+        if (parseInt(fileType) === 2) {
+            form.render('select');
         }
     }
 
@@ -309,7 +367,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                 return false;
             } else {
                 // 追加上传预览框
-                $(listId).append(newFileItem(fileType));
+                appendNewFileItem(fileType, listId);
             }
         }
     }, uploaderBefore = function (obj) {
@@ -368,6 +426,27 @@ layui.use(['form', 'layer', 'upload'], function () {
         error: uploaderError
     });
 
+    // 添加视频按钮
+    $('.add-video-btn').on('click', function () {
+        var listId = $(this).data('target');// 上传结果列表ID
+        var maxSize = $(listId).data('maxsize');// 最大数量
+        var fileType = $(listId).data('filetype');// 附件类型
+        // 校验最大上传数
+        if ($(listId).find('.upload-item').length >= maxSize) {
+            layer.alert('最多添加' + maxSize + '个视频！');
+            return false;
+        } else {
+            // 追加上传预览框
+            appendNewFileItem(fileType, listId);
+            $(listId).find('.upload-item:last input[name=fileKey]').data('fileName', '').data('type', '').data('fileType', fileType).val('');
+        }
+    });
+    form.on('select(videoType)', function (data) {
+        var type = data.value;
+        $(data.elem).parents('.upload-item').find('input[name=fileKey]').data('type', type);
+
+    });
+
     // 文档上传按钮
     upload.render({
         elem: '.upload-doc-btn',
@@ -394,7 +473,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         var maxSize = $(list).data('maxsize');
         var fileType = $(list).data('filetype');
         if (maxSize <= 1) {
-            $(list).append(newFileItem(fileType));
+            appendNewFileItem(fileType, list);
         }
     });
 
