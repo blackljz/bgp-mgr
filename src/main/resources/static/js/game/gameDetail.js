@@ -99,6 +99,27 @@ layui.use(['form', 'layer', 'upload'], function () {
         },
         // 关联游戏ID
         'relatedGameId': function (data) {
+            var value = data['value'];
+            var html = '<div class="tpl-item" style="clear: both;">' +
+                '<label class="layui-form-label" style="width: auto;">游戏ID</label>' +
+                '<div class="layui-input-inline">' +
+                '<input type="text" name="relatedGameId" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+                '</div>' +
+                '<label class="layui-form-label relatedGameName" style="width: auto;">游戏名称</label>' +
+                '<div class="layui-input-inline">' +
+                '<button type="button" class="layui-btn layui-btn-primary del-tpl">删除关联</button>' +
+                '</div>' +
+                '</div>';
+            $('#relatedGameIdsDiv').append(html);
+            if (value) {
+                $('#relatedGameIdsDiv tpl-item:last').find('in')
+            }
+            // var html = '<div class="layui-input-inline tpl-item">' +
+            //     '<input type="text" name="relatedGameId" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
+            //     '<label class="relatedGameName"></label>' +
+            //     '<a href="javascript:;" class="del-tpl">删除</a>' +
+            //     '</div>';
+
             // TODO
         }
     };
@@ -475,16 +496,48 @@ layui.use(['form', 'layer', 'upload'], function () {
         if (maxSize <= 1) {
             appendNewFileItem(fileType, list);
         }
+    }).on('change', 'input[name=relatedGameId]', function () {
+        var that = this;
+        $.ajax({
+            'type': 'post',
+            'url': ROOT_CONTEXT + 'game/getDetails',
+            'async': true,
+            'data': {
+                id: $(that).val()
+            },
+            'dataType': 'json',
+            'success': function (result) {
+                if (result.code === 0) {
+                    var data = result.data;
+                    if (data && data.gameName) {
+                        $(that).parent('.tpl-item').find('.relatedGameName').text(data.gameName);
+                    } else {
+                        layer.alert('游戏ID不存在！', function () {
+                            $(that).val('');
+                        });
+                    }
+                } else {
+                    layer.alert(result.message, function () {
+                        $(that).val('');
+                    });
+                }
+            },
+            'error': function () {
+                layer.alert('操作异常！', function () {
+                    $(that).val('');
+                });
+            }
+        });
     });
 
     // 监听提交
     form.on('submit(save)', function (data) {
+        // console.log(buildGameInfoVo(data.form));
         saveData(buildGameInfoVo(data.form));
         return false;
     });
     // 监听关闭
-    form.on('submit(cancel)', function () {
+    form.on('button(cancel)', function () {
         closePage(false);
-        return false;
     });
 });
