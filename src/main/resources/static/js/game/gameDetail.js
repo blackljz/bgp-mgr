@@ -76,11 +76,11 @@ layui.use(['form', 'layer', 'upload'], function () {
         },
         // 牌套
         'sleeve': function (data) {
-            debugger;
+            // TODO
             var height = data['value'].split(',')[0];
             var width = data['value'].split(',')[1];
             var count = data['value'].split(',')[2];
-            var html = '<div class="card-sleeve-item tpl-item" style="clear: both;">' +
+            var html = '<div class="layui-inline card-sleeve-item tpl-item">' +
                 '<label class="layui-form-label" style="width: auto;">高</label>' +
                 '<div class="layui-input-inline">' +
                 '<input type="text" name="sleeveHeight" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + height + '"/>' +
@@ -100,27 +100,20 @@ layui.use(['form', 'layer', 'upload'], function () {
         // 关联游戏ID
         'relatedGameId': function (data) {
             var value = data['value'];
-            var html = '<div class="tpl-item" style="clear: both;">' +
+            var html = '<div class="tpl-item">' +
                 '<label class="layui-form-label" style="width: auto;">游戏ID</label>' +
                 '<div class="layui-input-inline">' +
                 '<input type="text" name="relatedGameId" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + value + '"/>' +
                 '</div>' +
-                '<label class="layui-form-label relatedGameName" style="width: auto;">游戏名称</label>' +
+                '<label class="layui-form-label relatedGameName" style="width: auto;"></label>' +
                 '<div class="layui-input-inline">' +
                 '<button type="button" class="layui-btn layui-btn-primary del-tpl">删除关联</button>' +
                 '</div>' +
                 '</div>';
             $('#relatedGameIdsDiv').append(html);
-            if (value) {
-                $('#relatedGameIdsDiv tpl-item:last').find('in')
+            if (value) {// 触发change事件
+                $('#relatedGameIdsDiv .tpl-item:last').find('input[name=relatedGameId]').change();
             }
-            // var html = '<div class="layui-input-inline tpl-item">' +
-            //     '<input type="text" name="relatedGameId" lay-verify="required" autocomplete="off" class="layui-input" value="' + value + '"/>' +
-            //     '<label class="relatedGameName"></label>' +
-            //     '<a href="javascript:;" class="del-tpl">删除</a>' +
-            //     '</div>';
-
-            // TODO
         }
     };
 
@@ -171,11 +164,12 @@ layui.use(['form', 'layer', 'upload'], function () {
                     fillArrayField(data.publisher, 'publisher');
                     fillArrayField(data.mechanism, 'mechanism');
                     fillArrayField(data.category, 'category');
+                    fillArrayField(data.relatedGameId, 'relatedGameId');
+                    // TODO 牌套
                     // 附件输入域
                     for (var i = 0; i < data.fileInfos.length; i++) {
                         fillFileField(data.fileInfos[i]);
                     }
-                    // TODO
                     // 更新渲染
                     form.render();
                 } else {
@@ -487,7 +481,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         var tplName = $(this).data('tpl');
         addTemplate[tplName] ? addTemplate[tplName].call(this, {value: ''}) : '';
     }).on('click', '.del-tpl', function () {
-        $(this).parent('.tpl-item').remove();
+        $(this).parents('.tpl-item').remove();
     }).on('click', '.upload-del', function () {
         var list = $(this).parents('.layui-upload-list');
         $(this).parents('.upload-item').remove();
@@ -510,21 +504,24 @@ layui.use(['form', 'layer', 'upload'], function () {
                 if (result.code === 0) {
                     var data = result.data;
                     if (data && data.gameName) {
-                        $(that).parent('.tpl-item').find('.relatedGameName').text(data.gameName);
+                        $(that).parents('.tpl-item').find('.relatedGameName').text(data.gameName);
                     } else {
-                        layer.alert('游戏ID不存在！', function () {
-                            $(that).val('');
+                        layer.alert('游戏ID不存在！', function (index) {
+                            $(that).val('').parents('.tpl-item').find('.relatedGameName').text('');
+                            layer.close(index);
                         });
                     }
                 } else {
-                    layer.alert(result.message, function () {
-                        $(that).val('');
+                    layer.alert(result.message, function (index) {
+                        $(that).val('').parents('.tpl-item').find('.relatedGameName').text('');
+                        layer.close(index);
                     });
                 }
             },
             'error': function () {
-                layer.alert('操作异常！', function () {
-                    $(that).val('');
+                layer.alert('操作异常！', function (index) {
+                    $(that).val('').parents('.tpl-item').find('.relatedGameName').text('');
+                    layer.close(index);
                 });
             }
         });
