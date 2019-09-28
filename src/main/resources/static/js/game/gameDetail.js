@@ -26,6 +26,19 @@ layui.use(['form', 'layer', 'upload'], function () {
     };
 
     /**
+     * 页面功能只读
+     */
+    var readOnlyPage = function () {
+        $('form input[type=text],textarea').prop('readOnly', true);// 输入框只读
+        $('form input[type=radio]').prop('disabled', true);// 禁用单选框
+        $('form input[type=checkbox]').prop('disabled', true);// 禁用复选框
+        $('form select').find('option:not(:selected)').remove();// 下拉框移除未选中选项
+        $('form .add-tpl,.upload-del,.del-tpl').hide();// 增加/删除按钮隐藏
+        $('form .upload-image-btn,.add-video-btn,.upload-doc-btn').prop('disabled', true).addClass('layui-disabled');// 禁用上传按钮
+        $('form button[type=submit]').prop('disabled', true).hide();// 隐藏提交按钮
+    };
+
+    /**
      * 动态增加输入框
      */
     var addTemplate = {
@@ -119,8 +132,10 @@ layui.use(['form', 'layer', 'upload'], function () {
 
     /**
      * 初始化桌游数据
+     * @param gameId
+     * @param isReadOnly
      */
-    var initData = function (gameId) {
+    var initData = function (gameId, isReadOnly) {
         $.ajax({
             'type': 'post',
             'url': ROOT_CONTEXT + 'game/getDetails',
@@ -170,6 +185,10 @@ layui.use(['form', 'layer', 'upload'], function () {
                     for (var i = 0; i < data.fileInfos.length; i++) {
                         fillFileField(data.fileInfos[i]);
                     }
+                    // 浏览模式下，所有输入域只读
+                    if (isReadOnly === true) {
+                        readOnlyPage();
+                    }
                     // 更新渲染
                     form.render();
                 } else {
@@ -212,12 +231,12 @@ layui.use(['form', 'layer', 'upload'], function () {
 
     /**
      * 组织表单对象
-     * @param form
+     * @param dataForm
      * @returns {object}
      */
-    function buildGameInfoVo(form) {
+    function buildGameInfoVo(dataForm) {
         var gameInfoVo = {};
-        var obj = $(form).serializeArray();
+        var obj = $(dataForm).serializeArray();
         $.each(obj, function () {
             if (gameInfoVo[this.name] !== undefined) {
                 gameInfoVo[this.name] += ',' + (this.value || '');
@@ -243,7 +262,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         delete gameInfoVo.sleeveCount;// 删除无用属性
         // 组织附件
         gameInfoVo.fileInfos = [];
-        $(form).find('input[name=fileKey]').each(function () {
+        $(dataForm).find('input[name=fileKey]').each(function () {
             if ($(this).val() && $(this).val() !== '') {
                 var fileInfo = {};
                 fileInfo.fileName = $(this).data('fileName');
@@ -443,17 +462,8 @@ layui.use(['form', 'layer', 'upload'], function () {
     };
 
     // 根据编辑类型初始化页面
-    switch (editType) {
-        case 'new':
-            break;
-        case 'edit':
-            initData(gameId);
-            break;
-        case 'view':
-            initData(gameId);
-            break;
-        default:
-            break;
+    if (editType !== 'new') {
+        initData(gameId, editType === 'view');
     }
 
     // 图片上传按钮
@@ -559,7 +569,6 @@ layui.use(['form', 'layer', 'upload'], function () {
 
     // 监听提交
     form.on('submit(save)', function (data) {
-        // console.log(buildGameInfoVo(data.form));
         saveData(buildGameInfoVo(data.form));
         return false;
     });
