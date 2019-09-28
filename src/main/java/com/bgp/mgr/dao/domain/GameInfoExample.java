@@ -2281,6 +2281,76 @@ public class GameInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andSleeveIsNull() {
+            addCriterion("sleeve is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveIsNotNull() {
+            addCriterion("sleeve is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveEqualTo(String value) {
+            addCriterion("sleeve =", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveNotEqualTo(String value) {
+            addCriterion("sleeve <>", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveGreaterThan(String value) {
+            addCriterion("sleeve >", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveGreaterThanOrEqualTo(String value) {
+            addCriterion("sleeve >=", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveLessThan(String value) {
+            addCriterion("sleeve <", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveLessThanOrEqualTo(String value) {
+            addCriterion("sleeve <=", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveLike(String value) {
+            addCriterion("sleeve like", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveNotLike(String value) {
+            addCriterion("sleeve not like", value, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveIn(List<String> values) {
+            addCriterion("sleeve in", values, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveNotIn(List<String> values) {
+            addCriterion("sleeve not in", values, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveBetween(String value1, String value2) {
+            addCriterion("sleeve between", value1, value2, "sleeve");
+            return (Criteria) this;
+        }
+
+        public Criteria andSleeveNotBetween(String value1, String value2) {
+            addCriterion("sleeve not between", value1, value2, "sleeve");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

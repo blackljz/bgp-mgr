@@ -321,62 +321,52 @@ public class AssessInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdEqualTo(String value) {
+        public Criteria andUserContentIdEqualTo(Long value) {
             addCriterion("userContentId =", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdNotEqualTo(String value) {
+        public Criteria andUserContentIdNotEqualTo(Long value) {
             addCriterion("userContentId <>", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdGreaterThan(String value) {
+        public Criteria andUserContentIdGreaterThan(Long value) {
             addCriterion("userContentId >", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdGreaterThanOrEqualTo(String value) {
+        public Criteria andUserContentIdGreaterThanOrEqualTo(Long value) {
             addCriterion("userContentId >=", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdLessThan(String value) {
+        public Criteria andUserContentIdLessThan(Long value) {
             addCriterion("userContentId <", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdLessThanOrEqualTo(String value) {
+        public Criteria andUserContentIdLessThanOrEqualTo(Long value) {
             addCriterion("userContentId <=", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdLike(String value) {
-            addCriterion("userContentId like", value, "userContentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserContentIdNotLike(String value) {
-            addCriterion("userContentId not like", value, "userContentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserContentIdIn(List<String> values) {
+        public Criteria andUserContentIdIn(List<Long> values) {
             addCriterion("userContentId in", values, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdNotIn(List<String> values) {
+        public Criteria andUserContentIdNotIn(List<Long> values) {
             addCriterion("userContentId not in", values, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdBetween(String value1, String value2) {
+        public Criteria andUserContentIdBetween(Long value1, Long value2) {
             addCriterion("userContentId between", value1, value2, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdNotBetween(String value1, String value2) {
+        public Criteria andUserContentIdNotBetween(Long value1, Long value2) {
             addCriterion("userContentId not between", value1, value2, "userContentId");
             return (Criteria) this;
         }
@@ -391,62 +381,52 @@ public class AssessInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(String value) {
+        public Criteria andUserIdEqualTo(Long value) {
             addCriterion("userId =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(String value) {
+        public Criteria andUserIdNotEqualTo(Long value) {
             addCriterion("userId <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(String value) {
+        public Criteria andUserIdGreaterThan(Long value) {
             addCriterion("userId >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
             addCriterion("userId >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(String value) {
+        public Criteria andUserIdLessThan(Long value) {
             addCriterion("userId <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(String value) {
+        public Criteria andUserIdLessThanOrEqualTo(Long value) {
             addCriterion("userId <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLike(String value) {
-            addCriterion("userId like", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdNotLike(String value) {
-            addCriterion("userId not like", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdIn(List<String> values) {
+        public Criteria andUserIdIn(List<Long> values) {
             addCriterion("userId in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<String> values) {
+        public Criteria andUserIdNotIn(List<Long> values) {
             addCriterion("userId not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(String value1, String value2) {
+        public Criteria andUserIdBetween(Long value1, Long value2) {
             addCriterion("userId between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(String value1, String value2) {
+        public Criteria andUserIdNotBetween(Long value1, Long value2) {
             addCriterion("userId not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -461,63 +441,113 @@ public class AssessInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andGameIdEqualTo(String value) {
+        public Criteria andGameIdEqualTo(Long value) {
             addCriterion("gameId =", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdNotEqualTo(String value) {
+        public Criteria andGameIdNotEqualTo(Long value) {
             addCriterion("gameId <>", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdGreaterThan(String value) {
+        public Criteria andGameIdGreaterThan(Long value) {
             addCriterion("gameId >", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdGreaterThanOrEqualTo(String value) {
+        public Criteria andGameIdGreaterThanOrEqualTo(Long value) {
             addCriterion("gameId >=", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdLessThan(String value) {
+        public Criteria andGameIdLessThan(Long value) {
             addCriterion("gameId <", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdLessThanOrEqualTo(String value) {
+        public Criteria andGameIdLessThanOrEqualTo(Long value) {
             addCriterion("gameId <=", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdLike(String value) {
-            addCriterion("gameId like", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotLike(String value) {
-            addCriterion("gameId not like", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdIn(List<String> values) {
+        public Criteria andGameIdIn(List<Long> values) {
             addCriterion("gameId in", values, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdNotIn(List<String> values) {
+        public Criteria andGameIdNotIn(List<Long> values) {
             addCriterion("gameId not in", values, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdBetween(String value1, String value2) {
+        public Criteria andGameIdBetween(Long value1, Long value2) {
             addCriterion("gameId between", value1, value2, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdNotBetween(String value1, String value2) {
+        public Criteria andGameIdNotBetween(Long value1, Long value2) {
             addCriterion("gameId not between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdIsNull() {
+            addCriterion("replyUserId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdIsNotNull() {
+            addCriterion("replyUserId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdEqualTo(Long value) {
+            addCriterion("replyUserId =", value, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdNotEqualTo(Long value) {
+            addCriterion("replyUserId <>", value, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdGreaterThan(Long value) {
+            addCriterion("replyUserId >", value, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("replyUserId >=", value, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdLessThan(Long value) {
+            addCriterion("replyUserId <", value, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("replyUserId <=", value, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdIn(List<Long> values) {
+            addCriterion("replyUserId in", values, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdNotIn(List<Long> values) {
+            addCriterion("replyUserId not in", values, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdBetween(Long value1, Long value2) {
+            addCriterion("replyUserId between", value1, value2, "replyUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("replyUserId not between", value1, value2, "replyUserId");
             return (Criteria) this;
         }
 
@@ -588,76 +618,6 @@ public class AssessInfoExample {
 
         public Criteria andUserNameNotBetween(String value1, String value2) {
             addCriterion("userName not between", value1, value2, "userName");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdIsNull() {
-            addCriterion("replyUserId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdIsNotNull() {
-            addCriterion("replyUserId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdEqualTo(String value) {
-            addCriterion("replyUserId =", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdNotEqualTo(String value) {
-            addCriterion("replyUserId <>", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdGreaterThan(String value) {
-            addCriterion("replyUserId >", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdGreaterThanOrEqualTo(String value) {
-            addCriterion("replyUserId >=", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdLessThan(String value) {
-            addCriterion("replyUserId <", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdLessThanOrEqualTo(String value) {
-            addCriterion("replyUserId <=", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdLike(String value) {
-            addCriterion("replyUserId like", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdNotLike(String value) {
-            addCriterion("replyUserId not like", value, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdIn(List<String> values) {
-            addCriterion("replyUserId in", values, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdNotIn(List<String> values) {
-            addCriterion("replyUserId not in", values, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdBetween(String value1, String value2) {
-            addCriterion("replyUserId between", value1, value2, "replyUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andReplyUserIdNotBetween(String value1, String value2) {
-            addCriterion("replyUserId not between", value1, value2, "replyUserId");
             return (Criteria) this;
         }
 

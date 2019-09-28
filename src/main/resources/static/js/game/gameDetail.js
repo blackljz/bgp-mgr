@@ -76,10 +76,10 @@ layui.use(['form', 'layer', 'upload'], function () {
         },
         // 牌套
         'sleeve': function (data) {
-            // TODO
-            var height = data['value'].split(',')[0];
-            var width = data['value'].split(',')[1];
-            var count = data['value'].split(',')[2];
+            var values = data['value'].split('\|');
+            var height = values[0] ? values[0] : '';
+            var width = values[1] ? values[1] : '';
+            var count = values[2] ? values[2] : '';
             var html = '<div class="layui-inline card-sleeve-item tpl-item">' +
                 '<label class="layui-form-label" style="width: auto;">高</label>' +
                 '<div class="layui-input-inline">' +
@@ -100,7 +100,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         // 关联游戏ID
         'relatedGameId': function (data) {
             var value = data['value'];
-            var html = '<div class="tpl-item">' +
+            var html = '<div class="layui-inline tpl-item">' +
                 '<label class="layui-form-label" style="width: auto;">游戏ID</label>' +
                 '<div class="layui-input-inline">' +
                 '<input type="text" name="relatedGameId" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + value + '"/>' +
@@ -165,7 +165,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                     fillArrayField(data.mechanism, 'mechanism');
                     fillArrayField(data.category, 'category');
                     fillArrayField(data.relatedGameId, 'relatedGameId');
-                    // TODO 牌套
+                    fillArrayField(data.sleeve, 'sleeve');
                     // 附件输入域
                     for (var i = 0; i < data.fileInfos.length; i++) {
                         fillFileField(data.fileInfos[i]);
@@ -225,6 +225,22 @@ layui.use(['form', 'layer', 'upload'], function () {
                 gameInfoVo[this.name] = this.value || '';
             }
         });
+        // 处理牌套字段
+        var sleeves = '';
+        $('.card-sleeve-item').each(function (e, i) {
+            var value = $(this).find('input[name=sleeveHeight]').val() + '\|' +
+                $(this).find('input[name=sleeveWidth]').val() + '\|' +
+                $(this).find('input[name=sleeveCount]').val();
+            if (!sleeves) {
+                sleeves += value;
+            } else {
+                sleeves += ',' + value;
+            }
+        });
+        gameInfoVo.sleeve = sleeves;
+        delete gameInfoVo.sleeveHeight;// 删除无用属性
+        delete gameInfoVo.sleeveWidth;// 删除无用属性
+        delete gameInfoVo.sleeveCount;// 删除无用属性
         // 组织附件
         gameInfoVo.fileInfos = [];
         $(form).find('input[name=fileKey]').each(function () {
@@ -251,7 +267,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         if (!data) {
             return;
         } else if (!Array.isArray(data)) {
-            if (typeof data == 'string') {
+            if (typeof data === 'string') {
                 data = data.split(',');
             }
         }
@@ -262,14 +278,27 @@ layui.use(['form', 'layer', 'upload'], function () {
             if (fieldType === 'radio' || fieldType === 'checkbox') {
                 $('form').find('*[name=' + fieldName + '][value=' + data[i] + ']').prop('checked', true);
             } else {
-                var field = $('form').find('*[name=' + fieldName + ']:eq(' + i + ')');
-                if (field.length > 0) {
-                    field.val(data[i]);
+                if (fieldName === 'sleeve') {// 牌套字段特殊处理
+                    var div = $('form').find('.card-sleeve-item:eq(' + i + ')');
+                    if (div.length > 0) {
+                        var values = data[i].split('\|');
+                        div.find('input[name=sleeveHeight]').val(values[0]);
+                        div.find('input[name=sleeveWidth]').val(values[1]);
+                        div.find('input[name=sleeveCount]').val(values[2]);
+                    } else {
+                        addTemplate[fieldName] ? addTemplate[fieldName].call(this, {
+                            value: data[i]
+                        }) : '';
+                    }
                 } else {
-                    var value = {
-                        value: data[i]
-                    };
-                    addTemplate[fieldName] ? addTemplate[fieldName].call(this, value) : '';
+                    var field = $('form').find('*[name=' + fieldName + ']:eq(' + i + ')');
+                    if (field.length > 0) {
+                        field.val(data[i]);
+                    } else {
+                        addTemplate[fieldName] ? addTemplate[fieldName].call(this, {
+                            value: data[i]
+                        }) : '';
+                    }
                 }
             }
         }

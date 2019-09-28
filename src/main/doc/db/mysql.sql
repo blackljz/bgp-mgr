@@ -1,14 +1,13 @@
-create schema bgp collate utf8_general_ci;
 
 create table assessInfo
 (
 	id bigint unsigned auto_increment comment '评价Id'
 		primary key,
-	userContentId varchar(50) default '' null comment '发布内容Id(圈子Id,评价Id)',
-	userId varchar(50) default '' null comment '发布人Id',
-	gameId varchar(50) null comment '游戏ID',
+	userContentId bigint null comment '发布内容Id(圈子Id,评价Id)',
+	userId bigint null comment '发布人Id',
+	gameId bigint null comment '游戏ID',
+	replyUserId bigint null comment '被回复人ID',
 	userName varchar(50) null comment '用户名',
-	replyUserId varchar(50) null comment '被回复人ID',
 	userImage varchar(50) default '' null comment '头象图片',
 	releaseTime datetime null comment '发布时间',
 	content varchar(200) default '' null comment '内容',
@@ -82,7 +81,7 @@ create table friendsCircleInfo
 (
 	id bigint unsigned auto_increment comment '圈子列表(朋友圈、发布)ID'
 		primary key,
-	userId varchar(50) default '' null comment '用户Id',
+	userId bigint null comment '用户Id',
 	content varchar(200) default '' null comment '用户发布内容',
 	record varchar(50) default '' null comment '战绩',
 	likeNumber varchar(50) default '' null comment '点赞数量',
@@ -127,7 +126,8 @@ create table gameInfo
 	bggRank varchar(20) null comment 'BGG排名',
 	bggScore varchar(20) null comment 'BGG评分',
 	bggLink varchar(50) null comment 'BGG链接',
-	status int default -1 not null comment '状态：1启用；0制作中；-1停用；',
+	sleeve varchar(200) null comment '牌套（高|宽|数量）',
+	status int default '-1' not null comment '状态：1启用；0制作中；-1停用；',
 	createdBy varchar(20) not null comment '创建人',
 	createdDate datetime default CURRENT_TIMESTAMP not null comment '创建时间',
 	modifiedBy varchar(20) not null comment '修改人',
