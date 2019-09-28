@@ -488,7 +488,6 @@ layui.use(['form', 'layer', 'upload'], function () {
     form.on('select(videoType)', function (data) {
         var type = data.value;
         $(data.elem).parents('.upload-item').find('input[name=fileKey]').data('type', type);
-
     });
 
     // 文档上传按钮
@@ -506,12 +505,14 @@ layui.use(['form', 'layer', 'upload'], function () {
     });
 
     // 监听事件
-    $('form').on('click', '.add-tpl', function () {
+    $('form').on('click', '.btn-cancel', function () {// 取消按钮
+        closePage(false);
+    }).on('click', '.add-tpl', function () {// 根据模版添加输入域
         var tplName = $(this).data('tpl');
         addTemplate[tplName] ? addTemplate[tplName].call(this, {value: ''}) : '';
-    }).on('click', '.del-tpl', function () {
+    }).on('click', '.del-tpl', function () {// 删除动态添加输入域
         $(this).parents('.tpl-item').remove();
-    }).on('click', '.upload-del', function () {
+    }).on('click', '.upload-del', function () {// 删除上传对象
         var list = $(this).parents('.layui-upload-list');
         $(this).parents('.upload-item').remove();
         var maxSize = $(list).data('maxsize');
@@ -519,7 +520,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         if (maxSize <= 1) {
             appendNewFileItem(fileType, list);
         }
-    }).on('change', 'input[name=relatedGameId]', function () {
+    }).on('change', 'input[name=relatedGameId]', function () {// 关联游戏ID加载游戏名称
         var that = this;
         $.ajax({
             'type': 'post',
@@ -561,9 +562,5 @@ layui.use(['form', 'layer', 'upload'], function () {
         // console.log(buildGameInfoVo(data.form));
         saveData(buildGameInfoVo(data.form));
         return false;
-    });
-    // 监听关闭
-    form.on('button(cancel)', function () {
-        closePage(false);
     });
 });
