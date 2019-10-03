@@ -34,7 +34,7 @@ public class UserInfoController {
      */
     @GetMapping("/list")
     public String list() {
-        return "/user/userList";
+        return "user/userList";
     }
 
     /**
@@ -74,7 +74,7 @@ public class UserInfoController {
     public String view(@PathVariable("id") Long id, ModelMap modelMap) {
         modelMap.put("editType", CommonConstant.EDITTYPE_VIEW);
         modelMap.put("userId", id);
-        return "/user/userDetails";
+        return "user/userDetails";
     }
 
     /**

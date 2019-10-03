@@ -22,7 +22,7 @@ public class SysController {
      */
     @GetMapping("/passwordMgr")
     public String passwordMgr() {
-        return "/sys/passwordMgr";
+        return "sys/passwordMgr";
     }
 
     /**

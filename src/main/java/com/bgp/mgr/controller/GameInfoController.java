@@ -36,7 +36,7 @@ public class GameInfoController {
      */
     @GetMapping("/list")
     public String list() {
-        return "/game/gameList";
+        return "game/gameList";
     }
 
     /**
@@ -77,7 +77,7 @@ public class GameInfoController {
     public String add(ModelMap modelMap) {
         modelMap.put("editType", CommonConstant.EDITTYPE_NEW);
         modelMap.put("gameId", 0L);//新增默认id为0
-        return "/game/gameDetails";
+        return "game/gameDetails";
     }
 
     /**
@@ -91,7 +91,7 @@ public class GameInfoController {
     public String edit(@PathVariable("id") Long id, ModelMap modelMap) {
         modelMap.put("editType", CommonConstant.EDITTYPE_EDIT);
         modelMap.put("gameId", id);
-        return "/game/gameDetails";
+        return "game/gameDetails";
     }
 
     /**
@@ -105,7 +105,7 @@ public class GameInfoController {
     public String view(@PathVariable("id") Long id, ModelMap modelMap) {
         modelMap.put("editType", CommonConstant.EDITTYPE_VIEW);
         modelMap.put("gameId", id);
-        return "/game/gameDetails";
+        return "game/gameDetails";
     }
 
     /**
