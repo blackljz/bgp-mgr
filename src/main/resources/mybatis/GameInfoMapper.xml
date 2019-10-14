@@ -435,6 +435,10 @@
         #{relatedGameId,jdbcType=VARCHAR},
       </if>
     </trim>
+    <!-- 返回主键 -->
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
   </insert>
   <select id="countByExample" parameterType="com.bgp.mgr.dao.domain.GameInfoExample" resultType="java.lang.Integer">
     <!--
