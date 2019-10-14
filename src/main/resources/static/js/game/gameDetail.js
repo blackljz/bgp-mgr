@@ -90,17 +90,17 @@ layui.use(['form', 'layer', 'upload'], function () {
         // 牌套
         'sleeve': function (data) {
             var values = data['value'].split('\|');
-            var height = values[0] ? values[0] : '';
-            var width = values[1] ? values[1] : '';
+            var width = values[0] ? values[0] : '';
+            var height = values[1] ? values[1] : '';
             var count = values[2] ? values[2] : '';
             var html = '<div class="layui-inline card-sleeve-item tpl-item">' +
-                '<label class="layui-form-label" style="width: auto;">高</label>' +
-                '<div class="layui-input-inline">' +
-                '<input type="text" name="sleeveHeight" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + height + '"/>' +
-                '</div>' +
                 '<label class="layui-form-label" style="width: auto;">宽</label>' +
                 '<div class="layui-input-inline">' +
                 '<input type="text" name="sleeveWidth" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + width + '"/>' +
+                '</div>' +
+                '<label class="layui-form-label" style="width: auto;">高</label>' +
+                '<div class="layui-input-inline">' +
+                '<input type="text" name="sleeveHeight" lay-verify="required|number" autocomplete="off" class="layui-input" value="' + height + '"/>' +
                 '</div>' +
                 '<label class="layui-form-label" style="width: auto;">数量</label>' +
                 '<div class="layui-input-inline">' +
@@ -169,7 +169,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                         "bggScore": data.bggScore,
                         "bggLink": data.bggLink,
                         "gameIntroduction": data.gameIntroduction,
-                        'gameEnIntroduction': data.gameIntroduction
+                        'gameEnIntroduction': data.gameEnIntroduction
                     });
                     // 多项输入域
                     fillArrayField(data.type, 'type', 'checkbox');
@@ -247,8 +247,8 @@ layui.use(['form', 'layer', 'upload'], function () {
         // 处理牌套字段
         var sleeves = '';
         $('.card-sleeve-item').each(function (e, i) {
-            var value = $(this).find('input[name=sleeveHeight]').val() + '\|' +
-                $(this).find('input[name=sleeveWidth]').val() + '\|' +
+            var value = $(this).find('input[name=sleeveWidth]').val() + '\|' +
+                $(this).find('input[name=sleeveHeight]').val() + '\|' +
                 $(this).find('input[name=sleeveCount]').val();
             if (!sleeves) {
                 sleeves += value;
@@ -257,8 +257,8 @@ layui.use(['form', 'layer', 'upload'], function () {
             }
         });
         gameInfoVo.sleeve = sleeves;
-        delete gameInfoVo.sleeveHeight;// 删除无用属性
         delete gameInfoVo.sleeveWidth;// 删除无用属性
+        delete gameInfoVo.sleeveHeight;// 删除无用属性
         delete gameInfoVo.sleeveCount;// 删除无用属性
         // 组织附件
         gameInfoVo.fileInfos = [];
@@ -301,8 +301,8 @@ layui.use(['form', 'layer', 'upload'], function () {
                     var div = $('form').find('.card-sleeve-item:eq(' + i + ')');
                     if (div.length > 0) {
                         var values = data[i].split('\|');
-                        div.find('input[name=sleeveHeight]').val(values[0]);
-                        div.find('input[name=sleeveWidth]').val(values[1]);
+                        div.find('input[name=sleeveWidth]').val(values[0]);
+                        div.find('input[name=sleeveHeight]').val(values[1]);
                         div.find('input[name=sleeveCount]').val(values[2]);
                     } else {
                         addTemplate[fieldName] ? addTemplate[fieldName].call(this, {
