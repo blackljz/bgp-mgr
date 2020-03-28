@@ -31,3 +31,4 @@ mybatis:
 # config
 sys:
   storage-dir: /data/wwwroot/sharedFile/game/
+#  storage-dir: /Users/hran/IdeaProjects/bgp-mgr/target/temp/
