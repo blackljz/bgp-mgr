@@ -471,7 +471,7 @@ layui.use(['form', 'layer', 'upload'], function () {
         elem: '.upload-image-btn',
         url: ROOT_CONTEXT + 'file/upload',
         accept: 'images',
-        acceptMime: 'image/png',// 格式PNG
+        acceptMime: 'image/png,image/jpeg',// 格式PNG,JPG,JPEG
         size: 500,// 最大500KB
         multiple: false,
         choose: uploaderChoose,
