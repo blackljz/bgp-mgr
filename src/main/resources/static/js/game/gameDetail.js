@@ -267,7 +267,7 @@ layui.use(['form', 'layer', 'upload'], function () {
                 var fileInfo = {};
                 fileInfo.fileName = $(this).data('fileName');
                 fileInfo.fileAddress = $(this).val();
-                fileInfo.type = $(this).data('type');
+                fileInfo.fileUseType = $(this).data('fileUseType');
                 fileInfo.fileType = $(this).data('fileType');
                 gameInfoVo.fileInfos.push(fileInfo);
             }
@@ -334,13 +334,13 @@ layui.use(['form', 'layer', 'upload'], function () {
         var listId;
         switch (parseInt(data.fileType)) {
             case 1:
-                listId = '#imageDiv' + data.type;
+                listId = '#imageDiv' + data.fileUseType;
                 break;
             case 2:
                 listId = '#videoDiv';
                 break;
             case 3:
-                listId = '#fileDiv' + data.type;
+                listId = '#fileDiv' + data.fileUseType;
                 break;
             default:
                 return;
@@ -355,8 +355,8 @@ layui.use(['form', 'layer', 'upload'], function () {
         $(item).find('.upload-filename').text(data.fileName);// 显示文件名
         $(item).find('.upload-info').text('上传成功');// 上传提示语
         $(item).find('.upload-del').show();// 删除按钮
-        $(item).find('.videoType').val(data.type);// 视频类型
-        $(item).find('input[name=fileKey]').data('fileName', data.fileName).data('type', data.type).data('fileType', data.fileType).val(data.fileAddress);
+        $(item).find('.videoType').val(data.fileUseType);// 视频类型
+        $(item).find('input[name=fileKey]').data('fileName', data.fileName).data('fileUseType', data.fileUseType).data('fileType', data.fileType).val(data.fileAddress);
     }
 
     /**
@@ -435,14 +435,14 @@ layui.use(['form', 'layer', 'upload'], function () {
         }
     }, uploaderBefore = function (obj) {
         var listId = this.target;// 上传结果列表ID
-        var type = $(listId).data('type');// 类型
+        var fileUseType = $(listId).data('fileusetype');// 类型
         var fileType = $(listId).data('filetype');// 附件类型
         obj.preview(function (index, file, result) {
             var item = $(listId).find('.upload-item:last');
             $(item).find('.upload-img').attr('src', result);
             $(item).find('.upload-filename').text(file.name);
             $(item).find('.upload-info').text('上传中..');
-            $(item).find('input[name=fileKey]').data('fileName', file.name).data('type', type).data('fileType', fileType).val('');
+            $(item).find('input[name=fileKey]').data('fileName', file.name).data('fileUseType', fileUseType).data('fileType', fileType).val('');
         });
     }, uploaderDone = function (res, index, upload) {
         var listId = this.target;// 上传结果列表ID
@@ -492,12 +492,12 @@ layui.use(['form', 'layer', 'upload'], function () {
         } else {
             // 追加上传预览框
             appendNewFileItem(fileType, listId);
-            $(listId).find('.upload-item:last input[name=fileKey]').data('fileName', '').data('type', '').data('fileType', fileType).val('');
+            $(listId).find('.upload-item:last input[name=fileKey]').data('fileName', '').data('fileUseType', '').data('fileType', fileType).val('');
         }
     });
     form.on('select(videoType)', function (data) {
-        var type = data.value;
-        $(data.elem).parents('.upload-item').find('input[name=fileKey]').data('type', type);
+        var fileUseType = data.value;
+        $(data.elem).parents('.upload-item').find('input[name=fileKey]').data('fileUseType', fileUseType);
     });
 
     // 文档上传按钮
