@@ -311,6 +311,76 @@ public class GameInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andRelatedGameIdIsNull() {
+            addCriterion("relatedGameId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdIsNotNull() {
+            addCriterion("relatedGameId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdEqualTo(String value) {
+            addCriterion("relatedGameId =", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdNotEqualTo(String value) {
+            addCriterion("relatedGameId <>", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdGreaterThan(String value) {
+            addCriterion("relatedGameId >", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdGreaterThanOrEqualTo(String value) {
+            addCriterion("relatedGameId >=", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdLessThan(String value) {
+            addCriterion("relatedGameId <", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdLessThanOrEqualTo(String value) {
+            addCriterion("relatedGameId <=", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdLike(String value) {
+            addCriterion("relatedGameId like", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdNotLike(String value) {
+            addCriterion("relatedGameId not like", value, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdIn(List<String> values) {
+            addCriterion("relatedGameId in", values, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdNotIn(List<String> values) {
+            addCriterion("relatedGameId not in", values, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdBetween(String value1, String value2) {
+            addCriterion("relatedGameId between", value1, value2, "relatedGameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRelatedGameIdNotBetween(String value1, String value2) {
+            addCriterion("relatedGameId not between", value1, value2, "relatedGameId");
+            return (Criteria) this;
+        }
+
         public Criteria andGameNameIsNull() {
             addCriterion("gameName is null");
             return (Criteria) this;
@@ -2668,76 +2738,6 @@ public class GameInfoExample {
 
         public Criteria andModifiedDateNotBetween(Date value1, Date value2) {
             addCriterion("modifiedDate not between", value1, value2, "modifiedDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdIsNull() {
-            addCriterion("relatedGameId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdIsNotNull() {
-            addCriterion("relatedGameId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdEqualTo(String value) {
-            addCriterion("relatedGameId =", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdNotEqualTo(String value) {
-            addCriterion("relatedGameId <>", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdGreaterThan(String value) {
-            addCriterion("relatedGameId >", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdGreaterThanOrEqualTo(String value) {
-            addCriterion("relatedGameId >=", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdLessThan(String value) {
-            addCriterion("relatedGameId <", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdLessThanOrEqualTo(String value) {
-            addCriterion("relatedGameId <=", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdLike(String value) {
-            addCriterion("relatedGameId like", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdNotLike(String value) {
-            addCriterion("relatedGameId not like", value, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdIn(List<String> values) {
-            addCriterion("relatedGameId in", values, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdNotIn(List<String> values) {
-            addCriterion("relatedGameId not in", values, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdBetween(String value1, String value2) {
-            addCriterion("relatedGameId between", value1, value2, "relatedGameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRelatedGameIdNotBetween(String value1, String value2) {
-            addCriterion("relatedGameId not between", value1, value2, "relatedGameId");
             return (Criteria) this;
         }
     }

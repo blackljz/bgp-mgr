@@ -431,6 +431,76 @@ public class RecordInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andGameNameIsNull() {
+            addCriterion("gameName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIsNotNull() {
+            addCriterion("gameName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameEqualTo(String value) {
+            addCriterion("gameName =", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotEqualTo(String value) {
+            addCriterion("gameName <>", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameGreaterThan(String value) {
+            addCriterion("gameName >", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameGreaterThanOrEqualTo(String value) {
+            addCriterion("gameName >=", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLessThan(String value) {
+            addCriterion("gameName <", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLessThanOrEqualTo(String value) {
+            addCriterion("gameName <=", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLike(String value) {
+            addCriterion("gameName like", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotLike(String value) {
+            addCriterion("gameName not like", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIn(List<String> values) {
+            addCriterion("gameName in", values, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotIn(List<String> values) {
+            addCriterion("gameName not in", values, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameBetween(String value1, String value2) {
+            addCriterion("gameName between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotBetween(String value1, String value2) {
+            addCriterion("gameName not between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
         public Criteria andGameTeamIsNull() {
             addCriterion("gameTeam is null");
             return (Criteria) this;
@@ -708,6 +778,76 @@ public class RecordInfoExample {
 
         public Criteria andDurationNotBetween(String value1, String value2) {
             addCriterion("duration not between", value1, value2, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNull() {
+            addCriterion("content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNotNull() {
+            addCriterion("content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("content =", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("content <>", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("content >", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("content >=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThan(String value) {
+            addCriterion("content <", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("content <=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLike(String value) {
+            addCriterion("content like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotLike(String value) {
+            addCriterion("content not like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("content in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("content not in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("content between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("content not between", value1, value2, "content");
             return (Criteria) this;
         }
 

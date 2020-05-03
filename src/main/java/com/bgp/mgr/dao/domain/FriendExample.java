@@ -321,52 +321,62 @@ public class FriendExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Long value) {
+        public Criteria andUserIdEqualTo(String value) {
             addCriterion("userId =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Long value) {
+        public Criteria andUserIdNotEqualTo(String value) {
             addCriterion("userId <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Long value) {
+        public Criteria andUserIdGreaterThan(String value) {
             addCriterion("userId >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
             addCriterion("userId >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Long value) {
+        public Criteria andUserIdLessThan(String value) {
             addCriterion("userId <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
             addCriterion("userId <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Long> values) {
+        public Criteria andUserIdLike(String value) {
+            addCriterion("userId like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("userId not like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIn(List<String> values) {
             addCriterion("userId in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Long> values) {
+        public Criteria andUserIdNotIn(List<String> values) {
             addCriterion("userId not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Long value1, Long value2) {
+        public Criteria andUserIdBetween(String value1, String value2) {
             addCriterion("userId between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andUserIdNotBetween(String value1, String value2) {
             addCriterion("userId not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -381,52 +391,62 @@ public class FriendExample {
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdEqualTo(Long value) {
+        public Criteria andFriendIdEqualTo(String value) {
             addCriterion("friendId =", value, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdNotEqualTo(Long value) {
+        public Criteria andFriendIdNotEqualTo(String value) {
             addCriterion("friendId <>", value, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdGreaterThan(Long value) {
+        public Criteria andFriendIdGreaterThan(String value) {
             addCriterion("friendId >", value, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andFriendIdGreaterThanOrEqualTo(String value) {
             addCriterion("friendId >=", value, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdLessThan(Long value) {
+        public Criteria andFriendIdLessThan(String value) {
             addCriterion("friendId <", value, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdLessThanOrEqualTo(Long value) {
+        public Criteria andFriendIdLessThanOrEqualTo(String value) {
             addCriterion("friendId <=", value, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdIn(List<Long> values) {
+        public Criteria andFriendIdLike(String value) {
+            addCriterion("friendId like", value, "friendId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFriendIdNotLike(String value) {
+            addCriterion("friendId not like", value, "friendId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFriendIdIn(List<String> values) {
             addCriterion("friendId in", values, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdNotIn(List<Long> values) {
+        public Criteria andFriendIdNotIn(List<String> values) {
             addCriterion("friendId not in", values, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdBetween(Long value1, Long value2) {
+        public Criteria andFriendIdBetween(String value1, String value2) {
             addCriterion("friendId between", value1, value2, "friendId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendIdNotBetween(Long value1, Long value2) {
+        public Criteria andFriendIdNotBetween(String value1, String value2) {
             addCriterion("friendId not between", value1, value2, "friendId");
             return (Criteria) this;
         }

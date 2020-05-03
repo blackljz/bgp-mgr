@@ -581,113 +581,123 @@ public class ExRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andGameWinEqualTo(Integer value) {
+        public Criteria andGameWinEqualTo(String value) {
             addCriterion("gameWin =", value, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinNotEqualTo(Integer value) {
+        public Criteria andGameWinNotEqualTo(String value) {
             addCriterion("gameWin <>", value, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinGreaterThan(Integer value) {
+        public Criteria andGameWinGreaterThan(String value) {
             addCriterion("gameWin >", value, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinGreaterThanOrEqualTo(Integer value) {
+        public Criteria andGameWinGreaterThanOrEqualTo(String value) {
             addCriterion("gameWin >=", value, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinLessThan(Integer value) {
+        public Criteria andGameWinLessThan(String value) {
             addCriterion("gameWin <", value, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinLessThanOrEqualTo(Integer value) {
+        public Criteria andGameWinLessThanOrEqualTo(String value) {
             addCriterion("gameWin <=", value, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinIn(List<Integer> values) {
+        public Criteria andGameWinLike(String value) {
+            addCriterion("gameWin like", value, "gameWin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameWinNotLike(String value) {
+            addCriterion("gameWin not like", value, "gameWin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameWinIn(List<String> values) {
             addCriterion("gameWin in", values, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinNotIn(List<Integer> values) {
+        public Criteria andGameWinNotIn(List<String> values) {
             addCriterion("gameWin not in", values, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinBetween(Integer value1, Integer value2) {
+        public Criteria andGameWinBetween(String value1, String value2) {
             addCriterion("gameWin between", value1, value2, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andGameWinNotBetween(Integer value1, Integer value2) {
+        public Criteria andGameWinNotBetween(String value1, String value2) {
             addCriterion("gameWin not between", value1, value2, "gameWin");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateIsNull() {
-            addCriterion("created_date is null");
+        public Criteria andCreatedDateIsNull() {
+            addCriterion("createdDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateIsNotNull() {
-            addCriterion("created_date is not null");
+        public Criteria andCreatedDateIsNotNull() {
+            addCriterion("createdDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateEqualTo(Date value) {
-            addCriterion("created_date =", value, "created_date");
+        public Criteria andCreatedDateEqualTo(Date value) {
+            addCriterion("createdDate =", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateNotEqualTo(Date value) {
-            addCriterion("created_date <>", value, "created_date");
+        public Criteria andCreatedDateNotEqualTo(Date value) {
+            addCriterion("createdDate <>", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateGreaterThan(Date value) {
-            addCriterion("created_date >", value, "created_date");
+        public Criteria andCreatedDateGreaterThan(Date value) {
+            addCriterion("createdDate >", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateGreaterThanOrEqualTo(Date value) {
-            addCriterion("created_date >=", value, "created_date");
+        public Criteria andCreatedDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("createdDate >=", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateLessThan(Date value) {
-            addCriterion("created_date <", value, "created_date");
+        public Criteria andCreatedDateLessThan(Date value) {
+            addCriterion("createdDate <", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateLessThanOrEqualTo(Date value) {
-            addCriterion("created_date <=", value, "created_date");
+        public Criteria andCreatedDateLessThanOrEqualTo(Date value) {
+            addCriterion("createdDate <=", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateIn(List<Date> values) {
-            addCriterion("created_date in", values, "created_date");
+        public Criteria andCreatedDateIn(List<Date> values) {
+            addCriterion("createdDate in", values, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateNotIn(List<Date> values) {
-            addCriterion("created_date not in", values, "created_date");
+        public Criteria andCreatedDateNotIn(List<Date> values) {
+            addCriterion("createdDate not in", values, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateBetween(Date value1, Date value2) {
-            addCriterion("created_date between", value1, value2, "created_date");
+        public Criteria andCreatedDateBetween(Date value1, Date value2) {
+            addCriterion("createdDate between", value1, value2, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreated_dateNotBetween(Date value1, Date value2) {
-            addCriterion("created_date not between", value1, value2, "created_date");
+        public Criteria andCreatedDateNotBetween(Date value1, Date value2) {
+            addCriterion("createdDate not between", value1, value2, "createdDate");
             return (Criteria) this;
         }
     }

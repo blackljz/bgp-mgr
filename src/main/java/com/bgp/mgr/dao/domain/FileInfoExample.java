@@ -829,6 +829,76 @@ public class FileInfoExample {
             addCriterion("fileType not between", value1, value2, "fileType");
             return (Criteria) this;
         }
+
+        public Criteria andFileUseTypeIsNull() {
+            addCriterion("fileUseType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeIsNotNull() {
+            addCriterion("fileUseType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeEqualTo(String value) {
+            addCriterion("fileUseType =", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeNotEqualTo(String value) {
+            addCriterion("fileUseType <>", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeGreaterThan(String value) {
+            addCriterion("fileUseType >", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("fileUseType >=", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeLessThan(String value) {
+            addCriterion("fileUseType <", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeLessThanOrEqualTo(String value) {
+            addCriterion("fileUseType <=", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeLike(String value) {
+            addCriterion("fileUseType like", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeNotLike(String value) {
+            addCriterion("fileUseType not like", value, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeIn(List<String> values) {
+            addCriterion("fileUseType in", values, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeNotIn(List<String> values) {
+            addCriterion("fileUseType not in", values, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeBetween(String value1, String value2) {
+            addCriterion("fileUseType between", value1, value2, "fileUseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileUseTypeNotBetween(String value1, String value2) {
+            addCriterion("fileUseType not between", value1, value2, "fileUseType");
+            return (Criteria) this;
+        }
     }
 
     /**

@@ -80,7 +80,7 @@ public class GameInfoServiceImpl implements GameInfoService {
             BeanUtils.copyProperties(gameInfo, gameInfoVo);
             // 组织附件信息
             FileInfoExample example = new FileInfoExample();
-            example.createCriteria().andGameIdEqualTo(id);
+            example.createCriteria().andGameIdEqualTo(id).andTypeEqualTo("2");// 类型：游戏图片
             List<FileInfo> fileInfos = fileInfoMapper.selectByExample(example);
             gameInfoVo.setFileInfos(fileInfos);
         } else {
@@ -102,15 +102,8 @@ public class GameInfoServiceImpl implements GameInfoService {
         gameInfoVo.setModifiedBy(pin);
         gameInfoVo.setModifiedDate(new Date());
         gameInfoMapper.insertSelective(gameInfoVo);
-
         // 保存附件信息
-        List<FileInfo> fileInfos = gameInfoVo.getFileInfos();
-        if (!CollectionUtils.isEmpty(fileInfos)) {
-            for (FileInfo fileInfo : fileInfos) {
-                fileInfo.setGameId(gameInfoVo.getId());
-                fileInfoMapper.insertSelective(fileInfo);
-            }
-        }
+        this.saveFileInfo(gameInfoVo);
     }
 
     @Override
@@ -124,15 +117,24 @@ public class GameInfoServiceImpl implements GameInfoService {
         gameInfoVo.setModifiedBy(pin);
         gameInfoVo.setModifiedDate(new Date());
         gameInfoMapper.updateByPrimaryKeySelective(gameInfoVo);
-
         // 更新附件信息（先删后插）
         FileInfoExample example = new FileInfoExample();
         example.createCriteria().andGameIdEqualTo(gameInfoVo.getId());
         fileInfoMapper.deleteByExample(example);
+        this.saveFileInfo(gameInfoVo);
+    }
+
+    /**
+     * 保存游戏图片
+     *
+     * @param gameInfoVo
+     */
+    private void saveFileInfo(GameInfoVo gameInfoVo) {
         List<FileInfo> fileInfos = gameInfoVo.getFileInfos();
         if (!CollectionUtils.isEmpty(fileInfos)) {
             for (FileInfo fileInfo : fileInfos) {
                 fileInfo.setGameId(gameInfoVo.getId());
+                fileInfo.setType("2");// 类型：游戏图片
                 fileInfoMapper.insertSelective(fileInfo);
             }
         }

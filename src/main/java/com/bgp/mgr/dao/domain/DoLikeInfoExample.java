@@ -320,52 +320,62 @@ public class DoLikeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Long value) {
+        public Criteria andUserIdEqualTo(String value) {
             addCriterion("userId =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Long value) {
+        public Criteria andUserIdNotEqualTo(String value) {
             addCriterion("userId <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Long value) {
+        public Criteria andUserIdGreaterThan(String value) {
             addCriterion("userId >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
             addCriterion("userId >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Long value) {
+        public Criteria andUserIdLessThan(String value) {
             addCriterion("userId <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
             addCriterion("userId <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Long> values) {
+        public Criteria andUserIdLike(String value) {
+            addCriterion("userId like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("userId not like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIn(List<String> values) {
             addCriterion("userId in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Long> values) {
+        public Criteria andUserIdNotIn(List<String> values) {
             addCriterion("userId not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Long value1, Long value2) {
+        public Criteria andUserIdBetween(String value1, String value2) {
             addCriterion("userId between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andUserIdNotBetween(String value1, String value2) {
             addCriterion("userId not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -380,52 +390,62 @@ public class DoLikeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andGameIdEqualTo(Long value) {
+        public Criteria andGameIdEqualTo(String value) {
             addCriterion("gameId =", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdNotEqualTo(Long value) {
+        public Criteria andGameIdNotEqualTo(String value) {
             addCriterion("gameId <>", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdGreaterThan(Long value) {
+        public Criteria andGameIdGreaterThan(String value) {
             addCriterion("gameId >", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andGameIdGreaterThanOrEqualTo(String value) {
             addCriterion("gameId >=", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdLessThan(Long value) {
+        public Criteria andGameIdLessThan(String value) {
             addCriterion("gameId <", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdLessThanOrEqualTo(Long value) {
+        public Criteria andGameIdLessThanOrEqualTo(String value) {
             addCriterion("gameId <=", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdIn(List<Long> values) {
+        public Criteria andGameIdLike(String value) {
+            addCriterion("gameId like", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotLike(String value) {
+            addCriterion("gameId not like", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIn(List<String> values) {
             addCriterion("gameId in", values, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdNotIn(List<Long> values) {
+        public Criteria andGameIdNotIn(List<String> values) {
             addCriterion("gameId not in", values, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdBetween(Long value1, Long value2) {
+        public Criteria andGameIdBetween(String value1, String value2) {
             addCriterion("gameId between", value1, value2, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andGameIdNotBetween(Long value1, Long value2) {
+        public Criteria andGameIdNotBetween(String value1, String value2) {
             addCriterion("gameId not between", value1, value2, "gameId");
             return (Criteria) this;
         }
@@ -440,52 +460,62 @@ public class DoLikeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdEqualTo(Long value) {
+        public Criteria andFriendsCircleIdEqualTo(String value) {
             addCriterion("friendsCircleId =", value, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdNotEqualTo(Long value) {
+        public Criteria andFriendsCircleIdNotEqualTo(String value) {
             addCriterion("friendsCircleId <>", value, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdGreaterThan(Long value) {
+        public Criteria andFriendsCircleIdGreaterThan(String value) {
             addCriterion("friendsCircleId >", value, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andFriendsCircleIdGreaterThanOrEqualTo(String value) {
             addCriterion("friendsCircleId >=", value, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdLessThan(Long value) {
+        public Criteria andFriendsCircleIdLessThan(String value) {
             addCriterion("friendsCircleId <", value, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdLessThanOrEqualTo(Long value) {
+        public Criteria andFriendsCircleIdLessThanOrEqualTo(String value) {
             addCriterion("friendsCircleId <=", value, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdIn(List<Long> values) {
+        public Criteria andFriendsCircleIdLike(String value) {
+            addCriterion("friendsCircleId like", value, "friendsCircleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFriendsCircleIdNotLike(String value) {
+            addCriterion("friendsCircleId not like", value, "friendsCircleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFriendsCircleIdIn(List<String> values) {
             addCriterion("friendsCircleId in", values, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdNotIn(List<Long> values) {
+        public Criteria andFriendsCircleIdNotIn(List<String> values) {
             addCriterion("friendsCircleId not in", values, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdBetween(Long value1, Long value2) {
+        public Criteria andFriendsCircleIdBetween(String value1, String value2) {
             addCriterion("friendsCircleId between", value1, value2, "friendsCircleId");
             return (Criteria) this;
         }
 
-        public Criteria andFriendsCircleIdNotBetween(Long value1, Long value2) {
+        public Criteria andFriendsCircleIdNotBetween(String value1, String value2) {
             addCriterion("friendsCircleId not between", value1, value2, "friendsCircleId");
             return (Criteria) this;
         }
@@ -500,52 +530,62 @@ public class DoLikeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdEqualTo(Long value) {
+        public Criteria andUserContentIdEqualTo(String value) {
             addCriterion("userContentId =", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdNotEqualTo(Long value) {
+        public Criteria andUserContentIdNotEqualTo(String value) {
             addCriterion("userContentId <>", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdGreaterThan(Long value) {
+        public Criteria andUserContentIdGreaterThan(String value) {
             addCriterion("userContentId >", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andUserContentIdGreaterThanOrEqualTo(String value) {
             addCriterion("userContentId >=", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdLessThan(Long value) {
+        public Criteria andUserContentIdLessThan(String value) {
             addCriterion("userContentId <", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdLessThanOrEqualTo(Long value) {
+        public Criteria andUserContentIdLessThanOrEqualTo(String value) {
             addCriterion("userContentId <=", value, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdIn(List<Long> values) {
+        public Criteria andUserContentIdLike(String value) {
+            addCriterion("userContentId like", value, "userContentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserContentIdNotLike(String value) {
+            addCriterion("userContentId not like", value, "userContentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserContentIdIn(List<String> values) {
             addCriterion("userContentId in", values, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdNotIn(List<Long> values) {
+        public Criteria andUserContentIdNotIn(List<String> values) {
             addCriterion("userContentId not in", values, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdBetween(Long value1, Long value2) {
+        public Criteria andUserContentIdBetween(String value1, String value2) {
             addCriterion("userContentId between", value1, value2, "userContentId");
             return (Criteria) this;
         }
 
-        public Criteria andUserContentIdNotBetween(Long value1, Long value2) {
+        public Criteria andUserContentIdNotBetween(String value1, String value2) {
             addCriterion("userContentId not between", value1, value2, "userContentId");
             return (Criteria) this;
         }
@@ -560,52 +600,62 @@ public class DoLikeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Integer value) {
+        public Criteria andTypeEqualTo(String value) {
             addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Integer value) {
+        public Criteria andTypeNotEqualTo(String value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Integer value) {
+        public Criteria andTypeGreaterThan(String value) {
             addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andTypeGreaterThanOrEqualTo(String value) {
             addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Integer value) {
+        public Criteria andTypeLessThan(String value) {
             addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andTypeLessThanOrEqualTo(String value) {
             addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Integer> values) {
+        public Criteria andTypeLike(String value) {
+            addCriterion("type like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotLike(String value) {
+            addCriterion("type not like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIn(List<String> values) {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Integer> values) {
+        public Criteria andTypeNotIn(List<String> values) {
             addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Integer value1, Integer value2) {
+        public Criteria andTypeBetween(String value1, String value2) {
             addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andTypeNotBetween(String value1, String value2) {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
