@@ -273,6 +273,31 @@ layui.use(['form', 'layer', 'upload'], function () {
             }
         });
         delete gameInfoVo.fileKey;// 删除无用属性
+        // 处理可能的无数据项导致updateSelective不更新问题
+        if (!gameInfoVo.type) {
+            gameInfoVo.type = '';
+        }
+        if (!gameInfoVo.label) {
+            gameInfoVo.label = '';
+        }
+        if (!gameInfoVo.designer) {
+            gameInfoVo.designer = '';
+        }
+        if (!gameInfoVo.artist) {
+            gameInfoVo.artist = '';
+        }
+        if (!gameInfoVo.publisher) {
+            gameInfoVo.publisher = '';
+        }
+        if (!gameInfoVo.mechanism) {
+            gameInfoVo.mechanism = '';
+        }
+        if (!gameInfoVo.category) {
+            gameInfoVo.category = '';
+        }
+        if (!gameInfoVo.relatedGameId) {
+            gameInfoVo.relatedGameId = '';
+        }
         return gameInfoVo;
     }
 
