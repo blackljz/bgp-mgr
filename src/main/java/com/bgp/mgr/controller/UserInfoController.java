@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,13 +50,26 @@ public class UserInfoController {
     @ResponseBody
     public PageVo<UserInfoVo> queryData(HttpServletRequest request) {
         PageVo<UserInfoVo> pageVo = new PageVo<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             String pin = LoginUtils.getPin();
             int pageNo = Integer.parseInt(request.getParameter("page"));
             int pageSize = Integer.parseInt(request.getParameter("limit"));
             Map<String, Object> params = new HashMap<>();
             params.put("pin", pin);
-            params.put("name", StringUtils.isNotBlank(request.getParameter("userName")) ? request.getParameter("userName") : null);
+            params.put("userName", StringUtils.isNotBlank(request.getParameter("userName")) ? request.getParameter("userName") : null);
+            params.put("sex", StringUtils.isNotBlank(request.getParameter("userSex")) ? request.getParameter("userSex") : null);
+            if (StringUtils.isNotBlank(request.getParameter("registDateStart"))) {// 注册日期查询范围开始时间
+                Date createDateStart = dateFormat.parse(request.getParameter("registDateStart"));
+                params.put("createDateStart", createDateStart);
+            }
+            if (StringUtils.isNotBlank(request.getParameter("registDateEnd"))) {// 注册日期查询范围截止时间
+                Date createDateEnd = dateFormat.parse(request.getParameter("registDateEnd"));
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(createDateEnd);
+                calendar.add(Calendar.DATE, 1);// 日期+1用于查询当天结果
+                params.put("createDateEnd", calendar.getTime());
+            }
             pageVo = userInfoService.queryUserInfoByPage(pageNo, pageSize, params);
         } catch (Exception e) {
             logger.error("查询用户列表异常！", e);

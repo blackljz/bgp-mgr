@@ -23,11 +23,17 @@ layui.use(['form', 'table', 'layer'], function () {
             },
             {
                 field: 'gameName',
-                title: '桌游名称'
+                title: '桌游名称',
+                templet: function (d) {
+                    return d.gameName !== undefined && d.gameName != null ? d.gameName : '--';
+                }
             },
             {
                 field: 'gameEnName',
-                title: '英文名称'
+                title: '英文名称',
+                templet: function (d) {
+                    return d.gameEnName !== undefined && d.gameEnName != null ? d.gameEnName : '--';
+                }
             },
             {
                 field: 'commentCount',
@@ -52,7 +58,10 @@ layui.use(['form', 'table', 'layer'], function () {
             },
             {
                 field: 'rating',
-                title: '得分'
+                title: '得分',
+                templet: function (d) {
+                    return d.rating !== undefined && d.rating != null ? d.rating : '--';
+                }
             },
             {
                 title: '操作',

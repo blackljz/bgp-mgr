@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +29,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoExample example = new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
-        if (params.get("name") != null) {
-            criteria.andUserNameLike("%" + params.get("name") + "%");
+        if (params.get("userName") != null) {
+            criteria.andUserNameLike("%" + params.get("userName") + "%");
+        }
+        if (params.get("sex") != null) {
+            criteria.andSexEqualTo((String) params.get("sex"));
+        }
+        if (params.get("createDateStart") != null) {
+            criteria.andCreateDateGreaterThanOrEqualTo((Date) params.get("createDateStart"));
+        }
+        if (params.get("createDateEnd") != null) {
+            criteria.andCreateDateLessThanOrEqualTo((Date) params.get("createDateEnd"));
         }
         int count = userInfoMapper.countByExample(example);
 
