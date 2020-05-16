@@ -27,9 +27,9 @@ layui.use(['form', 'laydate', 'table', 'layer'], function () {
         limit: 10,
         limits: [10, 25, 50],
         cols: [[
-            {field: 'id', title: '用户编号', fixed: 'left'},
-            {field: 'name', title: '用户名称'},
-            {field: 'registDate', title: '注册时间'},
+            {field: 'userId', title: '用户编号', fixed: 'left'},
+            {field: 'userName', title: '用户名称'},
+            {field: 'createDate', title: '注册时间'},
             {field: 'source', title: '来源'},
             {field: 'sex', title: '性别'},
             {field: 'circleCount', title: '圈子数量'},

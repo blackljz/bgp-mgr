@@ -33,7 +33,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         int count = userInfoMapper.countByExample(example);
 
-        example.setLimitSize((pageNo - 1) * pageSize);
+        example.setLimitStart((pageNo - 1) * pageSize);
         example.setLimitSize(pageSize);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
 
