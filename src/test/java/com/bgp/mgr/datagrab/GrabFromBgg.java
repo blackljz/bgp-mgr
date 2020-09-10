@@ -11,6 +11,7 @@ import org.junit.runners.JUnit4;
 import org.nutz.http.Http;
 import org.nutz.http.Response;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,10 +32,11 @@ public class GrabFromBgg {
     // CSV文件头
     private static final String[] FILE_HEADER = {"gameId", "responseCode", "responseContent"};
 
-    // CSV文件名
-    private String fileName;
-
+    // 时间戳
     private String datetimeStamp;
+
+    // 结果集
+    private List<DataVo> dataVoList = new ArrayList<>();
 
     static class DataVo {
         private int gameId;
@@ -77,15 +79,18 @@ public class GrabFromBgg {
         datetimeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
     }
 
-    private DataVo grabOne(int id) {
+    /**
+     * 访问URL并获取数据
+     *
+     * @param id
+     * @return
+     */
+    private DataVo grab(int id) {
         long startTime = System.currentTimeMillis();
         String gameId = String.valueOf(id);
         String url = SOURCE_URL.replace("{gameId}", gameId);
 
         Response httpResponse = Http.get(url);
-        if (httpResponse == null || !httpResponse.isOK()) {
-            httpResponse = Http.get(url);// 失败再试一次
-        }
         DataVo data = new DataVo(id,
                 httpResponse != null ? httpResponse.getStatus() : -1,
                 httpResponse != null ? httpResponse.getContent() : "");
@@ -98,34 +103,77 @@ public class GrabFromBgg {
     public void grabData() {
         /* game id 取值范围 1-318398 */
         int id = 100;
-        DataVo result = this.grabOne(id);
+        DataVo result = this.grab(id);
         System.out.println(result.getGameId() + " " + result.getResponseCode() + " " + result.getResponseContent());
     }
 
     @Test
-    public void grabDataLoop() {
+    public void grabDataRange() {
         /* game id 取值范围 1-318398 */
-        int gameIdStart = 1;
-        int gameIdEnd = 100;
-        fileName = "bgg_" + gameIdStart + "_" + gameIdEnd + "_" + datetimeStamp + ".csv";
+        int gameIdStart = 2001;
+        int gameIdEnd = 3000;
+        // 最大重试次数
+        int maxRetryTimes = 1;
 
-        String filePath = TEMP_PATh + fileName;
+        for (int id = gameIdStart; id < gameIdEnd + 1; id++) {
+            dataVoList.add(new DataVo(id, -1, ""));
+        }
+        // 递归调用
+        this.grabRecursion(maxRetryTimes);
+        // 导出CSV
+        String fileName = "bgg_" + gameIdStart + "_" + gameIdEnd + "_" + datetimeStamp + ".csv";
+        this.exportCSV(fileName);
+    }
+
+    /**
+     * 获取数据并递归重试
+     *
+     * @param maxRetryTimes
+     */
+    private void grabRecursion(int maxRetryTimes) {
+        int failCount = 0;
+        for (int i = 0; i < dataVoList.size(); i++) {
+            DataVo dataVo = dataVoList.get(i);
+            if (dataVo.getResponseCode() != 200) {
+                DataVo result = this.grab(dataVo.getGameId());
+                dataVoList.set(i, result);
+                if (result.getResponseCode() != 200) {
+                    failCount++;
+                }
+            }
+        }
+        if (failCount != 0 && maxRetryTimes > 0) {
+            this.grabRecursion(--maxRetryTimes);
+        }
+    }
+
+    /**
+     * 导出CSV文件
+     *
+     * @param fileName
+     */
+    private void exportCSV(String fileName) {
+        File file = new File(TEMP_PATH);
+        if (!file.exists() && !file.mkdirs()) {
+            System.out.println("mkdir " + TEMP_PATH + " failed!");
+            return;
+        }
+        String filePath = TEMP_PATH + fileName;
         FileWriter fileWriter = null;
         CSVPrinter csvPrinter = null;
         CSVFormat csvFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER);
         try {
             fileWriter = new FileWriter(filePath);
             csvPrinter = new CSVPrinter(fileWriter, csvFormat);
-            for (int id = gameIdStart; id < gameIdEnd + 1; id++) {
-                DataVo result = this.grabOne(id);
+            for (DataVo result : dataVoList) {
                 csvPrinter.printRecord(result.getGameId(), result.getResponseCode(), result.getResponseContent());
             }
+            csvPrinter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 if (csvPrinter != null) {
-                    csvPrinter.flush();
                     csvPrinter.close();
                 }
             } catch (IOException e) {
@@ -141,29 +189,23 @@ public class GrabFromBgg {
         }
     }
 
-
-    @Test
-    public void grabDataRetry() {
-        fileName = "bgg_1_100_20200908164153.csv";
-
-        String filePath = TEMP_PATh + fileName;
+    /**
+     * 导入CSV内容
+     *
+     * @param fileName
+     */
+    private void importCSV(String fileName) {
+        String filePath = TEMP_PATH + fileName;
         FileReader fileReader = null;
         CSVParser csvParser = null;
         CSVFormat csvFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER);
-        List<DataVo> resultList = new ArrayList<>();
         try {
             fileReader = new FileReader(filePath);
             csvParser = new CSVParser(fileReader, csvFormat);
             List<CSVRecord> csvRecords = csvParser.getRecords();
-            for (int i = 1; i < csvRecords.size(); i++) {
-                CSVRecord record = csvRecords.get(i);
-                int gameId = Integer.parseInt(record.get(0));
-                int responseCode = Integer.parseInt(record.get(1));
-                if (responseCode == 200) {
-                    resultList.add(new DataVo(gameId, responseCode, record.get(2)));
-                } else {
-                    resultList.add(this.grabOne(gameId));
-                }
+            for (CSVRecord record : csvRecords) {
+                dataVoList.add(new DataVo(Integer.parseInt(record.get(0)),
+                        Integer.parseInt(record.get(1)), record.get(2)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,36 +220,6 @@ public class GrabFromBgg {
             try {
                 if (fileReader != null) {
                     fileReader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        fileName = fileName.substring(0, fileName.length() - 18) + datetimeStamp + ".csv";
-        filePath = TEMP_PATh + fileName;
-        FileWriter fileWriter = null;
-        CSVPrinter csvPrinter = null;
-        try {
-            fileWriter = new FileWriter(filePath, true);
-            csvPrinter = new CSVPrinter(fileWriter, csvFormat);
-            for (DataVo result : resultList) {
-                csvPrinter.printRecord(result.getGameId(), result.getResponseCode(), result.getResponseContent());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (csvPrinter != null) {
-                    csvPrinter.flush();
-                    csvPrinter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (fileWriter != null) {
-                    fileWriter.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
