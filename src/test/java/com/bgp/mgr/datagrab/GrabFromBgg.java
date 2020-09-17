@@ -36,7 +36,7 @@ public class GrabFromBgg {
     private static final String SOURCE_URL = "https://bgg-json.azurewebsites.net/thing/{gameId}";
 
     // 临时目录
-    private static final String TEMP_PATH = "/Users/liangjianze/temp/bgp/";
+    private static final String TEMP_PATH = "myPath/";
 
     // CSV文件头
     private static final String[] FILE_HEADER = {"gameId", "responseCode", "responseContent"};
