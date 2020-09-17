@@ -28,6 +28,11 @@ mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
   type-aliases-package: com.bgp.mgr.dao.domain
 
+es:
+  host: 127.0.0.1
+  port: 9200
+  scheme: http
+
 # config
 sys:
   storage-dir: /data/wwwroot/sharedFile/game/

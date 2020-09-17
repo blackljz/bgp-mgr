@@ -1,17 +1,23 @@
 package com.bgp.mgr.datagrab;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.bgp.mgr.service.ElasticsearchService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.nutz.http.Http;
 import org.nutz.http.Response;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -22,14 +28,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@RunWith(JUnit4.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class GrabFromBgg {
 
     // 目标网址
     private static final String SOURCE_URL = "https://bgg-json.azurewebsites.net/thing/{gameId}";
 
     // 临时目录
-    private static final String TEMP_PATh = "myPath/";
+    private static final String TEMP_PATH = "/Users/liangjianze/temp/bgp/";
 
     // CSV文件头
     private static final String[] FILE_HEADER = {"gameId", "responseCode", "responseContent"};
@@ -43,10 +50,17 @@ public class GrabFromBgg {
     // 结果集
     private List<DataVo> dataVoList = new ArrayList<>();
 
+    // ES索引
+    private String indexName;
+
+    @Resource
+    private ElasticsearchService elasticsearchService;
+
     @Before
     public void init() {
         datetimeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         maxRetryTimes = 5;
+        indexName = "bgg_game_info";
     }
 
     /**
@@ -89,7 +103,7 @@ public class GrabFromBgg {
      */
     @Test
     public void grabDataRetry() {
-        String fileName = "bgg_5001_10000_20200911161749.csv";
+        String fileName = "bgg_5001_10000_20200911180717.csv";
 
         this.importCSV(fileName);
         // 递归调用
@@ -102,6 +116,42 @@ public class GrabFromBgg {
         // 导出CSV
         fileName = fileName.substring(0, fileName.length() - 18) + datetimeStamp + ".csv";
         this.exportCSV(fileName);
+    }
+
+    /**
+     * 合并CSV
+     */
+    @Test
+    public void mergeCSV() {
+        this.importCSV("bgg_1_1000_20200911140635.csv");
+        this.importCSV("bgg_1001_2000_20200910225740.csv");
+        this.importCSV("bgg_2001_3000_20200911110314.csv");
+        this.importCSV("bgg_3001_5000_20200911152227.csv");
+        this.importCSV("bgg_5001_10000_20200914092800.csv");
+        this.exportCSV("bgg_1_10000.csv");
+    }
+
+    /**
+     * 存储ES
+     */
+    @Test
+    public void transferToES() {
+        this.importCSV("bgg_1_10000.csv");
+        for (DataVo dataVo : dataVoList) {
+            if (dataVo.getResponseCode() == 200) {
+                elasticsearchService.add(indexName, JSONObject.parseObject(dataVo.getResponseContent()), String.valueOf(dataVo.getGameId()));
+            }
+        }
+    }
+
+    /**
+     * 存储ES
+     */
+    @Test
+    public void queryFromES() {
+        List<JSONObject> result = elasticsearchService.search(indexName, new SearchSourceBuilder(), JSONObject.class);
+        System.out.println(result.size());
+        System.out.println(JSON.toJSONString(result));
     }
 
     /**
