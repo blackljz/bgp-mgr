@@ -23,7 +23,7 @@ public class ElasticsearchConfig implements EnvironmentAware {
 
     private String hosts;// 集群地址，多个用,隔开
     private int port;// 使用的端口号
-    private String schema;// 使用的协议
+    private String scheme;// 使用的协议
     private String securityUser;// ES鉴权用户名
     private String securityPassword;// ES鉴权密码
 
@@ -40,7 +40,7 @@ public class ElasticsearchConfig implements EnvironmentAware {
     public void setEnvironment(Environment environment) {
         hosts = Objects.requireNonNull(environment.getProperty("es.host"));
         port = Integer.parseInt(Objects.requireNonNull(environment.getProperty("es.port")));
-        schema = Objects.requireNonNull(environment.getProperty("es.schema"));
+        scheme = Objects.requireNonNull(environment.getProperty("es.scheme"));
         securityUser = environment.getProperty("es.user");
         securityPassword = environment.getProperty("es.password");
     }
@@ -50,7 +50,7 @@ public class ElasticsearchConfig implements EnvironmentAware {
         ArrayList<HttpHost> hostList = new ArrayList<>();
         String[] hostArray = hosts.split(",");
         for (String host : hostArray) {
-            hostList.add(new HttpHost(host, port, schema));
+            hostList.add(new HttpHost(host, port, scheme));
         }
         builder = RestClient.builder(hostList.toArray(new HttpHost[0]));
         this.setConnectTimeOutConfig();
