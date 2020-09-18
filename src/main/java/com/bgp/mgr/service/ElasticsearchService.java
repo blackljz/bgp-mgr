@@ -41,7 +41,7 @@ public interface ElasticsearchService {
      * @param o
      * @return
      */
-    String add(String idxName, JSONObject o);
+    String add(String idxName, Object o);
 
     /**
      * 插入document
@@ -51,7 +51,7 @@ public interface ElasticsearchService {
      * @param id
      * @return
      */
-    String add(String idxName, JSONObject o, String id);
+    String add(String idxName, Object o, String id);
 
     /**
      * 更新document
@@ -61,7 +61,7 @@ public interface ElasticsearchService {
      * @param id
      * @return
      */
-    boolean update(String idxName, JSONObject o, String id);
+    boolean update(String idxName, Object o, String id);
 
     /**
      * 批量删除document
@@ -79,6 +79,15 @@ public interface ElasticsearchService {
      * @param builder
      */
     void deleteByQuery(String idxName, QueryBuilder builder);
+
+    /**
+     * 校验存在document
+     *
+     * @param idxName
+     * @param id
+     * @return
+     */
+    boolean exists(String idxName, String id);
 
     /**
      * 获取document

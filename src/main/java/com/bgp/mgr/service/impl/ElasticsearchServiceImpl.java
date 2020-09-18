@@ -99,14 +99,14 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
     }
 
     @Override
-    public String add(String idxName, JSONObject o) {
+    public String add(String idxName, Object o) {
         return this.add(idxName, o, null);
     }
 
     @Override
-    public String add(String idxName, JSONObject o, String id) {
+    public String add(String idxName, Object o, String id) {
         try {
-            IndexRequest indexRequest = new IndexRequest(idxName).id(id).source(o.toJSONString(), XContentType.JSON);
+            IndexRequest indexRequest = new IndexRequest(idxName).id(id).source(JSON.toJSONString(o), XContentType.JSON);
             if (id != null) {
                 indexRequest.id(id);
             }
@@ -120,9 +120,9 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
     }
 
     @Override
-    public boolean update(String idxName, JSONObject o, String id) {
+    public boolean update(String idxName, Object o, String id) {
         try {
-            UpdateRequest request = new UpdateRequest(idxName, id).doc(o.toJSONString(), XContentType.JSON);
+            UpdateRequest request = new UpdateRequest(idxName, id).doc(JSON.toJSONString(o), XContentType.JSON);
             UpdateResponse updateResponse = elasticsearchClient.update(request, RequestOptions.DEFAULT);
             logger.debug("update result={}", JSON.toJSONString(updateResponse));
             return true;
@@ -166,6 +166,17 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         } catch (Exception e) {
             logger.error("索引 indexName={} 条件删除文档 query={} 异常", idxName, builder.toString(), e);
             throw new BgpException("条件删除文档异常");
+        }
+    }
+
+    @Override
+    public boolean exists(String idxName, String id) {
+        try {
+            GetRequest getRequest = new GetRequest(idxName).id(id);
+            return elasticsearchClient.exists(getRequest, RequestOptions.DEFAULT);
+        } catch (Exception e) {
+            logger.error("索引 indexName={} 校验存在文档 id={} 异常", idxName, id, e);
+            throw new BgpException("校验文档存在异常");
         }
     }
 

@@ -8,6 +8,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -99,10 +100,38 @@ public class GrabFromBgg {
     }
 
     /**
+     * 循环获取指定区间数据（ES）
+     */
+    @Test
+    public void grabDataRangeToES() {
+        /* game id 取值范围 1-318398 */
+        int gameIdStart = 15001;
+        int gameIdEnd = 20000;
+
+        int failCount = 0;
+        for (int id = gameIdStart; id < gameIdEnd + 1; id++) {
+            if (!elasticsearchService.exists(indexName, String.valueOf(id))) {
+                DataVo dataVo = this.grab(id);
+                if (dataVo.getResponseCode() == 200) {
+                    elasticsearchService.add(indexName, dataVo.getResponseContent(), String.valueOf(dataVo.getGameId()));
+                } else {
+                    failCount++;
+                }
+            }
+        }
+        // 打印失败率
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        float fRate = (float) failCount / (float) (gameIdEnd - gameIdStart) * 100;
+        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
+    }
+
+    /**
      * 根据CSV文件结果进行失败重试
      */
     @Test
     public void grabDataRetry() {
+        // 待重试文件名
         String fileName = "bgg_5001_10000_20200911180717.csv";
 
         this.importCSV(fileName);
@@ -128,28 +157,30 @@ public class GrabFromBgg {
         this.importCSV("bgg_2001_3000_20200911110314.csv");
         this.importCSV("bgg_3001_5000_20200911152227.csv");
         this.importCSV("bgg_5001_10000_20200914092800.csv");
+        // 目标文件
         this.exportCSV("bgg_1_10000.csv");
     }
 
     /**
-     * 存储ES
+     * CSV转存储ES
      */
     @Test
-    public void transferToES() {
+    public void transferCSVtoES() {
         this.importCSV("bgg_1_10000.csv");
         for (DataVo dataVo : dataVoList) {
             if (dataVo.getResponseCode() == 200) {
-                elasticsearchService.add(indexName, JSONObject.parseObject(dataVo.getResponseContent()), String.valueOf(dataVo.getGameId()));
+                elasticsearchService.add(indexName, dataVo.getResponseContent(), String.valueOf(dataVo.getGameId()));
             }
         }
     }
 
     /**
-     * 存储ES
+     * 查询ES
      */
     @Test
     public void queryFromES() {
-        List<JSONObject> result = elasticsearchService.search(indexName, new SearchSourceBuilder(), JSONObject.class);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(100).sort("_id", SortOrder.ASC);
+        List<JSONObject> result = elasticsearchService.search(indexName, searchSourceBuilder, JSONObject.class);
         System.out.println(result.size());
         System.out.println(JSON.toJSONString(result));
     }
