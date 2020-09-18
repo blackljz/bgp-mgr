@@ -106,7 +106,13 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
     @Override
     public String add(String idxName, Object o, String id) {
         try {
-            IndexRequest indexRequest = new IndexRequest(idxName).id(id).source(JSON.toJSONString(o), XContentType.JSON);
+            String jsonString;
+            if (o instanceof String) {
+                jsonString = (String) o;
+            } else {
+                jsonString = JSON.toJSONString(o);
+            }
+            IndexRequest indexRequest = new IndexRequest(idxName).id(id).source(jsonString, XContentType.JSON);
             if (id != null) {
                 indexRequest.id(id);
             }
@@ -122,7 +128,13 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
     @Override
     public boolean update(String idxName, Object o, String id) {
         try {
-            UpdateRequest request = new UpdateRequest(idxName, id).doc(JSON.toJSONString(o), XContentType.JSON);
+            String jsonString;
+            if (o instanceof String) {
+                jsonString = (String) o;
+            } else {
+                jsonString = JSON.toJSONString(o);
+            }
+            UpdateRequest request = new UpdateRequest(idxName, id).doc(jsonString, XContentType.JSON);
             UpdateResponse updateResponse = elasticsearchClient.update(request, RequestOptions.DEFAULT);
             logger.debug("update result={}", JSON.toJSONString(updateResponse));
             return true;
