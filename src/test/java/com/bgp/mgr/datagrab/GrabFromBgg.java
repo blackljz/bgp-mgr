@@ -57,132 +57,50 @@ public class GrabFromBgg {
     @Resource
     private ElasticsearchService elasticsearchService;
 
+    /**
+     * 数据VO
+     */
+    static class DataVo {
+        private int gameId;
+        private int responseCode;
+        private String responseContent;
+
+        DataVo(int gameId, int responseCode, String responseContent) {
+            this.gameId = gameId;
+            this.responseCode = responseCode;
+            this.responseContent = responseContent;
+        }
+
+        int getGameId() {
+            return gameId;
+        }
+
+        void setGameId(int gameId) {
+            this.gameId = gameId;
+        }
+
+        int getResponseCode() {
+            return responseCode;
+        }
+
+        void setResponseCode(int responseCode) {
+            this.responseCode = responseCode;
+        }
+
+        String getResponseContent() {
+            return responseContent;
+        }
+
+        void setResponseContent(String responseContent) {
+            this.responseContent = responseContent;
+        }
+    }
+
     @Before
     public void init() {
         datetimeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         maxRetryTimes = 5;
         indexName = "bgg_game_info";
-    }
-
-    /**
-     * 获取一条数据
-     */
-    @Test
-    public void grabData() {
-        /* game id 取值范围 1-318398 */
-        int id = 100;
-        DataVo result = this.grab(id);
-        System.out.println(result.getGameId() + " " + result.getResponseCode() + " " + result.getResponseContent());
-    }
-
-    /**
-     * 循环获取指定区间数据
-     */
-    @Test
-    public void grabDataRange() {
-        /* game id 取值范围 1-318398 */
-        int gameIdStart = 5001;
-        int gameIdEnd = 10000;
-
-        for (int id = gameIdStart; id < gameIdEnd + 1; id++) {
-            dataVoList.add(new DataVo(id, -1, null));
-        }
-        // 递归调用
-        int failCount = this.grabRecursion(maxRetryTimes);
-        // 打印失败率
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumFractionDigits(2);
-        float fRate = (float) failCount / (float) dataVoList.size() * 100;
-        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
-        // 导出CSV
-        String fileName = "bgg_" + gameIdStart + "_" + gameIdEnd + "_" + datetimeStamp + ".csv";
-        this.exportCSV(fileName);
-    }
-
-    /**
-     * 循环获取指定区间数据（ES）
-     */
-    @Test
-    public void grabDataRangeToES() {
-        /* game id 取值范围 1-318398 */
-        int gameIdStart = 15001;
-        int gameIdEnd = 20000;
-
-        int failCount = 0;
-        for (int id = gameIdStart; id < gameIdEnd + 1; id++) {
-            if (!elasticsearchService.exists(indexName, String.valueOf(id))) {
-                DataVo dataVo = this.grab(id);
-                if (dataVo.getResponseCode() == 200) {
-                    elasticsearchService.add(indexName, dataVo.getResponseContent(), String.valueOf(dataVo.getGameId()));
-                } else {
-                    failCount++;
-                }
-            }
-        }
-        // 打印失败率
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumFractionDigits(2);
-        float fRate = (float) failCount / (float) (gameIdEnd - gameIdStart) * 100;
-        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
-    }
-
-    /**
-     * 根据CSV文件结果进行失败重试
-     */
-    @Test
-    public void grabDataRetry() {
-        // 待重试文件名
-        String fileName = "bgg_5001_10000_20200911180717.csv";
-
-        this.importCSV(fileName);
-        // 递归调用
-        int failCount = this.grabRecursion(maxRetryTimes);
-        // 打印失败率
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumFractionDigits(2);
-        float fRate = (float) failCount / (float) dataVoList.size() * 100;
-        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
-        // 导出CSV
-        fileName = fileName.substring(0, fileName.length() - 18) + datetimeStamp + ".csv";
-        this.exportCSV(fileName);
-    }
-
-    /**
-     * 合并CSV
-     */
-    @Test
-    public void mergeCSV() {
-        this.importCSV("bgg_1_1000_20200911140635.csv");
-        this.importCSV("bgg_1001_2000_20200910225740.csv");
-        this.importCSV("bgg_2001_3000_20200911110314.csv");
-        this.importCSV("bgg_3001_5000_20200911152227.csv");
-        this.importCSV("bgg_5001_10000_20200914092800.csv");
-        // 目标文件
-        this.exportCSV("bgg_1_10000.csv");
-    }
-
-    /**
-     * CSV转存储ES
-     */
-    @Test
-    public void transferCSVtoES() {
-        this.importCSV("bgg_1_10000.csv");
-        for (DataVo dataVo : dataVoList) {
-            if (dataVo.getResponseCode() == 200) {
-                elasticsearchService.add(indexName, dataVo.getResponseContent(), String.valueOf(dataVo.getGameId()));
-            }
-        }
-    }
-
-    /**
-     * 查询ES
-     */
-    @Test
-    public void queryFromES() {
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(100).sort("_id", SortOrder.ASC);
-        List<JSONObject> result = elasticsearchService.search(indexName, searchSourceBuilder, JSONObject.class);
-        System.out.println(result.size());
-        System.out.println(JSON.toJSONString(result));
     }
 
     /**
@@ -203,33 +121,6 @@ public class GrabFromBgg {
         System.out.println("GET " + url + " " + data.getResponseCode() + " "
                 + (System.currentTimeMillis() - startTime) + "ms");
         return data;
-    }
-
-    /**
-     * 获取数据并递归重试
-     *
-     * @param maxRetryTimes
-     */
-    private int grabRecursion(int maxRetryTimes) {
-        if (CollectionUtils.isEmpty(dataVoList)) {
-            return 0;
-        }
-        int failCount = 0;
-        for (int i = 0; i < dataVoList.size(); i++) {
-            DataVo dataVo = dataVoList.get(i);
-            if (dataVo.getResponseCode() != 200) {
-                DataVo result = this.grab(dataVo.getGameId());
-                dataVoList.set(i, result);
-                if (result.getResponseCode() != 200) {
-                    failCount++;
-                }
-            }
-        }
-        if (failCount > 0 && maxRetryTimes > 0) {
-            return this.grabRecursion(--maxRetryTimes);
-        } else {
-            return failCount;
-        }
     }
 
     /**
@@ -318,41 +209,169 @@ public class GrabFromBgg {
         }
     }
 
+    /**
+     * 获取一条数据
+     */
+    @Test
+    public void grabData() {
+        /* game id 取值范围 1-318398 */
+        int id = 100;
+        DataVo result = this.grab(id);
+        System.out.println(result.getGameId() + " " + result.getResponseCode() + " " + result.getResponseContent());
+    }
 
-    static class DataVo {
-        private int gameId;
-        private int responseCode;
-        private String responseContent;
+    /**
+     * 循环获取指定区间数据（CSV）
+     */
+    @Test
+    public void grabDataRange() {
+        /* game id 取值范围 1-318398 */
+        int gameIdStart = 5001;
+        int gameIdEnd = 10000;
 
-        DataVo(int gameId, int responseCode, String responseContent) {
-            this.gameId = gameId;
-            this.responseCode = responseCode;
-            this.responseContent = responseContent;
+        for (int id = gameIdStart; id < gameIdEnd + 1; id++) {
+            dataVoList.add(new DataVo(id, -1, null));
         }
+        // 递归调用
+        int failCount = this.grabRecursion(maxRetryTimes);
+        // 打印失败率
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        float fRate = (float) failCount / (float) dataVoList.size() * 100;
+        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
+        // 导出CSV
+        String fileName = "bgg_" + gameIdStart + "_" + gameIdEnd + "_" + datetimeStamp + ".csv";
+        this.exportCSV(fileName);
+    }
 
-        int getGameId() {
-            return gameId;
+    /**
+     * 获取数据并递归重试
+     *
+     * @param maxRetryTimes
+     */
+    private int grabRecursion(int maxRetryTimes) {
+        if (CollectionUtils.isEmpty(dataVoList)) {
+            return 0;
         }
+        int failCount = 0;
+        for (int i = 0; i < dataVoList.size(); i++) {
+            DataVo dataVo = dataVoList.get(i);
+            if (dataVo.getResponseCode() != 200) {
+                DataVo result = this.grab(dataVo.getGameId());
+                dataVoList.set(i, result);
+                if (result.getResponseCode() != 200) {
+                    failCount++;
+                }
+            }
+        }
+        if (failCount > 0 && maxRetryTimes > 0) {
+            return this.grabRecursion(--maxRetryTimes);
+        } else {
+            return failCount;
+        }
+    }
 
-        void setGameId(int gameId) {
-            this.gameId = gameId;
-        }
+    /**
+     * 根据CSV文件结果进行失败重试
+     */
+    @Test
+    public void grabDataRetry() {
+        // 待重试文件名
+        String fileName = "bgg_5001_10000_20200911180717.csv";
 
-        int getResponseCode() {
-            return responseCode;
-        }
+        this.importCSV(fileName);
+        // 递归调用
+        int failCount = this.grabRecursion(maxRetryTimes);
+        // 打印失败率
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        float fRate = (float) failCount / (float) dataVoList.size() * 100;
+        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
+        // 导出CSV
+        fileName = fileName.substring(0, fileName.length() - 18) + datetimeStamp + ".csv";
+        this.exportCSV(fileName);
+    }
 
-        void setResponseCode(int responseCode) {
-            this.responseCode = responseCode;
-        }
+    /**
+     * 合并CSV
+     */
+    @Test
+    public void mergeCSV() {
+        this.importCSV("bgg_1_1000_20200911140635.csv");
+        this.importCSV("bgg_1001_2000_20200910225740.csv");
+        this.importCSV("bgg_2001_3000_20200911110314.csv");
+        this.importCSV("bgg_3001_5000_20200911152227.csv");
+        this.importCSV("bgg_5001_10000_20200914092800.csv");
+        // 目标文件
+        this.exportCSV("bgg_1_10000.csv");
+    }
 
-        String getResponseContent() {
-            return responseContent;
+    /**
+     * CSV转存储ES
+     */
+    @Test
+    public void transferCSVtoES() {
+        this.importCSV("bgg_1_10000.csv");
+        for (DataVo dataVo : dataVoList) {
+            if (dataVo.getResponseCode() == 200) {
+                elasticsearchService.add(indexName, dataVo.getResponseContent(), String.valueOf(dataVo.getGameId()));
+            }
         }
+    }
 
-        void setResponseContent(String responseContent) {
-            this.responseContent = responseContent;
+    /**
+     * 循环获取指定区间数据（ES）
+     */
+    @Test
+    public void grabDataRangeToES() {
+        /* game id 取值范围 1-318398 */
+        int gameIdStart = 15001;
+        int gameIdEnd = 20000;
+
+        // 递归调用
+        int failCount = this.grabRecursionES(gameIdStart, gameIdEnd, maxRetryTimes);
+        // 打印失败率
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        float fRate = (float) failCount / (float) (gameIdEnd - gameIdStart) * 100;
+        System.out.println("Failure Rate: " + numberFormat.format(fRate) + "%");
+    }
+
+    /**
+     * 获取数据并递归重试
+     *
+     * @param start
+     * @param end
+     * @param maxRetryTimes
+     */
+    private int grabRecursionES(int start, int end, int maxRetryTimes) {
+        int failCount = 0;
+        for (int id = start; id < end + 1; id++) {
+            if (!elasticsearchService.exists(indexName, String.valueOf(id))) {
+                DataVo dataVo = this.grab(id);
+                if (dataVo.getResponseCode() == 200) {
+                    elasticsearchService.add(indexName, dataVo.getResponseContent(), String.valueOf(dataVo.getGameId()));
+                } else {
+                    failCount++;
+                }
+            }
         }
+        if (failCount > 0 && maxRetryTimes > 0) {
+            return this.grabRecursionES(start, end, --maxRetryTimes);
+        } else {
+            return failCount;
+        }
+    }
+
+    /**
+     * 查询ES
+     */
+    @Test
+    public void queryFromES() {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(100).sort("_id", SortOrder.ASC);
+        List<JSONObject> result = elasticsearchService.search(indexName, searchSourceBuilder, JSONObject.class);
+        System.out.println(result.size());
+        System.out.println(JSON.toJSONString(result));
     }
 
 }
