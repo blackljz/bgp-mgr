@@ -1,0 +1,158 @@
+{
+  "bgg_game_info": {
+    "mappings": {
+      "properties": {
+        "artists": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "averageRating": {
+          "type": "float"
+        },
+        "bggRating": {
+          "type": "float"
+        },
+        "description": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "designers": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "expands": {
+          "properties": {
+            "gameId": {
+              "type": "long"
+            },
+            "name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "expansions": {
+          "properties": {
+            "gameId": {
+              "type": "long"
+            },
+            "name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "gameId": {
+          "type": "long"
+        },
+        "image": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "isExpansion": {
+          "type": "boolean"
+        },
+        "maxPlayers": {
+          "type": "long"
+        },
+        "mechanics": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "minPlayers": {
+          "type": "long"
+        },
+        "name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "playerPollResults": {
+          "properties": {
+            "best": {
+              "type": "long"
+            },
+            "notRecommended": {
+              "type": "long"
+            },
+            "numPlayers": {
+              "type": "long"
+            },
+            "numPlayersIsAndHigher": {
+              "type": "boolean"
+            },
+            "recommended": {
+              "type": "long"
+            }
+          }
+        },
+        "playingTime": {
+          "type": "long"
+        },
+        "publishers": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "rank": {
+          "type": "long"
+        },
+        "thumbnail": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "yearPublished": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}
