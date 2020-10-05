@@ -94,12 +94,16 @@ public class FileController {
      */
     @RequestMapping("/preview")
     public ResponseEntity previewImage(@RequestParam("fileKey") String fileKey) {
-        File file = new File(STORAGE_DIR + fileKey);
-        if (!file.exists()) {
-            logger.warn("文件[" + file.getPath() + "]不存在！");
-            return null;
+        if (this.isLocalFile(fileKey)) {
+            File file = new File(STORAGE_DIR + fileKey);
+            if (!file.exists()) {
+                logger.warn("文件[" + file.getPath() + "]不存在！");
+                return null;
+            }
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + STORAGE_DIR + fileKey));
+        } else {
+            return ResponseEntity.ok(resourceLoader.getResource(fileKey));
         }
-        return ResponseEntity.ok(resourceLoader.getResource("file:" + STORAGE_DIR + fileKey));
     }
 
     /**
@@ -113,5 +117,19 @@ public class FileController {
     public String downloadFile(@RequestParam("fileKey") String fileKey) {
         //TODO
         return "";
+    }
+
+    /**
+     * 判断是否本地图片
+     *
+     * @param fileKey
+     * @return
+     */
+    private boolean isLocalFile(String fileKey) {
+        if (fileKey == null) {
+            return false;
+        } else {
+            return !fileKey.startsWith("http://") && !fileKey.startsWith("https://");
+        }
     }
 }

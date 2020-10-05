@@ -2,7 +2,9 @@ package com.bgp.mgr.datagrab;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bgp.mgr.dao.FileInfoMapper;
 import com.bgp.mgr.dao.GameInfoMapper;
+import com.bgp.mgr.dao.domain.FileInfo;
 import com.bgp.mgr.dao.vo.GameInfoVo;
 import com.bgp.mgr.service.ElasticsearchService;
 import org.apache.commons.csv.CSVFormat;
@@ -19,6 +21,7 @@ import org.nutz.http.Http;
 import org.nutz.http.Response;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -60,6 +63,9 @@ public class GrabFromBgg {
 
     @Resource
     private GameInfoMapper gameInfoMapper;
+
+    @Resource
+    private FileInfoMapper fileInfoMapper;
 
     /**
      * 数据VO
@@ -117,14 +123,18 @@ public class GrabFromBgg {
         long startTime = System.currentTimeMillis();
         String gameId = String.valueOf(id);
         String url = SOURCE_URL.replace("{gameId}", gameId);
-
-        Response httpResponse = Http.get(url);
-        DataVo data = new DataVo(id,
-                httpResponse != null ? httpResponse.getStatus() : -1,
-                httpResponse != null ? httpResponse.getContent() : "");
-        System.out.println("GET " + url + " " + data.getResponseCode() + " "
-                + (System.currentTimeMillis() - startTime) + "ms");
-        return data;
+        try {
+            Response httpResponse = Http.get(url, 10000);
+            DataVo data = new DataVo(id,
+                    httpResponse != null ? httpResponse.getStatus() : -1,
+                    httpResponse != null ? httpResponse.getContent() : "");
+            System.out.println("GET " + url + " " + data.getResponseCode() + " "
+                    + (System.currentTimeMillis() - startTime) + "ms");
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataVo(id, -1, "");
+        }
     }
 
     /**
@@ -329,8 +339,8 @@ public class GrabFromBgg {
     @Test
     public void grabDataRangeToES() {
         /* game id 取值范围 1-318398 */
-        int gameIdStart = 60001;
-        int gameIdEnd = 70000;
+        int gameIdStart = 70001;
+        int gameIdEnd = 80000;
 
         // 递归调用
         int failCount = this.grabRecursionES(gameIdStart, gameIdEnd, maxRetryTimes);
@@ -381,66 +391,93 @@ public class GrabFromBgg {
      */
     @Test
     public void queryFromES() {
-        Map<String, Object> keyMap = new HashMap<>();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(10000).sort("_id", SortOrder.ASC);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(10).sort("gameId", SortOrder.ASC);
         List<JSONObject> result = elasticsearchService.search(indexName, searchSourceBuilder, JSONObject.class);
-        for (JSONObject jsonObject : result) {
-            for (String key : jsonObject.keySet()) {
-                keyMap.put(key, jsonObject.get(key));
-            }
-        }
-        System.out.println(JSON.toJSONString(keyMap));
+        result.forEach(jsonObject -> System.out.println(jsonObject.get("gameId")));
     }
 
+    /**
+     * 查询ES并写入数据库
+     */
+    @Test
     public void transferToDB() {
         int start = 1;
         int length = 1;
 
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(start).size(length).sort("_id", SortOrder.ASC);
+        // 查询ES并写入数据库数
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(start).size(length).sort("gameId", SortOrder.ASC);
         List<BggGameInfoVo> bggGameInfoVoList = elasticsearchService.search(indexName, searchSourceBuilder, BggGameInfoVo.class);
         if (!CollectionUtils.isEmpty(bggGameInfoVoList)) {
             for (BggGameInfoVo bggGameInfoVo : bggGameInfoVoList) {
-                GameInfoVo gameInfo = new GameInfoVo();
-                // TODO
-//                gameInfo.setRelatedGameId(null);
-                gameInfo.setGameName(bggGameInfoVo.getName());
-                gameInfo.setGameEnName(bggGameInfoVo.getName());
-//                gameInfo.setType(null);
-//                gameInfo.setLabel(null);
-//                gameInfo.setGameImage(null);
-                gameInfo.setGameIntroduction(bggGameInfoVo.getDescription());
-                gameInfo.setGameEnIntroduction(bggGameInfoVo.getDescription());
-//                gameInfo.setCategory();
-                gameInfo.setMechanism(StringUtils.join(bggGameInfoVo.getMechanics().toArray(), ","));
-//                gameInfo.setWeight(null);
-                gameInfo.setDuration(String.valueOf(bggGameInfoVo.getPlayingTime()));
-//                gameInfo.setAge(null);
-                gameInfo.setPlayerNumMin(bggGameInfoVo.getMinPlayers());
-                gameInfo.setPlayerNumMax(bggGameInfoVo.getMaxPlayers());
-//                gameInfo.setPlayerNumSuggested(null);
-//                gameInfo.setIsEntity(null);
-                gameInfo.setIsDlc(bggGameInfoVo.getExpansion() ? 1 : 0);
-                gameInfo.setDesigner(StringUtils.join(bggGameInfoVo.getDesigners().toArray(), ","));
-                gameInfo.setArtist(StringUtils.join(bggGameInfoVo.getArtists().toArray(), ","));
-                gameInfo.setPublisher(StringUtils.join(bggGameInfoVo.getPublishers().toArray(), ","));
-                gameInfo.setPublishYear(String.valueOf(bggGameInfoVo.getYearPublished()));
-                gameInfo.setHasChinese(0);// 默认无中文
-                gameInfo.setChinesePublisher(null);// 默认null
-//                gameInfo.setLanguage(null);
-//                gameInfo.setLanguageDependence(null);
-//                gameInfo.setRating(null);
-                gameInfo.setBggRank(String.valueOf(bggGameInfoVo.getRank()));
-                gameInfo.setBggScore(String.valueOf(bggGameInfoVo.getAverageRating()));
-                gameInfo.setBggLink("https://www.boardgamegeek.com/boardgame/" + bggGameInfoVo.getGameId() + "/");
-                gameInfo.setSleeve(null);
-                gameInfo.setStatus(0);
-                gameInfo.setCreatedBy("bgg");
-                gameInfo.setCreatedDate(new Date());
-                gameInfo.setModifiedBy("bgg");
-                gameInfo.setModifiedDate(new Date());
-                gameInfoMapper.insertSelective(gameInfo);
+                this.createGameInfo(bggGameInfoVo);
             }
         }
+    }
 
+    /**
+     * 创建游戏档案
+     *
+     * @param bggGameInfoVo
+     */
+    @Transactional
+    public void createGameInfo(BggGameInfoVo bggGameInfoVo) {
+        long bggGameId = bggGameInfoVo.getGameId();
+        // gameinfo表
+        GameInfoVo gameInfo = new GameInfoVo();
+        gameInfo.setGameName(bggGameInfoVo.getName());
+        gameInfo.setGameEnName(bggGameInfoVo.getName());
+        gameInfo.setType(null);
+        gameInfo.setLabel(null);
+        gameInfo.setGameImage(null);
+        gameInfo.setGameIntroduction(bggGameInfoVo.getDescription());
+        gameInfo.setGameEnIntroduction(bggGameInfoVo.getDescription());
+        gameInfo.setCategory(null);
+        gameInfo.setMechanism(StringUtils.join(bggGameInfoVo.getMechanics().toArray(), ","));
+        gameInfo.setWeight(null);
+        gameInfo.setDuration(String.valueOf(bggGameInfoVo.getPlayingTime()));
+        gameInfo.setAge(null);
+        gameInfo.setPlayerNumMin(bggGameInfoVo.getMinPlayers());
+        gameInfo.setPlayerNumMax(bggGameInfoVo.getMaxPlayers());
+        gameInfo.setPlayerNumSuggested(null);
+        gameInfo.setIsEntity(null);
+        gameInfo.setIsDlc(bggGameInfoVo.getIsExpansion() ? 1 : 0);
+        gameInfo.setDesigner(StringUtils.join(bggGameInfoVo.getDesigners().toArray(), ","));
+        gameInfo.setArtist(StringUtils.join(bggGameInfoVo.getArtists().toArray(), ","));
+        gameInfo.setPublisher(StringUtils.join(bggGameInfoVo.getPublishers().toArray(), ","));
+        gameInfo.setPublishYear(String.valueOf(bggGameInfoVo.getYearPublished()));
+        gameInfo.setHasChinese(0);// 默认无中文
+        gameInfo.setChinesePublisher(null);// 默认null
+        gameInfo.setLanguage(null);
+        gameInfo.setLanguageDependence(null);
+        gameInfo.setRating(String.valueOf(bggGameInfoVo.getAverageRating()));
+        gameInfo.setBggRank(String.valueOf(bggGameInfoVo.getRank()));
+        gameInfo.setBggScore(String.valueOf(bggGameInfoVo.getBggRating()));
+        gameInfo.setBggLink("https://www.boardgamegeek.com/boardgame/" + bggGameId + "/");
+        gameInfo.setSleeve(null);// 默认null
+        gameInfo.setStatus(0);
+        gameInfo.setCreatedBy("bgg-" + bggGameId);
+        gameInfo.setCreatedDate(new Date());
+        gameInfo.setModifiedBy("bgg-" + bggGameId);
+        gameInfo.setModifiedDate(new Date());
+        gameInfo.setRelatedGameId(null);
+        gameInfoMapper.insertSelective(gameInfo);
+        long pk = gameInfo.getId();// last insert id
+        // fileinfo表
+        FileInfo fileInfo1 = new FileInfo();// icon图
+        fileInfo1.setGameId(pk);
+        fileInfo1.setFileName("BGG图片");
+        fileInfo1.setFileAddress(bggGameInfoVo.getThumbnail());
+        fileInfo1.setType("2");
+        fileInfo1.setFileType("1");
+        fileInfo1.setFileUseType("1");
+        fileInfoMapper.insertSelective(fileInfo1);
+        FileInfo fileInfo2 = new FileInfo();// 详情图
+        fileInfo2.setGameId(pk);
+        fileInfo2.setFileName("BGG图片");
+        fileInfo2.setFileAddress(bggGameInfoVo.getImage());
+        fileInfo2.setType("2");
+        fileInfo2.setFileType("1");
+        fileInfo2.setFileUseType("2");
+        fileInfoMapper.insertSelective(fileInfo2);
     }
 }

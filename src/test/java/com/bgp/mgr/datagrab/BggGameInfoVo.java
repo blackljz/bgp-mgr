@@ -188,11 +188,11 @@ public class BggGameInfoVo {
         this.publishers = publishers;
     }
 
-    public Boolean getExpansion() {
+    public Boolean getIsExpansion() {
         return isExpansion;
     }
 
-    public void setExpansion(Boolean expansion) {
+    public void setIsExpansion(Boolean expansion) {
         isExpansion = expansion;
     }
 
