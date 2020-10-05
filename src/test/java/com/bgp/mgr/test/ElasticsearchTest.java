@@ -22,7 +22,7 @@ public class ElasticsearchTest {
 
     @Before
     public void init() {
-        indexName = "bgg_game_info";
+        indexName = "test_index";
     }
 
     @Test
