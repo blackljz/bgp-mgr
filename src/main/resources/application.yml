@@ -12,6 +12,9 @@ spring:
     url: jdbc:mysql://39.104.132.204:3306/bgp?characterEncoding=utf8&useSSL=true
     username: bgp_user
     password: bGp2018!@#
+#    url: jdbc:mysql://127.0.0.1:3306/bgp_local?characterEncoding=utf8&useSSL=false
+#    username: root
+#    password: 12345678
   servlet:
     multipart:
       enabled: true

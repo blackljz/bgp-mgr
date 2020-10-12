@@ -12,6 +12,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Before;
@@ -31,7 +32,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -339,8 +342,8 @@ public class GrabFromBgg {
     @Test
     public void grabDataRangeToES() {
         /* game id 取值范围 1-318398 */
-        int gameIdStart = 70001;
-        int gameIdEnd = 80000;
+        int gameIdStart = 1;
+        int gameIdEnd = 100000;
 
         // 递归调用
         int failCount = this.grabRecursionES(gameIdStart, gameIdEnd, maxRetryTimes);
@@ -391,9 +394,10 @@ public class GrabFromBgg {
      */
     @Test
     public void queryFromES() {
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(10).sort("gameId", SortOrder.ASC);
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(34719).size(1).sort("gameId", SortOrder.ASC);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().query(QueryBuilders.termQuery("gameId", "699"));
         List<JSONObject> result = elasticsearchService.search(indexName, searchSourceBuilder, JSONObject.class);
-        result.forEach(jsonObject -> System.out.println(jsonObject.get("gameId")));
+        result.forEach(jsonObject -> System.out.println(jsonObject.toJSONString()));
     }
 
     /**
@@ -401,15 +405,64 @@ public class GrabFromBgg {
      */
     @Test
     public void transferToDB() {
-        int start = 1;
-        int length = 1;
+        int start = 34720;
+        int length = 5000;
 
         // 查询ES并写入数据库数
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(start).size(length).sort("gameId", SortOrder.ASC);
         List<BggGameInfoVo> bggGameInfoVoList = elasticsearchService.search(indexName, searchSourceBuilder, BggGameInfoVo.class);
         if (!CollectionUtils.isEmpty(bggGameInfoVoList)) {
+            List<JSONObject> errorLogs = new ArrayList<>();
             for (BggGameInfoVo bggGameInfoVo : bggGameInfoVoList) {
-                this.createGameInfo(bggGameInfoVo);
+                try {
+                    this.createGameInfo(bggGameInfoVo);
+                    System.out.println("insert game " + bggGameInfoVo.getGameId() + " success");
+                } catch (Exception e) {
+                    JSONObject errorLog = new JSONObject();
+                    errorLog.put("id", bggGameInfoVo.getGameId());
+                    errorLog.put("info", e.getMessage());
+                    errorLogs.add(errorLog);
+                    System.out.println(errorLog.toJSONString());
+                }
+            }
+
+            if (!CollectionUtils.isEmpty(errorLogs)) {
+                File file = new File(TEMP_PATH);
+                if (!file.exists() && !file.mkdirs()) {
+                    System.out.println("mkdir " + TEMP_PATH + " failed!");
+                    return;
+                }
+                String fileName = "bgg_error_log" + datetimeStamp + ".csv";
+                String filePath = TEMP_PATH + fileName;
+                FileWriter fileWriter = null;
+                CSVPrinter csvPrinter = null;
+                CSVFormat csvFormat = CSVFormat.DEFAULT.withHeader("gameId", "responseCode");
+                try {
+                    fileWriter = new FileWriter(filePath);
+                    csvPrinter = new CSVPrinter(fileWriter, csvFormat);
+                    for (JSONObject log : errorLogs) {
+                        csvPrinter.printRecord(log.get("id"), log.get("info"));
+                    }
+                    csvPrinter.flush();
+                    System.out.println("Write to CSV: " + fileName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (csvPrinter != null) {
+                            csvPrinter.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (fileWriter != null) {
+                            fileWriter.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
