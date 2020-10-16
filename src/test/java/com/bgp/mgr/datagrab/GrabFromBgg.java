@@ -112,7 +112,7 @@ public class GrabFromBgg {
     @Before
     public void init() {
         datetimeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        maxRetryTimes = 5;
+        maxRetryTimes = 3;
         indexName = "bgg_game_info";
     }
 
@@ -341,9 +341,9 @@ public class GrabFromBgg {
      */
     @Test
     public void grabDataRangeToES() {
-        /* game id 取值范围 1-318398 */
-        int gameIdStart = 1;
-        int gameIdEnd = 100000;
+        /* game id 取值范围 1-318398 当前220000 */
+        int gameIdStart = 220000;
+        int gameIdEnd = 240000;
 
         // 递归调用
         int failCount = this.grabRecursionES(gameIdStart, gameIdEnd, maxRetryTimes);
