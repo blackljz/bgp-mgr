@@ -405,7 +405,8 @@ public class GrabFromBgg {
      */
     @Test
     public void transferToDB() {
-        int start = 34720;
+        // 当前55487
+        int start = 55487;
         int length = 5000;
 
         // 查询ES并写入数据库数
