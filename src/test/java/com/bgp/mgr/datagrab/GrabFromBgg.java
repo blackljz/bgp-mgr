@@ -112,7 +112,7 @@ public class GrabFromBgg {
     @Before
     public void init() {
         datetimeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        maxRetryTimes = 3;
+        maxRetryTimes = 4;
         indexName = "bgg_game_info";
     }
 
@@ -341,9 +341,9 @@ public class GrabFromBgg {
      */
     @Test
     public void grabDataRangeToES() {
-        /* game id 取值范围 1-318398 当前220000 */
-        int gameIdStart = 220000;
-        int gameIdEnd = 240000;
+        /* game id 取值范围 1-322669 当前322669 */
+        int gameIdStart = 322669;
+        int gameIdEnd = 340000;
 
         // 递归调用
         int failCount = this.grabRecursionES(gameIdStart, gameIdEnd, maxRetryTimes);
@@ -394,7 +394,7 @@ public class GrabFromBgg {
      */
     @Test
     public void queryFromES() {
-//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(34719).size(1).sort("gameId", SortOrder.ASC);
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(60486).size(1).sort("gameId", SortOrder.ASC);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().query(QueryBuilders.termQuery("gameId", "699"));
         List<JSONObject> result = elasticsearchService.search(indexName, searchSourceBuilder, JSONObject.class);
         result.forEach(jsonObject -> System.out.println(jsonObject.toJSONString()));
@@ -405,8 +405,8 @@ public class GrabFromBgg {
      */
     @Test
     public void transferToDB() {
-        // 当前55487
-        int start = 55487;
+        // 当前74614
+        int start = 74614;
         int length = 5000;
 
         // 查询ES并写入数据库数

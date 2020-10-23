@@ -55,7 +55,7 @@ create table ex_record
 
 create table fileInfo
 (
-    id              bigint auto_increment comment '文件ID'
+    id              bigint auto_increment comment '游戏文件ID'
         primary key,
     userId          bigint       null comment '用户ID',
     friendsCircleId bigint       null comment '圈子Id',
@@ -66,7 +66,8 @@ create table fileInfo
     type            varchar(20)  not null comment '图片类型1:圈子,2:游戏,3,战绩,4,用户头像',
     fileType        varchar(20)  not null comment '文件类型：1,图片,2:视频,3:pdf',
     fileUseType     varchar(20)  null comment '文件使用类型：1是icon图,2是详情图,3是游戏墙,4是介绍图（多张）'
-);
+)
+    comment '游戏文件图片';
 
 create table friend
 (
@@ -99,15 +100,15 @@ create table gameInfo
     id                 bigint unsigned auto_increment comment '游戏信息Id'
         primary key,
     relatedGameId      varchar(100)                       null comment '相关游戏ID',
-    gameName           varchar(50)                        null comment '游戏名称',
+    gameName           varchar(100)                       null comment '游戏名称',
     gameEnName         varchar(100)                       null comment '游戏英文名称',
-    type               varchar(50)                        null comment '游戏类型',
-    label              varchar(50)                        null comment '游戏标签',
+    type               varchar(100)                       null comment '游戏类型',
+    label              varchar(100)                       null comment '游戏标签',
     gameImage          varchar(100)                       null comment '游戏图片',
     gameIntroduction   varchar(5000)                      null comment '游戏简介',
     gameEnIntroduction varchar(5000)                      null comment '游戏英文简介',
-    category           varchar(100)                       null comment '游戏类别',
-    mechanism          varchar(100)                       null comment '游戏机制',
+    category           varchar(1000)                      null comment '游戏类别',
+    mechanism          varchar(1000)                      null comment '游戏机制',
     weight             varchar(20)                        null comment '游戏重度',
     duration           varchar(20)                        null comment '游戏时长',
     age                varchar(20)                        null comment '建议年龄',
@@ -116,19 +117,19 @@ create table gameInfo
     playerNumSuggested int      default 0                 null comment '建议游戏人数',
     isEntity           int                                null comment '实体或电子：1实体；2电子；',
     isDlc              int                                null comment '是否扩展：1本体；2扩展；',
-    designer           varchar(500)                       null comment '设计师',
-    artist             varchar(500)                       null comment '美工',
-    publisher          varchar(500)                       null comment '出版商',
+    designer           varchar(1000)                      null comment '设计师',
+    artist             varchar(1000)                      null comment '美工',
+    publisher          varchar(3000)                      null comment '出版商',
     publishYear        varchar(20)                        null comment '出版年份',
     hasChinese         int      default 1                 null comment '是否有中文版',
-    chinesePublisher   varchar(500)                       null comment '中文出版商',
+    chinesePublisher   varchar(1000)                      null comment '中文出版商',
     language           varchar(20)                        null comment '原始语言',
     languageDependence varchar(20)                        null comment '语言依赖',
     rating             varchar(20)                        null comment '游戏评分',
     bggRank            varchar(20)                        null comment 'BGG排名',
     bggScore           varchar(20)                        null comment 'BGG评分',
-    bggLink            varchar(100)                       null comment 'BGG链接',
-    sleeve             varchar(200)                       null comment '牌套（高|宽|数量）',
+    bggLink            varchar(200)                       null comment 'BGG链接',
+    sleeve             varchar(1000)                      null comment '牌套（高|宽|数量）',
     status             int      default -1                not null comment '状态：1启用；0制作中；-1停用；',
     createdBy          varchar(20)                        not null comment '创建人',
     createdDate        datetime default CURRENT_TIMESTAMP not null comment '创建时间',
@@ -181,6 +182,22 @@ create table sys_user
         unique (pin)
 )
     comment '管理端用户表';
+
+create table userFileInfo
+(
+    id              bigint auto_increment comment '用户相关文件ID'
+        primary key,
+    userId          bigint       null comment '用户ID',
+    friendsCircleId bigint       null comment '圈子Id',
+    gameId          bigint       null comment '游戏ID',
+    recordId        bigint       null comment '战绩Id',
+    fileName        varchar(200) null comment '文件名',
+    fileAddress     varchar(500) null comment '文件地址',
+    type            varchar(20)  not null comment '图片类型1:圈子,2:游戏,3,战绩,4,用户头像',
+    fileType        varchar(20)  not null comment '文件类型：1,图片,2:视频,3:pdf',
+    fileUseType     varchar(20)  null comment '文件使用类型：1是icon图,2是详情图,3是游戏墙,4是介绍图（多张）'
+)
+    comment '用户图片';
 
 create table userInfo
 (
